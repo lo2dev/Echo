@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist gettext-domain="echo">
+	<schema id="io.github.lo2dev.Echo" path="/io/github/lo2dev/Echo/">
+	</schema>
+</schemalist>

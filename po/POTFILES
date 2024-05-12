@@ -1,0 +1,6 @@
+data/io.github.lo2dev.Echo.desktop.in
+data/io.github.lo2dev.Echo.metainfo.xml.in
+data/io.github.lo2dev.Echo.gschema.xml
+src/main.py
+src/window.py
+src/window.ui

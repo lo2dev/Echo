@@ -1,0 +1,69 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $EchoWindow : Adw.ApplicationWindow {
+  default-width: 500;
+  default-height: 250;
+  title: _("Echo");
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [end]
+      MenuButton button_menu {
+        menu-model: menu_app;
+        icon-name: "open-menu-symbolic";
+        primary: true;
+      }
+    }
+
+    Adw.Clamp {
+      maximum-size: 400;
+      margin-top: 20;
+
+      Box {
+        orientation: vertical;
+
+        ListBox {
+          styles [
+            "boxed-list"
+          ]
+
+          Adw.EntryRow adress_bar {
+            title: _("Address");
+          }
+        }
+
+        Button ping_button {
+          label: _("Ping");
+          halign: center;
+          margin-top: 20;
+
+          styles [
+            "pill",
+            "suggested-action"
+          ]
+        }
+
+        Label label {
+          use-markup: true;
+          margin-top: 20;
+        }
+      }
+    }
+  };
+}
+
+menu menu_app {
+  section {
+    item {
+      label: _("Keyboard Shortcuts");
+      action: "app.shortcuts";
+    }
+
+    item {
+      label: _("About My App");
+      action: "app.about";
+    }
+  }
+}
