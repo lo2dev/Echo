@@ -3,7 +3,7 @@ using Adw 1;
 
 template $EchoWindow : Adw.ApplicationWindow {
   default-width: 500;
-  default-height: 250;
+  default-height: 300;
   title: _("Echo");
 
   content: Adw.ToolbarView {
@@ -19,7 +19,7 @@ template $EchoWindow : Adw.ApplicationWindow {
 
     Adw.Clamp {
       maximum-size: 400;
-      margin-top: 20;
+      margin-top: 10;
 
       Box {
         orientation: vertical;
@@ -29,8 +29,9 @@ template $EchoWindow : Adw.ApplicationWindow {
             "boxed-list"
           ]
 
-          Adw.EntryRow adress_bar {
+          Adw.EntryRow address_bar {
             title: _("Address");
+            activates-default: true;
           }
         }
 
@@ -45,10 +46,16 @@ template $EchoWindow : Adw.ApplicationWindow {
           ]
         }
 
-        Label label {
-          use-markup: true;
-          margin-top: 20;
+        Label result_title {
+          margin-top: 25;
+          styles ["title-2"]
         }
+
+        Label stats {
+          margin-top: 5;
+        }
+
+        Label packet_loss_label {}
       }
     }
   };

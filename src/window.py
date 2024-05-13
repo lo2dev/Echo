@@ -20,37 +20,52 @@
 from gi.repository import Adw
 from gi.repository import Gtk
 
-import asyncio, threading
-from icmplib import async_ping
+import threading
+from icmplib import ping
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
 class EchoWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'EchoWindow'
 
-    adress_bar = Gtk.Template.Child()
-    label = Gtk.Template.Child()
+    address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
-
-    def start_asyncio_loop(self):
-        loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(loop)
-        loop.run_forever()
-
-    def start_thread(self):
-        threading.Thread(target=self.start_asyncio_loop).start()
-        self.async_task()
-
-    def async_task(self):
-        async def ping():
-            adress = self.adress_bar.get_text()
-            host = await async_ping(adress, count=5, privileged=False)
-
-            print(host)
-
-        asyncio.run(ping())
+    result_title = Gtk.Template.Child()
+    stats = Gtk.Template.Child()
+    packet_loss_label = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.ping_button.connect("clicked", self.start_thread)
+        self.ping_button.connect("clicked", self.ping)
+        self.address_bar.connect("activate", self.ping)
+
+    def ping(self, *_):
+        address = self.address_bar.get_text()
+        task = threading.Thread(
+            target=self.ping_task,
+            args=(address,),
+            kwargs={"count": 1, "privileged": False}
+            )
+
+        task.start()
+
+    def ping_task(self, *args, **kwargs):
+        result = ping(*args, **kwargs)
+
+        self.result_title.set_visible(True)
+        self.stats.set_visible(True)
+
+        if result.is_alive:
+            self.result_title.set_text(f"{result.address} is alive")
+            self.result_title.add_css_class("success")
+
+            if result.packets_sent == 1:
+                self.stats.set_text(f"Response time (ms): {result.avg_rtt}")
+            else:
+                self.stats.set_text(f"Response time (ms): min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
+
+            self.packet_loss_label.set_text(f"{format(result.packet_loss, '.2%')} packet loss")
+        else:
+            self.result_title.set_text(f"{result.address} is unreachable")
+            self.result_title.add_css_class("error")
 
