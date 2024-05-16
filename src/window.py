@@ -46,10 +46,13 @@ class EchoWindow(Adw.ApplicationWindow):
 
     def ping(self, *_):
         address = self.address_bar.get_text()
+        self.ping_button.set_sensitive(False)
+        self.ping_button.set_label("Pinging")
+
         task = threading.Thread(
             target=self.ping_task,
             args=(address,),
-            kwargs={"count": 1, "privileged": False}
+            kwargs={"count": 4, "family": None, "privileged": False}
             )
 
         task.start()
@@ -58,6 +61,8 @@ class EchoWindow(Adw.ApplicationWindow):
         result = ping(*args, **kwargs)
 
         self.stats.set_visible(True)
+        self.ping_button.set_sensitive(True)
+        self.ping_button.set_label("Ping")
 
         if result.is_alive:
             self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
