@@ -2,8 +2,11 @@ using Gtk 4.0;
 using Adw 1;
 
 template $EchoWindow : Adw.ApplicationWindow {
-  default-width: 500;
-  default-height: 300;
+  width-request: 360;
+  height-request: 294;
+  default-width: 480;
+  default-height: 500;
+
   title: _("Echo");
 
   content: Adw.ToolbarView {
@@ -20,6 +23,8 @@ template $EchoWindow : Adw.ApplicationWindow {
     Adw.Clamp {
       maximum-size: 400;
       margin-top: 10;
+      margin-start: 10;
+      margin-end: 10;
 
       Box {
         orientation: vertical;
@@ -38,7 +43,7 @@ template $EchoWindow : Adw.ApplicationWindow {
         Button ping_button {
           label: _("Ping");
           halign: center;
-          margin-top: 20;
+          margin-top: 12;
 
           styles [
             "pill",
@@ -46,16 +51,41 @@ template $EchoWindow : Adw.ApplicationWindow {
           ]
         }
 
-        Label result_title {
-          margin-top: 25;
-          styles ["title-2"]
-        }
+        Box stats {
+          orientation: vertical;
+          visible: false;
+          margin-top: 30;
 
-        Label stats {
-          margin-top: 5;
-        }
+          Label result_title {
+            styles ["title-3"]
+          }
+          Label address_ip {
+            styles ["dim-label"]
+          }
 
-        Label packet_loss_label {}
+          ListBox {
+            selection-mode: none;
+            margin-top: 10;
+            styles ["boxed-list"]
+
+            Adw.ActionRow response_time {
+              title: _("Response Time (ms)");
+              styles ["property"]
+            }
+            Adw.ActionRow packets_sent {
+              title: _("Packets Sent");
+              styles ["property"]
+            }
+            Adw.ActionRow packets_received {
+              title: _("Packets Received");
+              styles ["property"]
+            }
+            Adw.ActionRow packet_loss {
+              title: _("Packet Loss");
+              styles ["property"]
+            }
+          }
+        }
       }
     }
   };

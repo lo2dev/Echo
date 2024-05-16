@@ -29,9 +29,14 @@ class EchoWindow(Adw.ApplicationWindow):
 
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
-    result_title = Gtk.Template.Child()
+
     stats = Gtk.Template.Child()
-    packet_loss_label = Gtk.Template.Child()
+    result_title = Gtk.Template.Child()
+    address_ip = Gtk.Template.Child()
+    response_time = Gtk.Template.Child()
+    packets_sent = Gtk.Template.Child()
+    packets_received = Gtk.Template.Child()
+    packet_loss = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -52,19 +57,21 @@ class EchoWindow(Adw.ApplicationWindow):
     def ping_task(self, *args, **kwargs):
         result = ping(*args, **kwargs)
 
-        self.result_title.set_visible(True)
         self.stats.set_visible(True)
 
         if result.is_alive:
-            self.result_title.set_text(f"{result.address} is alive")
+            self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
+            self.address_ip.set_text(f"({result.address})")
             self.result_title.add_css_class("success")
 
             if result.packets_sent == 1:
-                self.stats.set_text(f"Response time (ms): {result.avg_rtt}")
+                self.response_time.set_subtitle(f"{result.avg_rtt}")
             else:
-                self.stats.set_text(f"Response time (ms): min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
+                self.response_time.set_subtitle(f"min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
 
-            self.packet_loss_label.set_text(f"{format(result.packet_loss, '.2%')} packet loss")
+            self.packets_sent.set_subtitle(f"{result.packets_sent}")
+            self.packets_received.set_subtitle(f"{result.packets_received}")
+            self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
         else:
             self.result_title.set_text(f"{result.address} is unreachable")
             self.result_title.add_css_class("error")
