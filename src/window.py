@@ -30,6 +30,9 @@ class EchoWindow(Adw.ApplicationWindow):
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
 
+    stack = Gtk.Template.Child()
+
+    results = Gtk.Template.Child()
     stats = Gtk.Template.Child()
     result_title = Gtk.Template.Child()
     address_ip = Gtk.Template.Child()
@@ -63,6 +66,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.stats.set_visible(True)
         self.ping_button.set_sensitive(True)
         self.ping_button.set_label("Ping")
+        self.stack.set_visible_child(self.results)
 
         if result.is_alive:
             self.result_title.set_text(f"{self.address_bar.get_text()} is alive")

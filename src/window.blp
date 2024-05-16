@@ -4,14 +4,33 @@ using Adw 1;
 template $EchoWindow : Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
-  default-width: 480;
-  default-height: 500;
+  default-width: 440;
+  default-height: 400;
 
   title: _("Echo");
 
   content: Adw.ToolbarView {
     [top]
     Adw.HeaderBar {
+      show-title: false;
+
+      [center]
+      Box {
+        orientation: horizontal;
+        valign: center;
+        halign: center;
+        spacing: 5;
+
+        Entry address_bar {
+          placeholder-text: "google.com";
+        }
+
+        Button ping_button {
+          label: _("Ping");
+          styles ["suggested-action"]
+        }
+      }
+
       [end]
       MenuButton button_menu {
         menu-model: menu_app;
@@ -20,69 +39,58 @@ template $EchoWindow : Adw.ApplicationWindow {
       }
     }
 
-    Adw.Clamp {
-      maximum-size: 400;
-      margin-top: 10;
-      margin-start: 10;
-      margin-end: 10;
+    Stack stack {
+      transition-type: crossfade;
+      visible-child: status_page;
 
-      Box {
-        orientation: vertical;
+      Adw.StatusPage status_page {
+        icon-name: "diagnostics-symbolic";
+        title: _("Echo");
+        description: _("Ping a host to get statistics");
+      }
 
-        ListBox {
-          styles [
-            "boxed-list"
-          ]
+      Adw.Clamp results {
+        maximum-size: 400;
+        margin-top: 10;
+        margin-start: 10;
+        margin-end: 10;
 
-          Adw.EntryRow address_bar {
-            title: _("Address");
-            activates-default: true;
-          }
-        }
-
-        Button ping_button {
-          label: _("Ping");
-          halign: center;
-          margin-top: 12;
-
-          styles [
-            "pill",
-            "suggested-action"
-          ]
-        }
-
-        Box stats {
+        Box {
           orientation: vertical;
-          visible: false;
-          margin-top: 30;
 
-          Label result_title {
-            styles ["title-3"]
-          }
-          Label address_ip {
-            styles ["dim-label"]
-          }
+          Box stats {
+            orientation: vertical;
+            visible: false;
+            margin-top: 20;
 
-          ListBox {
-            selection-mode: none;
-            margin-top: 10;
-            styles ["boxed-list"]
+            Label result_title {
+              styles ["title-3"]
+            }
+            Label address_ip {
+              styles ["dim-label"]
+            }
 
-            Adw.ActionRow response_time {
-              title: _("Response Time (ms)");
-              styles ["property"]
-            }
-            Adw.ActionRow packets_sent {
-              title: _("Packets Sent");
-              styles ["property"]
-            }
-            Adw.ActionRow packets_received {
-              title: _("Packets Received");
-              styles ["property"]
-            }
-            Adw.ActionRow packet_loss {
-              title: _("Packet Loss");
-              styles ["property"]
+            ListBox {
+              selection-mode: none;
+              margin-top: 20;
+              styles ["boxed-list"]
+
+              Adw.ActionRow response_time {
+                title: _("Response Time (ms)");
+                styles ["property"]
+              }
+              Adw.ActionRow packets_sent {
+                title: _("Packets Sent");
+                styles ["property"]
+              }
+              Adw.ActionRow packets_received {
+                title: _("Packets Received");
+                styles ["property"]
+              }
+              Adw.ActionRow packet_loss {
+                title: _("Packet Loss");
+                styles ["property"]
+              }
             }
           }
         }
