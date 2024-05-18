@@ -21,7 +21,7 @@ from gi.repository import Adw
 from gi.repository import Gtk
 
 import threading
-from icmplib import ping
+from icmplib import ping, NameLookupError
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
 class EchoWindow(Adw.ApplicationWindow):
@@ -62,32 +62,39 @@ class EchoWindow(Adw.ApplicationWindow):
         task.start()
 
     def ping_task(self, *args, **kwargs):
-        result = ping(*args, **kwargs)
+        try:
+            result = ping(*args, **kwargs)
+
+            if result.is_alive:
+                self.results_icon.set_from_icon_name("emblem-default-symbolic")
+                self.results_icon.set_css_classes(["success"])
+
+                self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
+                self.address_ip.set_text(f"{result.address}")
+                self.result_title.set_css_classes(["success", "title-3"])
+
+                self.stats.set_visible(True)
+                self.response_time.set_subtitle(f"min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
+
+                self.packets_sent.set_subtitle(f"{result.packets_sent}")
+                self.packets_received.set_subtitle(f"{result.packets_received}")
+                self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
+            else:
+                self.result_error()
+        except NameLookupError:
+            self.result_error()
 
         self.ping_button.set_sensitive(True)
         self.ping_button.set_label("Ping")
         self.stack.set_visible_child(self.results)
 
-        if result.is_alive:
-            self.results_icon.set_from_icon_name("emblem-default-symbolic")
-            self.results_icon.add_css_class("success")
+    def result_error(self):
+        self.results_icon.set_from_icon_name("dialog-error-symbolic")
+        self.results_icon.set_css_classes(["error"])
+        self.address_ip.set_text("")
 
-            self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
-            self.address_ip.set_text(f"{result.address}")
-            self.result_title.add_css_class("success")
+        self.stats.set_visible(False)
 
-            if result.packets_sent == 1:
-                self.response_time.set_subtitle(f"{result.avg_rtt}")
-            else:
-                self.response_time.set_subtitle(f"min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
-
-            self.packets_sent.set_subtitle(f"{result.packets_sent}")
-            self.packets_received.set_subtitle(f"{result.packets_received}")
-            self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
-        else:
-            self.results_icon.set_from_icon_name("dialog-error-symbolic")
-            self.results_icon.add_css_class("error")
-
-            self.result_title.set_text(f"{result.address} is unreachable")
-            self.result_title.add_css_class("error")
+        self.result_title.set_text(f"{self.address_bar.get_text()} is unreachable")
+        self.result_title.set_css_classes(["error", "title-3"])
 

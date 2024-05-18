@@ -51,14 +51,14 @@ template $EchoWindow : Adw.ApplicationWindow {
 
       Adw.Clamp results {
         maximum-size: 400;
-        margin-top: 10;
         margin-start: 10;
         margin-end: 10;
 
         Box {
           orientation: vertical;
+          valign: center;
 
-          Box stats {
+          Box result_card {
             orientation: vertical;
 
             Box {
@@ -72,8 +72,10 @@ template $EchoWindow : Adw.ApplicationWindow {
                 valign: center;
 
                 Image results_icon {
+                  icon-name: "emblem-default-symbolic";
                   pixel-size: 80;
                   margin-bottom: 10;
+                  styles ["success"]
                 }
                 Label result_title {
                   styles ["title-3"]
@@ -85,13 +87,11 @@ template $EchoWindow : Adw.ApplicationWindow {
               }
             }
 
-
-            ListBox {
+            ListBox stats {
               selection-mode: none;
               margin-top: 10;
               styles ["boxed-list"]
-
-
+              visible: false;
 
               Adw.ActionRow response_time {
                 title: _("Response Time (ms)");
