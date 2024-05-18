@@ -42,14 +42,12 @@ class EchoApplication(Adw.Application):
         win.present()
 
     def on_about_action(self, widget, _):
-        about = Adw.AboutWindow(transient_for=self.props.active_window,
-                                application_name='echo',
+        about = Adw.AboutDialog(application_name='Echo',
                                 application_icon='io.github.lo2dev.Echo',
                                 developer_name='Lo',
                                 version='0.1.0',
-                                developers=['Lo'],
                                 copyright='© 2024 Lo')
-        about.present()
+        about.present(self.props.active_window)
 
     def on_preferences_action(self, widget, _):
         print('app.preferences action activated')
