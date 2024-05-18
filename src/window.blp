@@ -5,7 +5,7 @@ template $EchoWindow : Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
   default-width: 440;
-  default-height: 400;
+  default-height: 500;
 
   title: _("Echo");
 
@@ -13,6 +13,13 @@ template $EchoWindow : Adw.ApplicationWindow {
     [top]
     Adw.HeaderBar {
       show-title: false;
+
+      [start]
+      MenuButton button_menu {
+        menu-model: menu_app;
+        icon-name: "open-menu-symbolic";
+        primary: true;
+      }
 
       [center]
       Box {
@@ -29,13 +36,6 @@ template $EchoWindow : Adw.ApplicationWindow {
           label: _("Ping");
           styles ["suggested-action"]
         }
-      }
-
-      [end]
-      MenuButton button_menu {
-        menu-model: menu_app;
-        icon-name: "open-menu-symbolic";
-        primary: true;
       }
     }
 
@@ -60,23 +60,42 @@ template $EchoWindow : Adw.ApplicationWindow {
 
           Box stats {
             orientation: vertical;
-            visible: false;
-            margin-top: 20;
 
-            Label result_title {
-              styles ["title-3"]
+            Box {
+              orientation: vertical;
+              height-request: 200;
+              homogeneous: true;
+              styles ["card"]
+
+              Box {
+                orientation: vertical;
+                valign: center;
+
+                Image results_icon {
+                  pixel-size: 80;
+                  margin-bottom: 10;
+                }
+                Label result_title {
+                  styles ["title-3"]
+                }
+                Label address_ip {
+                  selectable: true;
+                  styles ["dim-label"]
+                }
+              }
             }
-            Label address_ip {
-              styles ["dim-label"]
-            }
+
 
             ListBox {
               selection-mode: none;
-              margin-top: 20;
+              margin-top: 10;
               styles ["boxed-list"]
+
+
 
               Adw.ActionRow response_time {
                 title: _("Response Time (ms)");
+                selectable: true;
                 styles ["property"]
               }
               Adw.ActionRow packets_sent {

@@ -32,6 +32,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
     stack = Gtk.Template.Child()
 
+    results_icon = Gtk.Template.Child()
     results = Gtk.Template.Child()
     stats = Gtk.Template.Child()
     result_title = Gtk.Template.Child()
@@ -63,14 +64,16 @@ class EchoWindow(Adw.ApplicationWindow):
     def ping_task(self, *args, **kwargs):
         result = ping(*args, **kwargs)
 
-        self.stats.set_visible(True)
         self.ping_button.set_sensitive(True)
         self.ping_button.set_label("Ping")
         self.stack.set_visible_child(self.results)
 
         if result.is_alive:
+            self.results_icon.set_from_icon_name("emblem-default-symbolic")
+            self.results_icon.add_css_class("success")
+
             self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
-            self.address_ip.set_text(f"({result.address})")
+            self.address_ip.set_text(f"{result.address}")
             self.result_title.add_css_class("success")
 
             if result.packets_sent == 1:
@@ -82,6 +85,9 @@ class EchoWindow(Adw.ApplicationWindow):
             self.packets_received.set_subtitle(f"{result.packets_received}")
             self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
         else:
+            self.results_icon.set_from_icon_name("dialog-error-symbolic")
+            self.results_icon.add_css_class("error")
+
             self.result_title.set_text(f"{result.address} is unreachable")
             self.result_title.add_css_class("error")
 
