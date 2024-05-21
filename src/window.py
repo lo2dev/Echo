@@ -19,6 +19,7 @@
 
 from gi.repository import Adw
 from gi.repository import Gtk
+from .results import EchoResultsPage
 
 import threading
 from icmplib import ping, NameLookupError
@@ -27,29 +28,26 @@ from icmplib import ping, NameLookupError
 class EchoWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'EchoWindow'
 
+    main_view = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
-
-    stack = Gtk.Template.Child()
-
-    results_icon = Gtk.Template.Child()
-    results = Gtk.Template.Child()
-    stats = Gtk.Template.Child()
-    result_title = Gtk.Template.Child()
-    address_ip = Gtk.Template.Child()
-    response_time = Gtk.Template.Child()
-    packets_sent = Gtk.Template.Child()
-    packets_received = Gtk.Template.Child()
-    packet_loss = Gtk.Template.Child()
+    ping_error_label = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.ping_button.connect("clicked", self.ping)
-        self.address_bar.connect("activate", self.ping)
 
     def ping(self, *_):
         address = self.address_bar.get_text()
+
+        if address == "":
+            self.ping_error("Please input a host")
+            return
+        else:
+            self.ping_error_label.set_visible(False)
+            self.address_bar.remove_css_class("error")
+
         self.ping_button.set_sensitive(False)
         self.ping_button.set_label("Pinging")
 
@@ -66,35 +64,18 @@ class EchoWindow(Adw.ApplicationWindow):
             result = ping(*args, **kwargs)
 
             if result.is_alive:
-                self.results_icon.set_from_icon_name("emblem-default-symbolic")
-                self.results_icon.set_css_classes(["success"])
-
-                self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
-                self.address_ip.set_text(f"{result.address}")
-                self.result_title.set_css_classes(["success", "title-3"])
-
-                self.stats.set_visible(True)
-                self.response_time.set_subtitle(f"min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
-
-                self.packets_sent.set_subtitle(f"{result.packets_sent}")
-                self.packets_received.set_subtitle(f"{result.packets_received}")
-                self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
+                results_page = EchoResultsPage(result, self.address_bar.get_text())
+                self.main_view.push(results_page)
             else:
-                self.result_error()
+                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
         except NameLookupError:
-            self.result_error()
+            self.ping_error(f"{self.address_bar.get_text()} is unreachable")
 
         self.ping_button.set_sensitive(True)
         self.ping_button.set_label("Ping")
-        self.stack.set_visible_child(self.results)
 
-    def result_error(self):
-        self.results_icon.set_from_icon_name("dialog-error-symbolic")
-        self.results_icon.set_css_classes(["error"])
-        self.address_ip.set_text("")
-
-        self.stats.set_visible(False)
-
-        self.result_title.set_text(f"{self.address_bar.get_text()} is unreachable")
-        self.result_title.set_css_classes(["error", "title-3"])
+    def ping_error(self, error_text):
+        self.ping_error_label.set_text(error_text)
+        self.ping_error_label.set_visible(True)
+        self.address_bar.add_css_class("error")
 

@@ -4,3 +4,5 @@ data/io.github.lo2dev.Echo.gschema.xml
 src/main.py
 src/window.py
 src/window.ui
+src/results.py
+src/results.ui

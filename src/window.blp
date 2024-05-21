@@ -9,111 +9,56 @@ template $EchoWindow : Adw.ApplicationWindow {
 
   title: _("Echo");
 
-  content: Adw.ToolbarView {
-    [top]
-    Adw.HeaderBar {
-      show-title: false;
+  content: Adw.NavigationView main_view {
+    Adw.NavigationPage start_page {
+      title: "Echo";
 
-      [start]
-      MenuButton button_menu {
-        menu-model: menu_app;
-        icon-name: "open-menu-symbolic";
-        primary: true;
-      }
-
-      [center]
-      Box {
-        orientation: horizontal;
-        valign: center;
-        halign: center;
-        spacing: 5;
-
-        Entry address_bar {
-          placeholder-text: "google.com";
+      child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {
+          [end]
+          MenuButton button_menu {
+            menu-model: menu_app;
+            icon-name: "open-menu-symbolic";
+            primary: true;
+          }
         }
 
-        Button ping_button {
-          label: _("Ping");
-          styles ["suggested-action"]
-        }
-      }
-    }
-
-    Stack stack {
-      transition-type: crossfade;
-      visible-child: status_page;
-
-      Adw.StatusPage status_page {
-        icon-name: "diagnostics-symbolic";
-        title: _("Echo");
-        description: _("Ping a host to get statistics");
-      }
-
-      Adw.Clamp results {
-        maximum-size: 400;
-        margin-start: 10;
-        margin-end: 10;
-
-        Box {
-          orientation: vertical;
-          valign: center;
-
-          Box result_card {
-            orientation: vertical;
+        ScrolledWindow {
+          Adw.Clamp results {
+            maximum-size: 400;
+            margin-start: 10;
+            margin-end: 10;
 
             Box {
               orientation: vertical;
-              height-request: 200;
-              homogeneous: true;
-              styles ["card"]
+              valign: center;
+              spacing: 10;
 
-              Box {
-                orientation: vertical;
-                valign: center;
+              ListBox {
+                selection-mode: none;
+                styles ["boxed-list"]
 
-                Image results_icon {
-                  icon-name: "emblem-default-symbolic";
-                  pixel-size: 80;
-                  margin-bottom: 10;
-                  styles ["success"]
-                }
-                Label result_title {
-                  styles ["title-3"]
-                }
-                Label address_ip {
-                  selectable: true;
-                  styles ["dim-label"]
+                Adw.EntryRow address_bar {
+                  title: _("Address");
                 }
               }
-            }
 
-            ListBox stats {
-              selection-mode: none;
-              margin-top: 10;
-              styles ["boxed-list"]
-              visible: false;
+              Label ping_error_label {
+                styles ["error"]
+                visible: false;
+                margin-bottom: 10;
+              }
 
-              Adw.ActionRow response_time {
-                title: _("Response Time (ms)");
-                selectable: true;
-                styles ["property"]
-              }
-              Adw.ActionRow packets_sent {
-                title: _("Packets Sent");
-                styles ["property"]
-              }
-              Adw.ActionRow packets_received {
-                title: _("Packets Received");
-                styles ["property"]
-              }
-              Adw.ActionRow packet_loss {
-                title: _("Packet Loss");
-                styles ["property"]
+              Button ping_button {
+                label: _("Ping");
+                halign: center;
+                styles ["suggested-action", "pill"]
               }
             }
           }
         }
-      }
+      };
     }
   };
 }
