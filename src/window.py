@@ -42,7 +42,7 @@ class EchoWindow(Adw.ApplicationWindow):
         address = self.address_bar.get_text()
 
         if address == "":
-            self.ping_error("Please input a host")
+            self.ping_error("Enter a host to ping")
             return
         else:
             self.ping_error_label.set_visible(False)
