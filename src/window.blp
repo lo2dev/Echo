@@ -24,40 +24,56 @@ template $EchoWindow : Adw.ApplicationWindow {
           }
         }
 
-        ScrolledWindow {
-          Adw.Clamp results {
-            maximum-size: 400;
-            margin-start: 10;
-            margin-end: 10;
+        content: Box {
+          orientation: vertical;
 
-            Box {
-              orientation: vertical;
-              valign: center;
-              spacing: 10;
+          Adw.Banner network_error_banner {
+            title: _("No network connection");
+          }
 
-              ListBox {
-                selection-mode: none;
-                styles ["boxed-list"]
+          Box {
+            orientation: vertical;
+            vexpand: true;
+            homogeneous: true;
 
-                Adw.EntryRow address_bar {
-                  title: _("Address");
+            ScrolledWindow {
+              propagate-natural-height: true;
+
+              Adw.Clamp results {
+                maximum-size: 400;
+                margin-start: 10;
+                margin-end: 10;
+
+                Box {
+                  orientation: vertical;
+                  valign: center;
+                  spacing: 10;
+
+                  ListBox {
+                    selection-mode: none;
+                    styles ["boxed-list"]
+
+                    Adw.EntryRow address_bar {
+                      title: _("Address");
+                    }
+                  }
+
+                  Label ping_error_label {
+                    styles ["error"]
+                    visible: false;
+                    margin-bottom: 10;
+                  }
+
+                  Button ping_button {
+                    label: _("Ping");
+                    halign: center;
+                    styles ["suggested-action", "pill"]
+                  }
                 }
-              }
-
-              Label ping_error_label {
-                styles ["error"]
-                visible: false;
-                margin-bottom: 10;
-              }
-
-              Button ping_button {
-                label: _("Ping");
-                halign: center;
-                styles ["suggested-action", "pill"]
               }
             }
           }
-        }
+        };
       };
     }
   };

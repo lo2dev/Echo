@@ -32,10 +32,14 @@ class EchoWindow(Adw.ApplicationWindow):
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
     ping_error_label = Gtk.Template.Child()
+    network_error_banner = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        network_monitor = Gio.NetworkMonitor.get_default()
+        print(network_monitor.get_network_available())
+        self.network_error_banner.set_revealed(not network_monitor.get_network_available())
         self.ping_button.connect("clicked", self.ping)
 
     def ping(self, *_):
