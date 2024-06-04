@@ -57,6 +57,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.address_bar.remove_css_class("error")
 
         self.ping_button.set_sensitive(False)
+        self.address_bar.set_sensitive(False)
         self.ping_button.set_label("Pinging")
 
         task = threading.Thread(
@@ -80,6 +81,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_error(f"{self.address_bar.get_text()} is unreachable")
 
         self.ping_button.set_sensitive(True)
+        self.address_bar.set_sensitive(True)
         self.ping_button.set_label("Ping")
 
     def ping_error(self, error_text):
