@@ -39,6 +39,11 @@ class EchoWindow(Adw.ApplicationWindow):
         network_monitor = Gio.NetworkMonitor.get_default()
         print(network_monitor.get_network_available())
         self.network_error_banner.set_revealed(not network_monitor.get_network_available())
+
+        self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
+        self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
         self.ping_button.connect("clicked", self.ping)
 
     def ping(self, *_):

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="echo">
 	<schema id="io.github.lo2dev.Echo" path="/io/github/lo2dev/Echo/">
+	  <key name="width" type="i">
+	    <default>460</default>
+	  </key>
+	  <key name="height" type="i">
+	    <default>500</default>
+	  </key>
+    <key name="is-maximized" type="b">
+      <default>false</default>
+    </key>
 	</schema>
 </schemalist>
