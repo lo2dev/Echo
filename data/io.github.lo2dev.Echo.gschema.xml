@@ -10,5 +10,21 @@
     <key name="is-maximized" type="b">
       <default>false</default>
     </key>
+
+	  <key name="ping-count" type="i">
+	    <default>4</default>
+	  </key>
+	  <key name="ping-interval" type="d">
+	    <default>1</default>
+	  </key>
+	  <key name="ping-timeout" type="d">
+	    <default>2</default>
+	  </key>
+	  <key name="ping-source" type="s">
+	    <default>""</default>
+	  </key>
+	  <key name="ping-family" type="i">
+	    <default>0</default>
+	  </key>
 	</schema>
 </schemalist>

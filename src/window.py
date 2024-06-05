@@ -33,17 +33,34 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_error_label = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
+    advanced_options = Gtk.Template.Child()
+    ping_count_adjust = Gtk.Template.Child()
+    ping_interval_adjust = Gtk.Template.Child()
+    ping_timeout_adjust = Gtk.Template.Child()
+    ping_source_row = Gtk.Template.Child()
+    ping_family_row = Gtk.Template.Child()
+
+    # TODO: add a class variable which will hold the address inputed by the user.
+    # the current method breaks if the user deletes the input from the address bar before the result is shown
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        network_monitor = Gio.NetworkMonitor.get_default()
-        print(network_monitor.get_network_available())
-        self.network_error_banner.set_revealed(not network_monitor.get_network_available())
+        # NOTE: NetworkMonitor doesn't work for some reason
+        # network_monitor = Gio.NetworkMonitor.get_default()
+        # print(network_monitor.get_network_available())
+        # self.network_error_banner.set_revealed(not network_monitor.get_network_available())
 
         self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
+
         self.ping_button.connect("clicked", self.ping)
 
     def ping(self, *_):
@@ -56,14 +73,33 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_error_label.set_visible(False)
             self.address_bar.remove_css_class("error")
 
+        # TODO: maybe find a better way to check the family?
+	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
+        saved_family = self.settings.get_int("ping-family")
+        ping_family = None;
+        if saved_family == 0:
+            ping_family = None
+        elif saved_family == 1:
+            ping_family = 4
+        elif saved_family == 2:
+            ping_family = 6
+
         self.ping_button.set_sensitive(False)
         self.address_bar.set_sensitive(False)
+        self.advanced_options.set_sensitive(False)
         self.ping_button.set_label("Pinging")
 
         task = threading.Thread(
             target=self.ping_task,
             args=(address,),
-            kwargs={"count": 4, "family": None, "privileged": False}
+            kwargs={
+                "count": self.settings.get_int("ping-count"),
+                "interval": self.settings.get_double("ping-interval"),
+                "timeout": self.settings.get_double("ping-timeout"),
+                "source": self.settings.get_string("ping-source"),
+                "family": ping_family,
+                "privileged": False
+                }
             )
 
         task.start()
@@ -82,6 +118,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.ping_button.set_sensitive(True)
         self.address_bar.set_sensitive(True)
+        self.advanced_options.set_sensitive(True)
         self.ping_button.set_label("Ping")
 
     def ping_error(self, error_text):

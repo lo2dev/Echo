@@ -58,6 +58,58 @@ template $EchoWindow : Adw.ApplicationWindow {
                     Adw.EntryRow address_bar {
                       title: _("Address");
                     }
+
+                    Adw.ExpanderRow advanced_options {
+                      title: _("Advanced Options");
+                      Adw.SpinRow {
+                        title: _("Count");
+                        subtitle: _("Number of pings to perform");
+                        adjustment: Adjustment ping_count_adjust {
+                          lower: 1;
+                          upper: 100;
+                          step-increment: 1;
+                        };
+                      }
+
+                      Adw.SpinRow {
+                        title: _("Interval");
+                        subtitle: _("Seconds between sending each packet");
+                        digits: 1;
+                        adjustment: Adjustment ping_interval_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          value: 1;
+                          step-increment: 0.5;
+                        };
+                      }
+
+                      Adw.SpinRow {
+                        title: _("Timeout");
+                        subtitle: _("Maximum seconds to wait for a reply");
+                        digits: 1;
+                        adjustment: Adjustment ping_timeout_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          value: 2;
+                          step-increment: 1;
+                        };
+                      }
+
+                      Adw.EntryRow ping_source_row {
+                        title: _("Source");
+                      }
+
+                      Adw.ComboRow ping_family_row {
+                        title: _("Family");
+                        model: StringList {
+                          strings [
+                            "Auto",
+                            "IPv4",
+                            "IPv6"
+                          ]
+                        };
+                      }
+                    }
                   }
 
                   Label ping_error_label {
