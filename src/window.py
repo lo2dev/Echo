@@ -17,67 +17,112 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw
-from gi.repository import Gtk
+from gi.repository import Adw, Gtk, Gio
+from .results import EchoResultsPage
 
 import threading
-from icmplib import ping
+from icmplib import ping, NameLookupError
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
 class EchoWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'EchoWindow'
 
+    main_view = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
+    ping_error_label = Gtk.Template.Child()
+    network_error_banner = Gtk.Template.Child()
 
-    stats = Gtk.Template.Child()
-    result_title = Gtk.Template.Child()
-    address_ip = Gtk.Template.Child()
-    response_time = Gtk.Template.Child()
-    packets_sent = Gtk.Template.Child()
-    packets_received = Gtk.Template.Child()
-    packet_loss = Gtk.Template.Child()
+    advanced_options = Gtk.Template.Child()
+    ping_count_adjust = Gtk.Template.Child()
+    ping_interval_adjust = Gtk.Template.Child()
+    ping_timeout_adjust = Gtk.Template.Child()
+    ping_source_row = Gtk.Template.Child()
+    ping_family_row = Gtk.Template.Child()
+
+    # TODO: add a class variable which will hold the address inputed by the user.
+    # the current method breaks if the user deletes the input from the address bar before the result is shown
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
+        # NOTE: NetworkMonitor doesn't work for some reason
+        # network_monitor = Gio.NetworkMonitor.get_default()
+        # print(network_monitor.get_network_available())
+        # self.network_error_banner.set_revealed(not network_monitor.get_network_available())
+
+        self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
+        self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
+
         self.ping_button.connect("clicked", self.ping)
-        self.address_bar.connect("activate", self.ping)
 
     def ping(self, *_):
         address = self.address_bar.get_text()
+
+        if address == "":
+            self.ping_error("Enter a host to ping")
+            return
+        else:
+            self.ping_error_label.set_visible(False)
+            self.address_bar.remove_css_class("error")
+
+        # TODO: maybe find a better way to check the family?
+	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
+        saved_family = self.settings.get_int("ping-family")
+        ping_family = None;
+        if saved_family == 0:
+            ping_family = None
+        elif saved_family == 1:
+            ping_family = 4
+        elif saved_family == 2:
+            ping_family = 6
+
         self.ping_button.set_sensitive(False)
+        self.address_bar.set_sensitive(False)
+        self.advanced_options.set_sensitive(False)
         self.ping_button.set_label("Pinging")
 
         task = threading.Thread(
             target=self.ping_task,
             args=(address,),
-            kwargs={"count": 4, "family": None, "privileged": False}
+            kwargs={
+                "count": self.settings.get_int("ping-count"),
+                "interval": self.settings.get_double("ping-interval"),
+                "timeout": self.settings.get_double("ping-timeout"),
+                "source": self.settings.get_string("ping-source"),
+                "family": ping_family,
+                "privileged": False
+                }
             )
 
         task.start()
 
     def ping_task(self, *args, **kwargs):
-        result = ping(*args, **kwargs)
+        try:
+            result = ping(*args, **kwargs)
 
-        self.stats.set_visible(True)
+            if result.is_alive:
+                results_page = EchoResultsPage(result, self.address_bar.get_text())
+                self.main_view.push(results_page)
+            else:
+                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
+        except NameLookupError:
+            self.ping_error(f"{self.address_bar.get_text()} is unreachable")
+
         self.ping_button.set_sensitive(True)
+        self.address_bar.set_sensitive(True)
+        self.advanced_options.set_sensitive(True)
         self.ping_button.set_label("Ping")
 
-        if result.is_alive:
-            self.result_title.set_text(f"{self.address_bar.get_text()} is alive")
-            self.address_ip.set_text(f"({result.address})")
-            self.result_title.add_css_class("success")
-
-            if result.packets_sent == 1:
-                self.response_time.set_subtitle(f"{result.avg_rtt}")
-            else:
-                self.response_time.set_subtitle(f"min {result.min_rtt} / avg {result.avg_rtt} / max {result.max_rtt}")
-
-            self.packets_sent.set_subtitle(f"{result.packets_sent}")
-            self.packets_received.set_subtitle(f"{result.packets_received}")
-            self.packet_loss.set_subtitle(f"{format(result.packet_loss, '.2%')}")
-        else:
-            self.result_title.set_text(f"{result.address} is unreachable")
-            self.result_title.add_css_class("error")
+    def ping_error(self, error_text):
+        self.ping_error_label.set_text(error_text)
+        self.ping_error_label.set_visible(True)
+        self.address_bar.add_css_class("error")
 

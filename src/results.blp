@@ -1,0 +1,81 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $EchoResultsPage : Adw.NavigationPage {
+  title: _("Ping Results");
+
+  child: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {}
+
+    content: ScrolledWindow {
+      Adw.Clamp {
+        maximum-size: 400;
+        margin-start: 10;
+        margin-end: 10;
+        margin-top: 10;
+        margin-bottom: 10;
+
+        Box {
+          orientation: vertical;
+          valign: center;
+
+          Box {
+            orientation: vertical;
+
+            Box {
+              orientation: vertical;
+              height-request: 200;
+              homogeneous: true;
+              styles ["card"]
+
+              Box {
+                orientation: vertical;
+                valign: center;
+
+                Image results_icon {
+                  icon-name: "emblem-default-symbolic";
+                  pixel-size: 80;
+                  margin-bottom: 10;
+                  styles ["success"]
+                }
+                Label result_title {
+                  styles ["title-3", "success"]
+                }
+                Label address_ip {
+                  selectable: true;
+                  styles ["dim-label"]
+                  margin-top: 5;
+                }
+              }
+            }
+
+            ListBox {
+              selection-mode: none;
+              margin-top: 10;
+              styles ["boxed-list"]
+
+              Adw.ActionRow response_time {
+                title: _("Response Time");
+                selectable: true;
+                styles ["property"]
+              }
+              Adw.ActionRow packets_sent {
+                title: _("Packets Sent");
+                styles ["property"]
+              }
+              Adw.ActionRow packets_received {
+                title: _("Packets Received");
+                styles ["property"]
+              }
+              Adw.ActionRow packet_loss {
+                title: _("Packet Loss");
+                styles ["property"]
+              }
+            }
+          }
+        }
+      }
+    };
+  };
+}

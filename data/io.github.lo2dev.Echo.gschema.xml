@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="echo">
 	<schema id="io.github.lo2dev.Echo" path="/io/github/lo2dev/Echo/">
+	  <key name="width" type="i">
+	    <default>460</default>
+	  </key>
+	  <key name="height" type="i">
+	    <default>505</default>
+	  </key>
+    <key name="is-maximized" type="b">
+      <default>false</default>
+    </key>
+
+	  <key name="ping-count" type="i">
+	    <default>4</default>
+	  </key>
+	  <key name="ping-interval" type="d">
+	    <default>1</default>
+	  </key>
+	  <key name="ping-timeout" type="d">
+	    <default>2</default>
+	  </key>
+	  <key name="ping-source" type="s">
+	    <default>""</default>
+	  </key>
+	  <key name="ping-family" type="i">
+	    <default>0</default>
+	  </key>
 	</schema>
 </schemalist>

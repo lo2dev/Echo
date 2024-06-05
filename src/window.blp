@@ -4,89 +4,130 @@ using Adw 1;
 template $EchoWindow : Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
-  default-width: 480;
-  default-height: 500;
+  default-width: 460;
+  default-height: 505;
 
   title: _("Echo");
 
-  content: Adw.ToolbarView {
-    [top]
-    Adw.HeaderBar {
-      [end]
-      MenuButton button_menu {
-        menu-model: menu_app;
-        icon-name: "open-menu-symbolic";
-        primary: true;
-      }
-    }
+  content: Adw.NavigationView main_view {
+    Adw.NavigationPage start_page {
+      title: "Echo";
 
-    Adw.Clamp {
-      maximum-size: 400;
-      margin-top: 10;
-      margin-start: 10;
-      margin-end: 10;
-
-      Box {
-        orientation: vertical;
-
-        ListBox {
-          styles [
-            "boxed-list"
-          ]
-
-          Adw.EntryRow address_bar {
-            title: _("Address");
-            activates-default: true;
+      child: Adw.ToolbarView {
+        [top]
+        Adw.HeaderBar {
+          [start]
+          MenuButton button_menu {
+            menu-model: menu_app;
+            icon-name: "open-menu-symbolic";
+            primary: true;
           }
         }
 
-        Button ping_button {
-          label: _("Ping");
-          halign: center;
-          margin-top: 12;
-
-          styles [
-            "pill",
-            "suggested-action"
-          ]
-        }
-
-        Box stats {
+        content: Box {
           orientation: vertical;
-          visible: false;
-          margin-top: 30;
 
-          Label result_title {
-            styles ["title-3"]
-          }
-          Label address_ip {
-            styles ["dim-label"]
+          Adw.Banner network_error_banner {
+            title: _("No network connection");
           }
 
-          ListBox {
-            selection-mode: none;
-            margin-top: 10;
-            styles ["boxed-list"]
+          Box {
+            orientation: vertical;
+            vexpand: true;
+            homogeneous: true;
 
-            Adw.ActionRow response_time {
-              title: _("Response Time (ms)");
-              styles ["property"]
-            }
-            Adw.ActionRow packets_sent {
-              title: _("Packets Sent");
-              styles ["property"]
-            }
-            Adw.ActionRow packets_received {
-              title: _("Packets Received");
-              styles ["property"]
-            }
-            Adw.ActionRow packet_loss {
-              title: _("Packet Loss");
-              styles ["property"]
+            ScrolledWindow {
+              propagate-natural-height: true;
+
+              Adw.Clamp results {
+                maximum-size: 400;
+                margin-start: 10;
+                margin-end: 10;
+
+                Box {
+                  orientation: vertical;
+                  valign: center;
+                  spacing: 10;
+                  margin-top: 10;
+                  margin-bottom: 10;
+
+                  ListBox {
+                    selection-mode: none;
+                    styles ["boxed-list"]
+
+                    Adw.EntryRow address_bar {
+                      title: _("Address");
+                    }
+
+                    Adw.ExpanderRow advanced_options {
+                      title: _("Advanced Options");
+                      Adw.SpinRow {
+                        title: _("Count");
+                        subtitle: _("Number of pings to perform");
+                        adjustment: Adjustment ping_count_adjust {
+                          lower: 1;
+                          upper: 100;
+                          step-increment: 1;
+                        };
+                      }
+
+                      Adw.SpinRow {
+                        title: _("Interval");
+                        subtitle: _("Seconds between sending each packet");
+                        digits: 1;
+                        adjustment: Adjustment ping_interval_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          value: 1;
+                          step-increment: 0.5;
+                        };
+                      }
+
+                      Adw.SpinRow {
+                        title: _("Timeout");
+                        subtitle: _("Maximum seconds to wait for a reply");
+                        digits: 1;
+                        adjustment: Adjustment ping_timeout_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          value: 2;
+                          step-increment: 1;
+                        };
+                      }
+
+                      Adw.EntryRow ping_source_row {
+                        title: _("Source");
+                      }
+
+                      Adw.ComboRow ping_family_row {
+                        title: _("Family");
+                        model: StringList {
+                          strings [
+                            "Auto",
+                            "IPv4",
+                            "IPv6"
+                          ]
+                        };
+                      }
+                    }
+                  }
+
+                  Label ping_error_label {
+                    styles ["error"]
+                    visible: false;
+                  }
+
+                  Button ping_button {
+                    label: _("Ping");
+                    halign: center;
+                    styles ["suggested-action", "pill"]
+                  }
+                }
+              }
             }
           }
-        }
-      }
+        };
+      };
     }
   };
 }
