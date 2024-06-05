@@ -5,7 +5,7 @@
 	    <default>460</default>
 	  </key>
 	  <key name="height" type="i">
-	    <default>500</default>
+	    <default>505</default>
 	  </key>
     <key name="is-maximized" type="b">
       <default>false</default>
