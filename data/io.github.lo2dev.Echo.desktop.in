@@ -1,8 +1,11 @@
 [Desktop Entry]
-Name=echo
+Name=Echo
+GenericName=Ping Utility
+Comment=Ping websites
 Exec=echo
 Icon=io.github.lo2dev.Echo
 Terminal=false
 Type=Application
-Categories=GTK;
+Categories=GNOME;GTK;Utility;
+Keywords=ping
 StartupNotify=true
