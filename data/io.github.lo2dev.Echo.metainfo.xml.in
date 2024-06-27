@@ -1,9 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
-	<id>io.github.lo2dev.Echo.desktop</id>
+  <id>io.github.lo2dev.Echo</id>
+
+  <name>Echo</name>
+  <summary>Ping websites</summary>
+
+  <developer id="io.github.lo2dev">
+    <name translate="no">Lo</name>
+  </developer>
+
+  <description>
+    <p>Utility to ping websites.</p>
+    <p>Features include:</p>
+    <ol>
+      <li>Advanced ping parameters</li>
+    </ol>
+  </description>
+
+  <launchable type="desktop-id">io.github.lo2dev.Echo.desktop</launchable>
+
+  <branding>
+    <color type="primary" scheme_preference="light">#8ff0a4</color>
+    <color type="primary" scheme_preference="dark">#26a269</color>
+  </branding>
+
+  <url type="bugtracker">https://github.com/lo2dev/Echo/issues</url>
+  <url type="homepage">https://github.com/lo2dev/Echo</url>
+  <url type="donation">https://lo2dev.github.io/support</url>
+  <url type="vcs-browser">https://github.com/lo2dev/Echo</url>
+
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+
+  <screenshots>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/1.png</image>
+      <caption>Main page showcasing the ping form with advanced options</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/2.png</image>
+      <caption>Ping results page showcasing the stats after the ping</caption>
+    </screenshot>
+  </screenshots>
+
+  <content_rating type="oars-1.1" />
+
 	<metadata_license>CC0-1.0</metadata_license>
 	<project_license>GPL-3.0-or-later</project_license>
 	<description>
 	  <p>No description</p>
 	</description>
 </component>
+
