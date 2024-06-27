@@ -32,6 +32,11 @@ class EchoApplication(Adw.Application):
         super().__init__(application_id='io.github.lo2dev.Echo',
                          flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
         self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
+        self.create_action(
+            "close",
+            lambda *_: window.close() if (window := self.get_active_window()) else None,
+            ("<primary>w",),
+        )
         self.create_action('about', self.on_about_action)
 
     def do_activate(self):
