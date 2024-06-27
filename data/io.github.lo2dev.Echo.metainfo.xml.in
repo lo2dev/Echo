@@ -34,11 +34,11 @@
   </requires>
 
   <screenshots>
-    <screenshot>
+    <screenshot type="default">
       <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/1.png</image>
       <caption>Main page showcasing the ping form with advanced options</caption>
     </screenshot>
-    <screenshot type="default">
+    <screenshot>
       <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/2.png</image>
       <caption>Ping results page showcasing the stats after the ping</caption>
     </screenshot>
