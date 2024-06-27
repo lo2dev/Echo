@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
+  <gresource prefix="/io/github/lo2dev/Echo/icons/scalable/actions/">
+    <file preprocess="xml-stripblanks" alias="info-outline-symbolic.svg">../data/icons/scalable/actions/info-outline-symbolic.svg</file>
+  </gresource>
   <gresource prefix="/io/github/lo2dev/Echo">
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">results.ui</file>

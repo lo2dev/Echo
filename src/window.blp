@@ -17,10 +17,10 @@ template $EchoWindow : Adw.ApplicationWindow {
         [top]
         Adw.HeaderBar {
           [start]
-          MenuButton button_menu {
-            menu-model: menu_app;
-            icon-name: "open-menu-symbolic";
-            primary: true;
+          Button {
+            icon-name: "info-outline-symbolic";
+            tooltip-text: _("About Echo");
+            action-name: "app.about";
           }
         }
 
