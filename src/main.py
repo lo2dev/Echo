@@ -46,11 +46,10 @@ class EchoApplication(Adw.Application):
         win.present()
 
     def on_about_action(self, widget, _):
-        about = Adw.AboutDialog(application_name='Echo',
-                                application_icon='io.github.lo2dev.Echo',
-                                developer_name='Lo',
-                                version='0.1.0',
-                                copyright='© 2024 Lo')
+        about = Adw.AboutDialog.new_from_appdata(
+            "/io/github/lo2dev/Echo/io.github.lo2dev.Echo.metainfo.xml"
+        )
+        about.set_copyright("© 2024 Lo")
         about.present(self.props.active_window)
 
     def create_action(self, name, callback, shortcuts=None):
