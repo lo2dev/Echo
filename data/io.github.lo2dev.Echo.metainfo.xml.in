@@ -13,7 +13,7 @@
     <p>Utility to ping websites.</p>
     <p>Features include:</p>
     <ol>
-      <li>Advanced ping parameters</li>
+      <li>Advanced ping parameters like ping count, timeout, etc</li>
     </ol>
   </description>
 
