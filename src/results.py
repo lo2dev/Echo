@@ -35,7 +35,7 @@ class EchoResultsPage(Adw.NavigationPage):
     def __init__(self, result_data, result_title, **kwargs):
         super().__init__(**kwargs)
 
-        self.result_title.set_text(f"{result_title}")
+        self.result_title.set_text(f"{result_title} is alive")
         self.address_ip.set_text(f"{result_data.address}")
         self.response_time.set_subtitle(f"min {result_data.min_rtt:.1f} / avg {result_data.avg_rtt:.1f} / max {result_data.max_rtt:.1f} ms")
         self.packets_sent.set_subtitle(f"{result_data.packets_sent}")
