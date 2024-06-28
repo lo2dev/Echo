@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop">
   <id>io.github.lo2dev.Echo</id>
+	<metadata_license>CC0-1.0</metadata_license>
+	<project_license>GPL-3.0-or-later</project_license>
 
   <name>Echo</name>
   <summary>Ping websites</summary>
@@ -46,10 +48,12 @@
 
   <content_rating type="oars-1.1" />
 
-	<metadata_license>CC0-1.0</metadata_license>
-	<project_license>GPL-3.0-or-later</project_license>
-	<description>
-	  <p>No description</p>
-	</description>
+  <releases>
+    <release version="1.0" date="2024-06-28">
+      <description>
+        Initial release!
+      </description>
+    </release>
+  </releases>
 </component>
 
