@@ -1,2 +1,4 @@
 /subprojects/blueprint-compiler
 /src/__pycache__
+.flatpak-builder
+repo
