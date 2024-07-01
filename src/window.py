@@ -55,6 +55,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("advanced-options-expanded", self.advanced_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)

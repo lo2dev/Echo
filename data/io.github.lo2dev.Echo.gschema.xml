@@ -11,6 +11,9 @@
       <default>false</default>
     </key>
 
+	  <key name="advanced-options-expanded" type="b">
+	    <default>false</default>
+	  </key>
 	  <key name="ping-count" type="i">
 	    <default>4</default>
 	  </key>
