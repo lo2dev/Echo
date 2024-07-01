@@ -40,6 +40,7 @@ template $EchoResultsPage : Adw.NavigationPage {
                   styles ["success"]
                 }
                 Label result_title {
+                  selectable: true;
                   styles ["title-3", "success"]
                 }
                 Label address_ip {
@@ -57,7 +58,7 @@ template $EchoResultsPage : Adw.NavigationPage {
 
               Adw.ActionRow response_time {
                 title: _("Response Time");
-                selectable: true;
+                subtitle-selectable: true;
                 styles ["property"]
               }
               Adw.ActionRow packets_sent {
