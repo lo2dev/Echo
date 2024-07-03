@@ -21,7 +21,8 @@ from gi.repository import Adw, Gtk, Gio
 from .results import EchoResultsPage
 
 import threading
-from icmplib import ping, NameLookupError
+from icmplib import ping
+from icmplib import NameLookupError, SocketPermissionError, TimeExceeded, DestinationUnreachable
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
 class EchoWindow(Adw.ApplicationWindow):
@@ -116,7 +117,16 @@ class EchoWindow(Adw.ApplicationWindow):
             else:
                 self.ping_error(f"{self.address_bar.get_text()} is unreachable")
         except NameLookupError:
-            self.ping_error(f"{self.address_bar.get_text()} is unreachable")
+            self.ping_error("The host can't be resolved or doesn't exist")
+        except SocketPermissionError:
+            self.ping_error("Insufficient permissions")
+        except TimeExceeded:
+            self.ping_error("Host timeout")
+        except DestinationUnreachable:
+            self.ping_error("Destination is unreachable")
+        except:
+            self.ping_error("Unexpected error")
+
 
         self.ping_button.set_sensitive(True)
         self.address_bar.set_sensitive(True)
