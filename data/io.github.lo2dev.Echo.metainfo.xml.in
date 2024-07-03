@@ -55,6 +55,16 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="1.1" date="2024-07-03">
+      <description>
+        <ul>
+          <li>Remember if advanced options are expanded or not</li>
+          <li>Made results and response time selectable</li>
+          <li>You can now press enter to ping while the address bar is selected</li>
+          <li>Improved error messages</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0" date="2024-06-28">
       <description>
         <p>
