@@ -63,6 +63,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
 
+        self.address_bar.connect("entry-activated", self.ping)
         self.ping_button.connect("clicked", self.ping)
 
     def ping(self, *_):
