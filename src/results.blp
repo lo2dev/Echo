@@ -25,13 +25,14 @@ template $EchoResultsPage : Adw.NavigationPage {
 
             Box {
               orientation: vertical;
-              height-request: 200;
               homogeneous: true;
               styles ["card"]
 
               Box {
                 orientation: vertical;
                 valign: center;
+                margin-top: 30;
+                margin-bottom: 30;
 
                 Image results_icon {
                   icon-name: "echo-emblem-default-symbolic";
@@ -41,6 +42,10 @@ template $EchoResultsPage : Adw.NavigationPage {
                 }
                 Label result_title {
                   selectable: true;
+                  wrap: true;
+                  wrap-mode: char;
+                  margin-start: 5;
+                  margin-end: 5;
                   styles ["title-3", "success"]
                 }
                 Label address_ip {

@@ -113,8 +113,10 @@ template $EchoWindow : Adw.ApplicationWindow {
                   }
 
                   Label ping_error_label {
-                    styles ["error"]
                     visible: false;
+                    ellipsize: middle;
+                    wrap: true;
+                    styles ["error"]
                   }
 
                   Button ping_button {
