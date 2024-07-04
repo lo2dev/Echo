@@ -21,6 +21,11 @@ Besides doing the default ping, you can configure the:
 - Timeout
 - And more
 
+## Installation
+Get it on Flathub.
+
+<a href=https://flathub.org/apps/io.github.lo2dev.Echo><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
+
 ## Planned
 - Ping history
 - Stop ping midway
