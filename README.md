@@ -26,6 +26,16 @@ Get it on Flathub.
 
 <a href=https://flathub.org/apps/io.github.lo2dev.Echo><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
+## Insufficient permissions?
+Unfortunetly, on some systems, the feature needed to ping is not available by default so you have to do a manual setup.
+
+This will require running terminal commands:
+
+```sh
+echo 'net.ipv4.ping_group_range = 0 2147483647' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+```
+
 ## Planned
 - Ping history
 - Stop ping midway
