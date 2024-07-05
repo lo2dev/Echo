@@ -29,6 +29,7 @@ class EchoWindow(Adw.ApplicationWindow):
     __gtype_name__ = 'EchoWindow'
 
     main_view = Gtk.Template.Child()
+    toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
     ping_error_label = Gtk.Template.Child()
@@ -134,7 +135,12 @@ class EchoWindow(Adw.ApplicationWindow):
         self.ping_button.set_label("Ping")
 
     def ping_error(self, error_text):
-        self.ping_error_label.set_text(error_text)
-        self.ping_error_label.set_visible(True)
+        toast = Adw.Toast()
+        toast.set_title(error_text)
+        toast.set_priority(Adw.ToastPriority.HIGH)
+        self.toast_overlay.add_toast(toast)
+
+        self.main_view.connect("pushed", lambda x: toast.dismiss())
+
         self.address_bar.add_css_class("error")
 
