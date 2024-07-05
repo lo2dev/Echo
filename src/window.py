@@ -21,6 +21,7 @@ from gi.repository import Adw, Gtk, Gio
 from .results import EchoResultsPage
 
 import threading
+from gettext import gettext
 from icmplib import ping
 from icmplib import NameLookupError, SocketPermissionError, TimeExceeded, DestinationUnreachable
 
@@ -71,7 +72,7 @@ class EchoWindow(Adw.ApplicationWindow):
         address = self.address_bar.get_text()
 
         if address == "":
-            self.ping_error("Enter a host to ping")
+            self.ping_error(gettext("Enter a host to ping"))
             return
         else:
             self.ping_error_label.set_visible(False)
@@ -91,7 +92,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.ping_button.set_sensitive(False)
         self.address_bar.set_sensitive(False)
         self.advanced_options.set_sensitive(False)
-        self.ping_button.set_label("Pinging")
+        self.ping_button.set_label(gettext("Pinging"))
 
         task = threading.Thread(
             target=self.ping_task,
@@ -118,21 +119,21 @@ class EchoWindow(Adw.ApplicationWindow):
             else:
                 self.ping_error(f"{self.address_bar.get_text()} is unreachable")
         except NameLookupError:
-            self.ping_error("The host can't be resolved or doesn't exist")
+            self.ping_error(gettext("The host can't be resolved or doesn't exist"))
         except SocketPermissionError:
-            self.ping_error("Insufficient permissions")
+            self.ping_error(gettext("Insufficient permissions"))
         except TimeExceeded:
-            self.ping_error("Host timeout")
+            self.ping_error(gettext("Host timeout"))
         except DestinationUnreachable:
-            self.ping_error("Destination is unreachable")
+            self.ping_error(gettext("Destination is unreachable"))
         except:
-            self.ping_error("Unexpected error")
+            self.ping_error(gettext("Unexpected error"))
 
 
         self.ping_button.set_sensitive(True)
         self.address_bar.set_sensitive(True)
         self.advanced_options.set_sensitive(True)
-        self.ping_button.set_label("Ping")
+        self.ping_button.set_label(gettext("Ping"))
 
     def ping_error(self, error_text):
         toast = Adw.Toast()
