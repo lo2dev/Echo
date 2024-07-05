@@ -1,12 +1,11 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $EchoWindow : Adw.ApplicationWindow {
+template $EchoWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
   default-width: 460;
   default-height: 580;
-
   title: _("Echo");
 
   content: Adw.NavigationView main_view {
@@ -24,105 +23,122 @@ template $EchoWindow : Adw.ApplicationWindow {
           }
         }
 
-        content: Box {
-          orientation: vertical;
-
-          Adw.Banner network_error_banner {
-            title: _("No network connection");
-          }
-
+        content: Adw.ToastOverlay toast_overlay {
           Box {
             orientation: vertical;
-            vexpand: true;
-            homogeneous: true;
 
-            ScrolledWindow {
-              propagate-natural-height: true;
+            Adw.Banner network_error_banner {
+              title: _("No network connection");
+            }
 
-              Adw.Clamp results {
-                maximum-size: 400;
-                margin-start: 10;
-                margin-end: 10;
+            Box {
+              orientation: vertical;
+              vexpand: true;
+              homogeneous: true;
 
-                Box {
-                  orientation: vertical;
-                  valign: center;
-                  spacing: 10;
-                  margin-top: 10;
-                  margin-bottom: 10;
+              ScrolledWindow {
+                propagate-natural-height: true;
 
-                  ListBox {
-                    selection-mode: none;
-                    styles ["boxed-list"]
+                Adw.Clamp results {
+                  maximum-size: 400;
+                  margin-start: 10;
+                  margin-end: 10;
 
-                    Adw.EntryRow address_bar {
-                      title: _("Address");
+                  Box {
+                    orientation: vertical;
+                    valign: center;
+                    spacing: 10;
+                    margin-top: 10;
+                    margin-bottom: 10;
+
+                    ListBox {
+                      selection-mode: none;
+
+                      styles [
+                        "boxed-list"
+                      ]
+
+                      Adw.EntryRow address_bar {
+                        title: _("Address");
+                      }
+
+                      Adw.ExpanderRow advanced_options {
+                        title: _("Advanced Options");
+
+                        Adw.SpinRow {
+                          title: _("Count");
+                          subtitle: _("Number of pings to perform");
+
+                          adjustment: Adjustment ping_count_adjust {
+                            lower: 1;
+                            upper: 100;
+                            step-increment: 1;
+                          };
+                        }
+
+                        Adw.SpinRow {
+                          title: _("Interval");
+                          subtitle: _("Seconds between sending each packet");
+                          digits: 1;
+
+                          adjustment: Adjustment ping_interval_adjust {
+                            lower: 0.1;
+                            upper: 100;
+                            value: 1;
+                            step-increment: 0.5;
+                          };
+                        }
+
+                        Adw.SpinRow {
+                          title: _("Timeout");
+                          subtitle: _("Maximum seconds to wait for a reply");
+                          digits: 1;
+
+                          adjustment: Adjustment ping_timeout_adjust {
+                            lower: 0.1;
+                            upper: 100;
+                            value: 2;
+                            step-increment: 1;
+                          };
+                        }
+
+                        Adw.EntryRow ping_source_row {
+                          title: _("Source");
+                        }
+
+                        Adw.ComboRow ping_family_row {
+                          title: _("Family");
+
+                          model: StringList {
+                            strings [
+                              "Auto",
+                              "IPv4",
+                              "IPv6"
+                            ]
+                          };
+                        }
+                      }
                     }
 
-                    Adw.ExpanderRow advanced_options {
-                      title: _("Advanced Options");
-                      Adw.SpinRow {
-                        title: _("Count");
-                        subtitle: _("Number of pings to perform");
-                        adjustment: Adjustment ping_count_adjust {
-                          lower: 1;
-                          upper: 100;
-                          step-increment: 1;
-                        };
-                      }
+                    Label ping_error_label {
+                      visible: false;
+                      ellipsize: middle;
+                      wrap: true;
 
-                      Adw.SpinRow {
-                        title: _("Interval");
-                        subtitle: _("Seconds between sending each packet");
-                        digits: 1;
-                        adjustment: Adjustment ping_interval_adjust {
-                          lower: 0.1;
-                          upper: 100;
-                          value: 1;
-                          step-increment: 0.5;
-                        };
-                      }
-
-                      Adw.SpinRow {
-                        title: _("Timeout");
-                        subtitle: _("Maximum seconds to wait for a reply");
-                        digits: 1;
-                        adjustment: Adjustment ping_timeout_adjust {
-                          lower: 0.1;
-                          upper: 100;
-                          value: 2;
-                          step-increment: 1;
-                        };
-                      }
-
-                      Adw.EntryRow ping_source_row {
-                        title: _("Source");
-                      }
-
-                      Adw.ComboRow ping_family_row {
-                        title: _("Family");
-                        model: StringList {
-                          strings [
-                            "Auto",
-                            "IPv4",
-                            "IPv6"
-                          ]
-                        };
-                      }
+                      styles [
+                        "error"
+                      ]
                     }
-                  }
 
-                  Label ping_error_label {
-                    visible: false;
-                    ellipsize: middle;
-                    wrap: true;
-                    styles ["error"]
-                  }
+                    Button ping_button {
+                      label: _("Ping");
+                      halign: center;
 
-                  Button ping_button {
-                    label: _("Ping");
-                    halign: center;
-                    styles ["suggested-action", "pill"]
+                      styles [
+                        "suggested-action",
+                        "pill"
+                      ]
+                    }
                   }
                 }
               }
