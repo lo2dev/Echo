@@ -55,6 +55,16 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="1.2" date="2024-07-07">
+      <description>
+        <ul>
+          <li>If the protocol (https://) is included in the address, it will be automatically removed upon pinging</li>
+          <li>Error messages will now display in toasts</li>
+          <li>Improved the UI to accommodate long domains</li>
+          <li>Result icon will now be the same on all systems</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1" date="2024-07-03">
       <description>
         <ul>
