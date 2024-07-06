@@ -20,7 +20,7 @@
 from gi.repository import Adw, Gtk, Gio
 from .results import EchoResultsPage
 
-import threading
+import threading, re as regex
 from gettext import gettext
 from icmplib import ping
 from icmplib import NameLookupError, SocketPermissionError, TimeExceeded, DestinationUnreachable
@@ -77,6 +77,9 @@ class EchoWindow(Adw.ApplicationWindow):
         else:
             self.ping_error_label.set_visible(False)
             self.address_bar.remove_css_class("error")
+
+        address = regex.sub("^(http|https)://|/+$", "", address)
+        self.address_bar.set_text(address)
 
         # TODO: maybe find a better way to check the family?
 	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
