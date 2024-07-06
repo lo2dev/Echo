@@ -33,7 +33,6 @@ class EchoWindow(Adw.ApplicationWindow):
     toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
-    ping_error_label = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
     advanced_options = Gtk.Template.Child()
@@ -75,7 +74,6 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_error(gettext("Enter a host to ping"))
             return
         else:
-            self.ping_error_label.set_visible(False)
             self.address_bar.remove_css_class("error")
 
         address = regex.sub("^(http|https)://|/+$", "", address)
