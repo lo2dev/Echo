@@ -22,9 +22,7 @@ Besides doing the default ping, you can configure the:
 - And more
 
 ## Installation
-Get it on Flathub.
-
-<a href=https://flathub.org/apps/io.github.lo2dev.Echo><img width='240' alt='Download on Flathub' src='https://dl.flathub.org/assets/badges/flathub-badge-en.png'/></a>
+<a href='https://flathub.org/apps/io.github.lo2dev.Echo'><img width='240' alt='Get it on Flathub' src='https://flathub.org/api/badge?locale=en'/></a>
 
 ## Insufficient permissions?
 Unfortunetly, on some systems, the feature needed to ping is not available by default so you have to do a manual setup.
