@@ -73,6 +73,9 @@ class EchoWindow(Adw.ApplicationWindow):
         self.spinner_parent = self.address_spinner.get_parent()
         self.spinner_parent.set_visible(False)
 
+        # This gets the GtkRevealer containing the children
+        self.advanced_children = self.advanced_options.get_child().get_last_child()
+
     def ping(self, *_):
         address = self.address_bar.get_text()
 
@@ -98,7 +101,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.ping_button.set_sensitive(False)
         self.address_bar.set_sensitive(False)
-        self.advanced_options.set_sensitive(False)
+        self.advanced_children.set_sensitive(False)
         self.ping_button.set_label(gettext("Pinging"))
 
         task = threading.Thread(
@@ -117,6 +120,7 @@ class EchoWindow(Adw.ApplicationWindow):
         task.start()
 
         self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
+
     def ping_task(self, *args, **kwargs):
         try:
             result = ping(*args, **kwargs)
@@ -141,7 +145,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.spinner_parent.set_visible(False)
         self.ping_button.set_sensitive(True)
         self.address_bar.set_sensitive(True)
-        self.advanced_options.set_sensitive(True)
+        self.advanced_children.set_sensitive(True)
         self.ping_button.set_label(gettext("Ping"))
 
     def ping_error(self, error_text):
