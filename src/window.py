@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw, Gtk, Gio
+from gi.repository import Adw, Gtk, Gio, GLib
 from .results import EchoResultsPage
 
 import threading, re as regex
@@ -32,6 +32,7 @@ class EchoWindow(Adw.ApplicationWindow):
     main_view = Gtk.Template.Child()
     toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
+    address_spinner = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
@@ -66,6 +67,11 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.address_bar.connect("entry-activated", self.ping)
         self.ping_button.connect("clicked", self.ping)
+
+        # The box parent creates an unwanted subtle margin in the address bar
+        # so we hide and show the box instead of spinner
+        self.spinner_parent = self.address_spinner.get_parent()
+        self.spinner_parent.set_visible(False)
 
     def ping(self, *_):
         address = self.address_bar.get_text()
@@ -110,6 +116,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         task.start()
 
+        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
     def ping_task(self, *args, **kwargs):
         try:
             result = ping(*args, **kwargs)
@@ -130,7 +137,8 @@ class EchoWindow(Adw.ApplicationWindow):
         except:
             self.ping_error(gettext("Unexpected error"))
 
-
+        GLib.source_remove(self.spinner_timeout)
+        self.spinner_parent.set_visible(False)
         self.ping_button.set_sensitive(True)
         self.address_bar.set_sensitive(True)
         self.advanced_options.set_sensitive(True)

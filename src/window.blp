@@ -60,6 +60,11 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                       Adw.EntryRow address_bar {
                         title: _("Address");
+
+                        [suffix]
+                        Spinner address_spinner {
+                          spinning: true;
+                        }
                       }
 
                       Adw.ExpanderRow advanced_options {
