@@ -129,17 +129,17 @@ class EchoWindow(Adw.ApplicationWindow):
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
                 self.main_view.push(results_page)
             else:
-                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
+                self.ping_error(f"{self.address_bar.get_text()} is unreachable", False)
         except NameLookupError:
-            self.ping_error(gettext("The host can't be resolved or doesn't exist"))
+            self.ping_error(gettext("The host can't be resolved or doesn't exist"), False)
         except SocketPermissionError:
-            self.ping_error(gettext("Insufficient permissions"))
+            self.ping_error(gettext("Insufficient permissions"), True)
         except TimeExceeded:
-            self.ping_error(gettext("Host timeout"))
+            self.ping_error(gettext("Host timeout"), False)
         except DestinationUnreachable:
-            self.ping_error(gettext("Destination is unreachable"))
+            self.ping_error(gettext("Destination is unreachable"), False)
         except:
-            self.ping_error(gettext("Unexpected error"))
+            self.ping_error(gettext("Unexpected error"), False)
 
         GLib.source_remove(self.spinner_timeout)
         self.spinner_parent.set_visible(False)
@@ -148,10 +148,16 @@ class EchoWindow(Adw.ApplicationWindow):
         self.advanced_children.set_sensitive(True)
         self.ping_button.set_label(gettext("Ping"))
 
-    def ping_error(self, error_text):
+    def ping_error(self, error_text, is_insufficient_error):
         toast = Adw.Toast()
         toast.set_title(error_text)
         toast.set_priority(Adw.ToastPriority.HIGH)
+
+        # TODO: find a better way to deal with this edge case
+        if is_insufficient_error:
+            toast.set_button_label(gettext("Details"))
+            toast.connect("button-clicked", lambda x: Gio.AppInfo.launch_default_for_uri("https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-permissions"))
+
         self.toast_overlay.add_toast(toast)
 
         self.main_view.connect("pushed", lambda x: toast.dismiss())
