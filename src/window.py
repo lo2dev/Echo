@@ -20,6 +20,7 @@
 from gi.repository import Adw, Gtk, Gio, GLib
 from .results import EchoResultsPage
 
+import sys
 import threading, re as regex
 from gettext import gettext
 from icmplib import ping
@@ -34,6 +35,7 @@ class EchoWindow(Adw.ApplicationWindow):
     address_bar = Gtk.Template.Child()
     address_spinner = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
+    cancel_ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
     advanced_options = Gtk.Template.Child()
@@ -67,6 +69,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.address_bar.connect("entry-activated", self.ping)
         self.ping_button.connect("clicked", self.ping)
+        self.cancel_ping_button.connect("clicked", self.cancel_ping)
 
         # The box parent creates an unwanted subtle margin in the address bar
         # so we hide and show the box instead of spinner
@@ -75,6 +78,10 @@ class EchoWindow(Adw.ApplicationWindow):
 
         # This gets the GtkRevealer containing the children
         self.advanced_children = self.advanced_options.get_child().get_last_child()
+
+    def cancel_ping(self, *_):
+        self.task.killed = True
+        self.set_form_disable(False)
 
     def ping(self, *_):
         address = self.address_bar.get_text()
@@ -99,12 +106,9 @@ class EchoWindow(Adw.ApplicationWindow):
         elif saved_family == 2:
             ping_family = 6
 
-        self.ping_button.set_sensitive(False)
-        self.address_bar.set_sensitive(False)
-        self.advanced_children.set_sensitive(False)
-        self.ping_button.set_label(gettext("Pinging"))
+        self.set_form_disable(True)
 
-        task = threading.Thread(
+        self.task = ThreadWithTrace(
             target=self.ping_task,
             args=(address,),
             kwargs={
@@ -117,7 +121,8 @@ class EchoWindow(Adw.ApplicationWindow):
                 }
             )
 
-        task.start()
+        self.task.daemon = True
+        self.task.start()
 
         self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
 
@@ -138,15 +143,13 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_error(gettext("Host timeout"), False)
         except DestinationUnreachable:
             self.ping_error(gettext("Destination is unreachable"), False)
+        except KeyboardInterrupt:
+            # This is good actually!
+            pass
         except:
             self.ping_error(gettext("Unexpected error"), False)
 
-        GLib.source_remove(self.spinner_timeout)
-        self.spinner_parent.set_visible(False)
-        self.ping_button.set_sensitive(True)
-        self.address_bar.set_sensitive(True)
-        self.advanced_children.set_sensitive(True)
-        self.ping_button.set_label(gettext("Ping"))
+        self.set_form_disable(False)
 
     def ping_error(self, error_text, is_insufficient_error):
         toast = Adw.Toast()
@@ -163,4 +166,54 @@ class EchoWindow(Adw.ApplicationWindow):
         self.main_view.connect("pushed", lambda x: toast.dismiss())
 
         self.address_bar.add_css_class("error")
+
+    def set_form_disable(self, disable):
+        if disable == True:
+            self.ping_button.set_sensitive(False)
+            self.address_bar.set_sensitive(False)
+            self.advanced_children.set_sensitive(False)
+
+            self.ping_button.set_visible(False)
+            self.cancel_ping_button.set_visible(True)
+        elif disable == False:
+            GLib.source_remove(self.spinner_timeout)
+            self.spinner_parent.set_visible(False)
+            self.ping_button.set_sensitive(True)
+            self.address_bar.set_sensitive(True)
+            self.advanced_children.set_sensitive(True)
+
+            self.ping_button.set_visible(True)
+            self.cancel_ping_button.set_visible(False)
+
+# Hacky way to kill a thread.
+# TODO: find a better way to kill a thread
+class ThreadWithTrace(threading.Thread):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.killed = False
+
+    def start(self):
+        self.__run_backup = self.run
+        self.run = self.__run
+        super().start()
+
+    def __run(self):
+        sys.settrace(self.globaltrace)
+        self.__run_backup()
+        self.run = self.__run_backup
+
+    def globaltrace(self, frame, event, arg):
+        if event == 'call':
+            return self.localtrace
+        else:
+            return None
+
+    def localtrace(self, frame, event, arg):
+        if self.killed:
+            if event == 'line':
+                raise KeyboardInterrupt
+        return self.localtrace
+
+    def kill(self):
+        self.killed = True
 
