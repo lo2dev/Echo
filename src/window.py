@@ -80,8 +80,12 @@ class EchoWindow(Adw.ApplicationWindow):
         self.advanced_children = self.advanced_options.get_child().get_last_child()
 
     def cancel_ping(self, *_):
-        self.task.killed = True
-        self.set_form_disable(False)
+        if self.task:
+            self.cancel_ping_button.set_sensitive(False)
+            self.cancel_ping_button.set_label(gettext("Cancelling Ping"))
+
+            self.task.killed = True
+            self.task = None
 
     def ping(self, *_):
         address = self.address_bar.get_text()
@@ -132,7 +136,8 @@ class EchoWindow(Adw.ApplicationWindow):
 
             if result.is_alive:
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
-                self.main_view.push(results_page)
+                if self.task and not self.task.killed:
+                    self.main_view.push(results_page)
             else:
                 self.ping_error(f"{self.address_bar.get_text()} is unreachable", False)
         except NameLookupError:
@@ -184,15 +189,20 @@ class EchoWindow(Adw.ApplicationWindow):
 
             self.ping_button.set_visible(True)
             self.cancel_ping_button.set_visible(False)
+            self.cancel_ping_button.set_sensitive(True)
+            self.cancel_ping_button.set_label(gettext("Cancel Ping"))
 
 # Hacky way to kill a thread.
 # TODO: find a better way to kill a thread
+# Reference: https://web.archive.org/web/20130503082442/http://mail.python.org/pipermail/python-list/2004-May/281943.html
 class ThreadWithTrace(threading.Thread):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.killed = False
 
     def start(self):
+        if self.killed:
+            return
         self.__run_backup = self.run
         self.run = self.__run
         super().start()
