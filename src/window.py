@@ -91,7 +91,7 @@ class EchoWindow(Adw.ApplicationWindow):
         address = self.address_bar.get_text()
 
         if address == "":
-            self.ping_error(gettext("Enter a host to ping"))
+            self.ping_error(gettext("Enter a host to ping"), False)
             return
         else:
             self.address_bar.remove_css_class("error")
