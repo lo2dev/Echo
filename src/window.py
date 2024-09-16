@@ -45,8 +45,6 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_source_row = Gtk.Template.Child()
     ping_family_row = Gtk.Template.Child()
 
-    # TODO: add a class variable which will hold the address inputed by the user.
-    # the current method breaks if the user deletes the input from the address bar before the result is shown
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)

@@ -68,7 +68,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                       }
 
                       Adw.ExpanderRow advanced_options {
-                        title: _("Advanced Options");
+                        title: _("Ping Options");
 
                         Adw.SpinRow {
                           title: _("Count");
@@ -113,6 +113,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                         Adw.ComboRow ping_family_row {
                           title: _("Family");
+                          subtitle: _("The version of the Internet Protocol");
 
                           model: StringList {
                             strings [

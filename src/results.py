@@ -37,7 +37,7 @@ class EchoResultsPage(Adw.NavigationPage):
 
         self.result_title.props.label = str(result_title)
         self.address_ip.props.label = str(result_data.address)
-        self.response_time.props.subtitle = f"min {result_data.min_rtt:.1f} / avg {result_data.avg_rtt:.1f} / max {result_data.max_rtt:.1f} ms"
+        self.response_time.props.subtitle = f"min {result_data.min_rtt:.1f} ⸱ avg {result_data.avg_rtt:.1f} ⸱ max {result_data.max_rtt:.1f} ms"
         self.packets_sent.props.subtitle = str(result_data.packets_sent)
         self.packets_received.props.subtitle = str(result_data.packets_received)
         self.packet_loss.props.subtitle = f"{result_data.packet_loss:.0%}"
