@@ -1,0 +1,186 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the echo package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: echo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-16 08:32+0200\n"
+"PO-Revision-Date: 2024-09-16 08:38+0200\n"
+"Last-Translator: Brage <bragefuglseth@gnome.org>\n"
+"Language-Team: \n"
+"Language: nb\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.4.4\n"
+
+#: data/io.github.lo2dev.Echo.desktop.in:3
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:9
+msgid "Echo"
+msgstr "Echo"
+
+#: data/io.github.lo2dev.Echo.desktop.in:4
+msgid "Ping Utility"
+msgstr "Ekkoforespørsel"
+
+#: data/io.github.lo2dev.Echo.desktop.in:5
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:8
+msgid "Ping websites"
+msgstr "Ta tempen på nettsteder"
+
+#: data/io.github.lo2dev.Echo.desktop.in:11
+msgid "ping"
+msgstr "ping;ekkoforespørsel;nettsteder;nettverk;"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:15
+msgid "Utility to ping websites."
+msgstr ""
+"Echo lar deg sende forespørsler til nettjenere og beregne hvor lang tid det "
+"tar å få svar."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:16
+msgid "Features include:"
+msgstr "Fordeler med Echo inkluderer:"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:18
+msgid "Advanced ping parameters like ping count, timeout, etc"
+msgstr "Avanserte innstillinger som makstid og antall forespørsler"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:47
+msgid "Main page showcasing the ping form with advanced options"
+msgstr "Hovedvindu med avanserte innstillinger"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:51
+msgid "Ping results page showcasing the stats after the ping"
+msgstr "Resultatside"
+
+#: src/window.py:85
+msgid "Cancelling Ping"
+msgstr "Avbryter"
+
+#: src/window.py:94
+msgid "Enter a host to ping"
+msgstr "Skriv inn en adresse"
+
+#: src/window.py:144
+msgid "The host can't be resolved or doesn't exist"
+msgstr "Adressen eksisterer ikke"
+
+#: src/window.py:146
+msgid "Insufficient permissions"
+msgstr "Nødvendige tillatelser mangler"
+
+#: src/window.py:148
+msgid "Host timeout"
+msgstr "Tidsgrense nådd"
+
+#: src/window.py:150
+msgid "Destination is unreachable"
+msgstr "Destinasjonen er utilgjengelig"
+
+#: src/window.py:155
+msgid "Unexpected error"
+msgstr "Ukjent feil"
+
+#: src/window.py:166
+msgid "Details"
+msgstr "Informasjon"
+
+#: src/window.py:193 src/window.blp:140
+msgid "Cancel Ping"
+msgstr "Avbryt"
+
+#: src/window.blp:21 src/window.blp:166
+msgid "About Echo"
+msgstr "Om Echo"
+
+#: src/window.blp:31
+msgid "No network connection"
+msgstr "Ikke på nett"
+
+#: src/window.blp:62
+msgid "Address"
+msgstr "Adresse"
+
+#: src/window.blp:71
+msgid "Advanced Options"
+msgstr "Avanserte innstillinger"
+
+#: src/window.blp:74
+msgid "Count"
+msgstr "Antall"
+
+#: src/window.blp:75
+msgid "Number of pings to perform"
+msgstr "Antall forespørsler som skal sendes"
+
+#: src/window.blp:85
+msgid "Interval"
+msgstr "Intervall"
+
+#: src/window.blp:86
+msgid "Seconds between sending each packet"
+msgstr "Sekunder mellom hver forespørsel"
+
+#: src/window.blp:98
+msgid "Timeout"
+msgstr "Tidsgrense"
+
+#: src/window.blp:99
+msgid "Maximum seconds to wait for a reply"
+msgstr "Sekunder før forespørslene avbrytes uten svar"
+
+#: src/window.blp:111
+msgid "Source"
+msgstr "Kilde"
+
+#: src/window.blp:115
+msgid "Family"
+msgstr "Protokoll"
+
+#: src/window.blp:129
+msgid "Ping"
+msgstr "Send"
+
+#: src/window.blp:161
+msgid "Keyboard Shortcuts"
+msgstr "Tastatursnarveier"
+
+#: src/results.blp:5
+msgid "Ping Results"
+msgstr "Resultater"
+
+#: src/results.blp:65
+msgid "Response Time"
+msgstr "Svartid"
+
+#: src/results.blp:70
+msgid "Packets Sent"
+msgstr "Forespørsler"
+
+#: src/results.blp:74
+msgid "Packets Received"
+msgstr "Svar"
+
+#: src/results.blp:78
+msgid "Packet Loss"
+msgstr "Mislykket"
+
+#: src/gtk/help-overlay.blp:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Generelt"
+
+#: src/gtk/help-overlay.blp:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Vis tastatursnarveier"
+
+#: src/gtk/help-overlay.blp:19
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Avslutt"
