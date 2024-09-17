@@ -142,24 +142,27 @@ class EchoWindow(Adw.ApplicationWindow):
                 if self.task and not self.task.killed:
                     self.main_view.push(results_page)
             else:
-                self.ping_error(f"{self.address_bar.get_text()} is unreachable", False)
+                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
         except NameLookupError:
-            self.ping_error(gettext("The host can't be resolved or doesn't exist"), False)
+            self.ping_error(gettext("The host can't be resolved or doesn't exist"))
         except SocketPermissionError:
-            self.ping_error(gettext("Insufficient permissions"), True)
+            self.ping_error(gettext(
+                "Insufficient permissions"),
+                is_insufficient_error=True
+            )
         except TimeExceeded:
-            self.ping_error(gettext("Host timeout"), False)
+            self.ping_error(gettext("Host timeout"))
         except DestinationUnreachable:
-            self.ping_error(gettext("Destination is unreachable"), False)
+            self.ping_error(gettext("Destination is unreachable"))
         except KeyboardInterrupt:
             # This is good actually!
             pass
         except:
-            self.ping_error(gettext("Unexpected error"), False)
+            self.ping_error(gettext("Unexpected error"))
 
         self.disable_form(False)
 
-    def ping_error(self, error_text, is_insufficient_error):
+    def ping_error(self, error_text, is_insufficient_error=False):
         toast = Adw.Toast()
         toast.set_title(error_text)
         toast.set_priority(Adw.ToastPriority.HIGH)
