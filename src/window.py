@@ -77,6 +77,16 @@ class EchoWindow(Adw.ApplicationWindow):
         # This gets the GtkRevealer containing the children
         self.ping_options_children = self.ping_options.get_child().get_last_child()
 
+        self.address_bar.connect("notify::text", self.on_address_bar_content_changed)
+
+
+    def on_address_bar_content_changed(self, _text, _):
+        if self.address_bar.props.text_length > 0:
+            self.ping_button.props.sensitive = True
+        else:
+            self.ping_button.props.sensitive = False
+
+
     def cancel_ping(self, *_):
         if self.task:
             self.cancel_ping_button.set_sensitive(False)
@@ -88,14 +98,9 @@ class EchoWindow(Adw.ApplicationWindow):
     def ping(self, *_):
         address = self.address_bar.get_text()
 
-        if address == "":
-            self.ping_error(gettext("Enter a host to ping"), False)
-            return
-        else:
-            self.address_bar.remove_css_class("error")
-
         address = regex.sub("^(http|https)://|/+$", "", address)
         self.address_bar.set_text(address)
+        self.address_bar.remove_css_class("error")
 
         # TODO: maybe find a better way to check the family?
 	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
