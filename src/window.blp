@@ -10,7 +10,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
   content: Adw.NavigationView main_view {
     Adw.NavigationPage start_page {
-      title: "Echo";
+      title: bind template.title;
 
       child: Adw.ToolbarView {
         [top]
