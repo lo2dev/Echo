@@ -38,7 +38,7 @@ class EchoWindow(Adw.ApplicationWindow):
     cancel_ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
-    advanced_options = Gtk.Template.Child()
+    ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
     ping_interval_adjust = Gtk.Template.Child()
     ping_timeout_adjust = Gtk.Template.Child()
@@ -58,7 +58,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("advanced-options-expanded", self.advanced_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-options-expanded", self.ping_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
@@ -75,7 +75,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.spinner_parent.set_visible(False)
 
         # This gets the GtkRevealer containing the children
-        self.advanced_children = self.advanced_options.get_child().get_last_child()
+        self.ping_options_children = self.ping_options.get_child().get_last_child()
 
     def cancel_ping(self, *_):
         if self.task:
@@ -174,7 +174,7 @@ class EchoWindow(Adw.ApplicationWindow):
         if disable == True:
             self.ping_button.set_sensitive(False)
             self.address_bar.set_sensitive(False)
-            self.advanced_children.set_sensitive(False)
+            self.ping_options_children.set_sensitive(False)
 
             self.ping_button.set_visible(False)
             self.cancel_ping_button.set_visible(True)
@@ -183,7 +183,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.spinner_parent.set_visible(False)
             self.ping_button.set_sensitive(True)
             self.address_bar.set_sensitive(True)
-            self.advanced_children.set_sensitive(True)
+            self.ping_options_children.set_sensitive(True)
 
             self.ping_button.set_visible(True)
             self.cancel_ping_button.set_visible(False)
