@@ -108,7 +108,7 @@ class EchoWindow(Adw.ApplicationWindow):
         elif saved_family == 2:
             ping_family = 6
 
-        self.set_form_disable(True)
+        self.disable_form(True)
 
         self.task = ThreadWithTrace(
             target=self.ping_task,
@@ -152,7 +152,7 @@ class EchoWindow(Adw.ApplicationWindow):
         except:
             self.ping_error(gettext("Unexpected error"), False)
 
-        self.set_form_disable(False)
+        self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error):
         toast = Adw.Toast()
@@ -170,7 +170,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.address_bar.add_css_class("error")
 
-    def set_form_disable(self, disable):
+    def disable_form(self, disable):
         if disable == True:
             self.ping_button.set_sensitive(False)
             self.address_bar.set_sensitive(False)
