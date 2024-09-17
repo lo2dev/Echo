@@ -105,6 +105,33 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                         Adw.EntryRow ping_source_row {
                           title: _("Source");
+
+                          [suffix]
+                          MenuButton {
+                            icon-name: "lightbulb-symbolic";
+                            tooltip-text: _("Info");
+                            popover: Popover {
+                              has-arrow: true;
+                              position: top;
+
+                              child: Box {
+                                Label {
+                                  label: _("The IP address from which to ping");
+                                  wrap: true;
+                                  margin-top: 7;
+                                  margin-bottom: 7;
+                                  margin-start: 7;
+                                  margin-end: 7;
+                                }
+                              };
+                            };
+
+                            valign: center;
+                            halign: center;
+                            has-frame: false;
+
+                            styles ["circular"]
+                          }
                         }
 
                         Adw.ComboRow ping_family_row {
