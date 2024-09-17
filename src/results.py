@@ -36,7 +36,13 @@ class EchoResultsPage(Adw.NavigationPage):
         super().__init__(**kwargs)
 
         self.result_title.props.label = str(result_title)
-        self.address_ip.props.label = str(result_data.address)
+
+        if result_title == result_data.address:
+            self.address_ip.props.visible = False
+        else:
+            self.address_ip.props.visible = True
+            self.address_ip.props.label = str(result_data.address)
+
         self.response_time.props.subtitle = f"min {result_data.min_rtt:.1f} ⸱ avg {result_data.avg_rtt:.1f} ⸱ max {result_data.max_rtt:.1f} ms"
         self.packets_sent.props.subtitle = str(result_data.packets_sent)
         self.packets_received.props.subtitle = str(result_data.packets_received)
