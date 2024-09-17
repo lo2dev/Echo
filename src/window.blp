@@ -4,8 +4,6 @@ using Adw 1;
 template $EchoWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
-  default-width: 460;
-  default-height: 580;
   title: _("Echo");
 
   content: Adw.NavigationView main_view {
@@ -76,7 +74,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                           adjustment: Adjustment ping_count_adjust {
                             lower: 1;
-                            upper: 100;
+                            upper: 1000;
                             step-increment: 1;
                           };
                         }
@@ -89,8 +87,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                           adjustment: Adjustment ping_interval_adjust {
                             lower: 0.1;
                             upper: 100;
-                            value: 1;
-                            step-increment: 0.5;
+                            step-increment: 0.1;
                           };
                         }
 
@@ -102,7 +99,6 @@ template $EchoWindow: Adw.ApplicationWindow {
                           adjustment: Adjustment ping_timeout_adjust {
                             lower: 0.1;
                             upper: 100;
-                            value: 2;
                             step-increment: 1;
                           };
                         }
