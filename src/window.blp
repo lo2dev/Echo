@@ -4,13 +4,11 @@ using Adw 1;
 template $EchoWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 294;
-  default-width: 460;
-  default-height: 580;
   title: _("Echo");
 
   content: Adw.NavigationView main_view {
     Adw.NavigationPage start_page {
-      title: "Echo";
+      title: bind template.title;
 
       child: Adw.ToolbarView {
         [top]
@@ -67,8 +65,8 @@ template $EchoWindow: Adw.ApplicationWindow {
                         }
                       }
 
-                      Adw.ExpanderRow advanced_options {
-                        title: _("Advanced Options");
+                      Adw.ExpanderRow ping_options {
+                        title: _("Ping Options");
 
                         Adw.SpinRow {
                           title: _("Count");
@@ -76,7 +74,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                           adjustment: Adjustment ping_count_adjust {
                             lower: 1;
-                            upper: 100;
+                            upper: 1000;
                             step-increment: 1;
                           };
                         }
@@ -89,8 +87,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                           adjustment: Adjustment ping_interval_adjust {
                             lower: 0.1;
                             upper: 100;
-                            value: 1;
-                            step-increment: 0.5;
+                            step-increment: 0.1;
                           };
                         }
 
@@ -102,17 +99,44 @@ template $EchoWindow: Adw.ApplicationWindow {
                           adjustment: Adjustment ping_timeout_adjust {
                             lower: 0.1;
                             upper: 100;
-                            value: 2;
                             step-increment: 1;
                           };
                         }
 
                         Adw.EntryRow ping_source_row {
                           title: _("Source");
+
+                          [suffix]
+                          MenuButton {
+                            icon-name: "lightbulb-symbolic";
+                            tooltip-text: _("Info");
+                            popover: Popover {
+                              has-arrow: true;
+                              position: top;
+
+                              child: Box {
+                                Label {
+                                  label: _("The IP address from which to ping");
+                                  wrap: true;
+                                  margin-top: 7;
+                                  margin-bottom: 7;
+                                  margin-start: 7;
+                                  margin-end: 7;
+                                }
+                              };
+                            };
+
+                            valign: center;
+                            halign: center;
+                            has-frame: false;
+
+                            styles ["circular"]
+                          }
                         }
 
                         Adw.ComboRow ping_family_row {
                           title: _("Family");
+                          subtitle: _("The version of the Internet Protocol");
 
                           model: StringList {
                             strings [
@@ -128,6 +152,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                     Button ping_button {
                       label: _("Ping");
                       halign: center;
+                      sensitive: false;
 
                       styles [
                         "suggested-action",
@@ -153,18 +178,4 @@ template $EchoWindow: Adw.ApplicationWindow {
       };
     }
   };
-}
-
-menu menu_app {
-  section {
-    item {
-      label: _("Keyboard Shortcuts");
-      action: "app.shortcuts";
-    }
-
-    item {
-      label: _("About Echo");
-      action: "app.about";
-    }
-  }
 }

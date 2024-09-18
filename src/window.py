@@ -38,15 +38,13 @@ class EchoWindow(Adw.ApplicationWindow):
     cancel_ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
-    advanced_options = Gtk.Template.Child()
+    ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
     ping_interval_adjust = Gtk.Template.Child()
     ping_timeout_adjust = Gtk.Template.Child()
     ping_source_row = Gtk.Template.Child()
     ping_family_row = Gtk.Template.Child()
 
-    # TODO: add a class variable which will hold the address inputed by the user.
-    # the current method breaks if the user deletes the input from the address bar before the result is shown
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -60,7 +58,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("advanced-options-expanded", self.advanced_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind("ping-options-expanded", self.ping_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
@@ -77,7 +75,17 @@ class EchoWindow(Adw.ApplicationWindow):
         self.spinner_parent.set_visible(False)
 
         # This gets the GtkRevealer containing the children
-        self.advanced_children = self.advanced_options.get_child().get_last_child()
+        self.ping_options_children = self.ping_options.get_child().get_last_child()
+
+        self.address_bar.connect("notify::text", self.on_address_bar_content_changed)
+
+
+    def on_address_bar_content_changed(self, _text, _):
+        if self.address_bar.props.text_length > 0:
+            self.ping_button.props.sensitive = True
+        else:
+            self.ping_button.props.sensitive = False
+
 
     def cancel_ping(self, *_):
         if self.task:
@@ -90,14 +98,9 @@ class EchoWindow(Adw.ApplicationWindow):
     def ping(self, *_):
         address = self.address_bar.get_text()
 
-        if address == "":
-            self.ping_error(gettext("Enter a host to ping"))
-            return
-        else:
-            self.address_bar.remove_css_class("error")
-
         address = regex.sub("^(http|https)://|/+$", "", address)
         self.address_bar.set_text(address)
+        self.address_bar.remove_css_class("error")
 
         # TODO: maybe find a better way to check the family?
 	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
@@ -110,7 +113,7 @@ class EchoWindow(Adw.ApplicationWindow):
         elif saved_family == 2:
             ping_family = 6
 
-        self.set_form_disable(True)
+        self.disable_form(True)
 
         self.task = ThreadWithTrace(
             target=self.ping_task,
@@ -139,24 +142,27 @@ class EchoWindow(Adw.ApplicationWindow):
                 if self.task and not self.task.killed:
                     self.main_view.push(results_page)
             else:
-                self.ping_error(f"{self.address_bar.get_text()} is unreachable", False)
+                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
         except NameLookupError:
-            self.ping_error(gettext("The host can't be resolved or doesn't exist"), False)
+            self.ping_error(gettext("The host can't be resolved or doesn't exist"))
         except SocketPermissionError:
-            self.ping_error(gettext("Insufficient permissions"), True)
+            self.ping_error(gettext(
+                "Insufficient permissions"),
+                is_insufficient_error=True
+            )
         except TimeExceeded:
-            self.ping_error(gettext("Host timeout"), False)
+            self.ping_error(gettext("Host timeout"))
         except DestinationUnreachable:
-            self.ping_error(gettext("Destination is unreachable"), False)
+            self.ping_error(gettext("Destination is unreachable"))
         except KeyboardInterrupt:
             # This is good actually!
             pass
         except:
-            self.ping_error(gettext("Unexpected error"), False)
+            self.ping_error(gettext("Unexpected error"))
 
-        self.set_form_disable(False)
+        self.disable_form(False)
 
-    def ping_error(self, error_text, is_insufficient_error):
+    def ping_error(self, error_text, is_insufficient_error=False):
         toast = Adw.Toast()
         toast.set_title(error_text)
         toast.set_priority(Adw.ToastPriority.HIGH)
@@ -172,11 +178,11 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.address_bar.add_css_class("error")
 
-    def set_form_disable(self, disable):
+    def disable_form(self, disable):
         if disable == True:
             self.ping_button.set_sensitive(False)
             self.address_bar.set_sensitive(False)
-            self.advanced_children.set_sensitive(False)
+            self.ping_options_children.set_sensitive(False)
 
             self.ping_button.set_visible(False)
             self.cancel_ping_button.set_visible(True)
@@ -185,7 +191,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.spinner_parent.set_visible(False)
             self.ping_button.set_sensitive(True)
             self.address_bar.set_sensitive(True)
-            self.advanced_children.set_sensitive(True)
+            self.ping_options_children.set_sensitive(True)
 
             self.ping_button.set_visible(True)
             self.cancel_ping_button.set_visible(False)
