@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: echo\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-16 08:32+0200\n"
-"PO-Revision-Date: 2024-09-16 08:38+0200\n"
+"POT-Creation-Date: 2024-09-18 23:50+0200\n"
+"PO-Revision-Date: 2024-09-18 23:52+0200\n"
 "Last-Translator: Brage <bragefuglseth@gnome.org>\n"
 "Language-Team: \n"
 "Language: nb\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: Poedit 3.4.4\n"
 
 #: data/io.github.lo2dev.Echo.desktop.in:3
-#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:9
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:7
 msgid "Echo"
 msgstr "Echo"
 
@@ -58,97 +58,101 @@ msgstr "Hovedvindu med avanserte innstillinger"
 msgid "Ping results page showcasing the stats after the ping"
 msgstr "Resultatside"
 
-#: src/window.py:85
+#: src/window.py:93
 msgid "Cancelling Ping"
 msgstr "Avbryter"
 
-#: src/window.py:94
-msgid "Enter a host to ping"
-msgstr "Skriv inn en adresse"
-
-#: src/window.py:144
+#: src/window.py:147
 msgid "The host can't be resolved or doesn't exist"
 msgstr "Adressen eksisterer ikke"
 
-#: src/window.py:146
+#: src/window.py:150
 msgid "Insufficient permissions"
 msgstr "Nødvendige tillatelser mangler"
 
-#: src/window.py:148
+#: src/window.py:154
 msgid "Host timeout"
 msgstr "Tidsgrense nådd"
 
-#: src/window.py:150
+#: src/window.py:156
 msgid "Destination is unreachable"
 msgstr "Destinasjonen er utilgjengelig"
 
-#: src/window.py:155
+#: src/window.py:161
 msgid "Unexpected error"
 msgstr "Ukjent feil"
 
-#: src/window.py:166
+#: src/window.py:172
 msgid "Details"
 msgstr "Informasjon"
 
-#: src/window.py:193 src/window.blp:140
+#: src/window.py:199 src/window.blp:165
 msgid "Cancel Ping"
 msgstr "Avbryt"
 
-#: src/window.blp:21 src/window.blp:166
+#: src/window.blp:19
 msgid "About Echo"
 msgstr "Om Echo"
 
-#: src/window.blp:31
+#: src/window.blp:29
 msgid "No network connection"
 msgstr "Ikke på nett"
 
-#: src/window.blp:62
+#: src/window.blp:60
 msgid "Address"
 msgstr "Adresse"
 
-#: src/window.blp:71
-msgid "Advanced Options"
-msgstr "Avanserte innstillinger"
+#: src/window.blp:69
+msgid "Ping Options"
+msgstr "Innstillinger"
 
-#: src/window.blp:74
+#: src/window.blp:72
 msgid "Count"
 msgstr "Antall"
 
-#: src/window.blp:75
+#: src/window.blp:73
 msgid "Number of pings to perform"
 msgstr "Antall forespørsler som skal sendes"
 
-#: src/window.blp:85
+#: src/window.blp:83
 msgid "Interval"
 msgstr "Intervall"
 
-#: src/window.blp:86
+#: src/window.blp:84
 msgid "Seconds between sending each packet"
 msgstr "Sekunder mellom hver forespørsel"
 
-#: src/window.blp:98
+#: src/window.blp:95
 msgid "Timeout"
 msgstr "Tidsgrense"
 
-#: src/window.blp:99
+#: src/window.blp:96
 msgid "Maximum seconds to wait for a reply"
 msgstr "Sekunder før forespørslene avbrytes uten svar"
 
-#: src/window.blp:111
+#: src/window.blp:107
 msgid "Source"
 msgstr "Kilde"
 
-#: src/window.blp:115
+#: src/window.blp:112
+msgid "Info"
+msgstr "Informasjon"
+
+#: src/window.blp:119
+msgid "The IP address from which to ping"
+msgstr "IP-adressen forespørselen skal sendes fra"
+
+#: src/window.blp:138
 msgid "Family"
 msgstr "Protokoll"
 
-#: src/window.blp:129
+#: src/window.blp:139
+msgid "The version of the Internet Protocol"
+msgstr "IP-versjonen som skal brukes"
+
+#: src/window.blp:153
 msgid "Ping"
 msgstr "Send"
-
-#: src/window.blp:161
-msgid "Keyboard Shortcuts"
-msgstr "Tastatursnarveier"
 
 #: src/results.blp:5
 msgid "Ping Results"
@@ -184,3 +188,9 @@ msgstr "Vis tastatursnarveier"
 msgctxt "shortcut window"
 msgid "Quit"
 msgstr "Avslutt"
+
+#~ msgid "Enter a host to ping"
+#~ msgstr "Skriv inn en adresse"
+
+#~ msgid "Keyboard Shortcuts"
+#~ msgstr "Tastatursnarveier"
