@@ -56,7 +56,7 @@
 
   <releases>
     <release version="1.2" date="2024-07-07">
-      <description>
+      <description translate="no">
         <ul>
           <li>If the protocol (https://) is included in the address, it will be automatically removed upon pinging</li>
           <li>Error messages will now display in toasts</li>
@@ -66,7 +66,7 @@
       </description>
     </release>
     <release version="1.1" date="2024-07-03">
-      <description>
+      <description translate="no">
         <ul>
           <li>Remember if advanced options are expanded or not</li>
           <li>Made results and response time selectable</li>
@@ -76,7 +76,7 @@
       </description>
     </release>
     <release version="1.0" date="2024-06-28">
-      <description>
+      <description translate="no">
         <p>
           Initial release!
         </p>
