@@ -7,6 +7,7 @@ blueprints = custom_target('blueprints',
     'gtk/help-overlay.blp',
     'window.blp',
     'results.blp',
+    'results_card.blp',
   ),
   output: '.',
   command: [find_program('blueprint-compiler'), 'batch-compile', '@OUTPUT@', '@CURRENT_SOURCE_DIR@', '@INPUT@'],
@@ -42,6 +43,7 @@ echo_sources = [
   'main.py',
   'window.py',
   'results.py',
+  'results_card.py'
 ]
 
 install_data(echo_sources, install_dir: moduledir)

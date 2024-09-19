@@ -17,8 +17,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw
-from gi.repository import Gtk
+from gi.repository import Adw, Gtk
+from gettext import gettext
+from .results_card import EchoResultsCard
+
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/results.ui')
 class EchoResultsPage(Adw.NavigationPage):
@@ -27,7 +29,9 @@ class EchoResultsPage(Adw.NavigationPage):
     results_icon = Gtk.Template.Child()
     result_title = Gtk.Template.Child()
     address_ip = Gtk.Template.Child()
-    response_time = Gtk.Template.Child()
+
+    stat_cards_box = Gtk.Template.Child()
+
     packets_sent = Gtk.Template.Child()
     packets_received = Gtk.Template.Child()
     packet_loss = Gtk.Template.Child()
@@ -43,8 +47,13 @@ class EchoResultsPage(Adw.NavigationPage):
             self.address_ip.props.visible = True
             self.address_ip.props.label = str(result_data.address)
 
-        self.response_time.props.subtitle = f"min {result_data.min_rtt:.1f} ⸱ avg {result_data.avg_rtt:.1f} ⸱ max {result_data.max_rtt:.1f} ms"
+        min_card = EchoResultsCard(gettext("Minimum"), f"{result_data.min_rtt:.1f}")
+        avg_card = EchoResultsCard(gettext("Average"), f"{result_data.avg_rtt:.1f}")
+        max_card = EchoResultsCard(gettext("Maximum"), f"{result_data.max_rtt:.1f}")
+        self.stat_cards_box.append(min_card)
+        self.stat_cards_box.append(avg_card)
+        self.stat_cards_box.append(max_card)
+
         self.packets_sent.props.subtitle = str(result_data.packets_sent)
         self.packets_received.props.subtitle = str(result_data.packets_received)
         self.packet_loss.props.subtitle = f"{result_data.packet_loss:.0%}"
-
