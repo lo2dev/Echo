@@ -1,0 +1,42 @@
+using Gtk 4.0;
+
+template $EchoResultsCard: Box {
+  orientation: vertical;
+  homogeneous: true;
+
+  styles [
+    "card",
+    "response-time-card"
+  ]
+
+  Label card_title_label {
+    halign: start;
+
+    styles [
+      "dim-label"
+    ]
+  }
+
+  Box {
+    spacing: 4;
+
+    Label card_value_label {
+      halign: start;
+      valign: end;
+
+      styles [
+        "title-4"
+      ]
+    }
+
+    Label card_unit_label {
+      label: _("ms");
+      valign: end;
+
+      styles [
+        "title-5",
+        "dim-label"
+      ]
+    }
+  }
+}

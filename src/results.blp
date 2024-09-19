@@ -36,7 +36,7 @@ template $EchoResultsPage : Adw.NavigationPage {
 
                 Image results_icon {
                   icon-name: "echo-emblem-default-symbolic";
-                  pixel-size: 80;
+                  pixel-size: 70;
                   margin-bottom: 10;
                   styles ["success"]
                 }
@@ -56,27 +56,40 @@ template $EchoResultsPage : Adw.NavigationPage {
               }
             }
 
-            ListBox {
-              selection-mode: none;
-              margin-top: 10;
-              styles ["boxed-list"]
+            Adw.PreferencesGroup {
+              title: _("Response Time");
+              margin-top: 16;
 
-              Adw.ActionRow response_time {
-                title: _("Response Time");
-                subtitle-selectable: true;
-                styles ["property"]
-              }
-              Adw.ActionRow packets_sent {
-                title: _("Packets Sent");
-                styles ["property"]
-              }
-              Adw.ActionRow packets_received {
-                title: _("Packets Received");
-                styles ["property"]
-              }
-              Adw.ActionRow packet_loss {
-                title: _("Packet Loss");
-                styles ["property"]
+                /* Time stats */
+                FlowBox stat_cards_box {
+                  selection-mode: none;
+                  orientation: horizontal;
+                  homogeneous: true;
+                  max-children-per-line: 3;
+                  min-children-per-line: 1;
+                  row-spacing: 6;
+                  column-spacing: 6;
+
+                  styles ["stat-flowbox"]
+                }
+
+              ListBox {
+                selection-mode: none;
+                margin-top: 6;
+                styles ["boxed-list"]
+
+                Adw.ActionRow packets_sent {
+                  title: _("Packets Sent");
+                  styles ["property"]
+                }
+                Adw.ActionRow packets_received {
+                  title: _("Packets Received");
+                  styles ["property"]
+                }
+                Adw.ActionRow packet_loss {
+                  title: _("Packet Loss");
+                  styles ["property"]
+                }
               }
             }
           }

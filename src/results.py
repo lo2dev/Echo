@@ -17,8 +17,10 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw
-from gi.repository import Gtk
+from gi.repository import Adw, Gtk
+from gettext import gettext
+from .results_card import EchoResultsCard
+
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/results.ui')
 class EchoResultsPage(Adw.NavigationPage):
@@ -27,7 +29,9 @@ class EchoResultsPage(Adw.NavigationPage):
     results_icon = Gtk.Template.Child()
     result_title = Gtk.Template.Child()
     address_ip = Gtk.Template.Child()
-    response_time = Gtk.Template.Child()
+
+    stat_cards_box = Gtk.Template.Child()
+
     packets_sent = Gtk.Template.Child()
     packets_received = Gtk.Template.Child()
     packet_loss = Gtk.Template.Child()
@@ -35,10 +39,21 @@ class EchoResultsPage(Adw.NavigationPage):
     def __init__(self, result_data, result_title, **kwargs):
         super().__init__(**kwargs)
 
-        self.result_title.set_text(f"{result_title} is alive")
-        self.address_ip.set_text(f"{result_data.address}")
-        self.response_time.set_subtitle(f"min {result_data.min_rtt:.1f} / avg {result_data.avg_rtt:.1f} / max {result_data.max_rtt:.1f} ms")
-        self.packets_sent.set_subtitle(f"{result_data.packets_sent}")
-        self.packets_received.set_subtitle(f"{result_data.packets_received}")
-        self.packet_loss.set_subtitle(f"{result_data.packet_loss:.0%}")
+        self.result_title.props.label = str(result_title)
 
+        if result_title == result_data.address:
+            self.address_ip.props.visible = False
+        else:
+            self.address_ip.props.visible = True
+            self.address_ip.props.label = str(result_data.address)
+
+        min_card = EchoResultsCard(gettext("Minimum"), f"{result_data.min_rtt:.1f}")
+        avg_card = EchoResultsCard(gettext("Average"), f"{result_data.avg_rtt:.1f}")
+        max_card = EchoResultsCard(gettext("Maximum"), f"{result_data.max_rtt:.1f}")
+        self.stat_cards_box.append(min_card)
+        self.stat_cards_box.append(avg_card)
+        self.stat_cards_box.append(max_card)
+
+        self.packets_sent.props.subtitle = str(result_data.packets_sent)
+        self.packets_received.props.subtitle = str(result_data.packets_received)
+        self.packet_loss.props.subtitle = f"{result_data.packet_loss:.0%}"
