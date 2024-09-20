@@ -98,6 +98,9 @@ class EchoWindow(Adw.ApplicationWindow):
     def ping(self, *_):
         address = self.address_bar.get_text()
 
+        if not address:
+            return
+
         address = regex.sub("^(http|https)://|/+$", "", address)
         self.address_bar.set_text(address)
         self.address_bar.remove_css_class("error")
