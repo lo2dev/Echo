@@ -183,7 +183,6 @@ class EchoWindow(Adw.ApplicationWindow):
 
     def disable_form(self, disable):
         if disable == True:
-            self.ping_button.set_sensitive(False)
             self.address_bar.set_sensitive(False)
             self.ping_options_children.set_sensitive(False)
 
@@ -192,7 +191,6 @@ class EchoWindow(Adw.ApplicationWindow):
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
             self.spinner_parent.set_visible(False)
-            self.ping_button.set_sensitive(True)
             self.address_bar.set_sensitive(True)
             self.ping_options_children.set_sensitive(True)
 
