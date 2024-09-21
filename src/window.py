@@ -65,10 +65,6 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
 
-        self.address_bar.connect("entry-activated", self.ping)
-        self.ping_button.connect("clicked", self.ping)
-        self.cancel_ping_button.connect("clicked", self.cancel_ping)
-
         # The box parent creates an unwanted subtle margin in the address bar
         # so we hide and show the box instead of spinner
         self.spinner_parent = self.address_spinner.get_parent()
@@ -87,6 +83,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_button.props.sensitive = False
 
 
+    @Gtk.Template.Callback()
     def cancel_ping(self, *_):
         if self.task:
             self.cancel_ping_button.set_sensitive(False)
@@ -95,6 +92,8 @@ class EchoWindow(Adw.ApplicationWindow):
             self.task.killed = True
             self.task = None
 
+
+    @Gtk.Template.Callback()
     def ping(self, *_):
         address = self.address_bar.get_text()
 

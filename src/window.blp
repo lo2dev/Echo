@@ -58,6 +58,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                       Adw.EntryRow address_bar {
                         title: _("Address");
+                        entry-activated => $ping();
 
                         [suffix]
                         Adw.Spinner address_spinner {
@@ -154,6 +155,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                       label: _("Ping");
                       halign: center;
                       sensitive: false;
+                      clicked => $ping();
 
                       styles [
                         "suggested-action",
@@ -165,6 +167,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                       visible: false;
                       label: _("Cancel Ping");
                       halign: center;
+                      clicked => $cancel_ping();
 
                       styles [
                         "pill"
