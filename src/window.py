@@ -73,15 +73,6 @@ class EchoWindow(Adw.ApplicationWindow):
         # This gets the GtkRevealer containing the children
         self.ping_options_children = self.ping_options.get_child().get_last_child()
 
-        self.address_bar.connect("notify::text", self.on_address_bar_content_changed)
-
-
-    def on_address_bar_content_changed(self, _text, _):
-        if self.address_bar.props.text_length > 0:
-            self.ping_button.props.sensitive = True
-        else:
-            self.ping_button.props.sensitive = False
-
 
     @Gtk.Template.Callback()
     def cancel_ping(self, *_):

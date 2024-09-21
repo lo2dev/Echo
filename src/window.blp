@@ -154,7 +154,7 @@ template $EchoWindow: Adw.ApplicationWindow {
                     Button ping_button {
                       label: _("Ping");
                       halign: center;
-                      sensitive: false;
+                      sensitive: bind address_bar.text-length;
                       clicked => $ping();
 
                       styles [
