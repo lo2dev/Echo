@@ -75,7 +75,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
 
     @Gtk.Template.Callback()
-    def cancel_ping(self, *_):
+    def cancel_ping(self, *_) -> None:
         if self.task:
             self.cancel_ping_button.set_sensitive(False)
             self.cancel_ping_button.set_label(gettext("Cancelling Ping"))
@@ -85,7 +85,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
 
     @Gtk.Template.Callback()
-    def ping(self, *_):
+    def ping(self, *_) -> None:
         address = self.address_bar.get_text()
 
         if not address:
@@ -126,7 +126,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
 
-    def ping_task(self, *args, **kwargs):
+    def ping_task(self, *args, **kwargs) -> None:
         try:
             result = ping(*args, **kwargs)
 
@@ -155,7 +155,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.disable_form(False)
 
-    def ping_error(self, error_text, is_insufficient_error=False):
+    def ping_error(self, error_text, is_insufficient_error=False) -> None:
         toast = Adw.Toast()
         toast.set_title(error_text)
         toast.set_priority(Adw.ToastPriority.HIGH)
@@ -171,7 +171,7 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.address_bar.add_css_class("error")
 
-    def disable_form(self, disable):
+    def disable_form(self, disable) -> None:
         if disable == True:
             self.address_bar.set_sensitive(False)
             self.ping_options_children.set_sensitive(False)
@@ -197,14 +197,14 @@ class ThreadWithTrace(threading.Thread):
         super().__init__(*args, **kwargs)
         self.killed = False
 
-    def start(self):
+    def start(self) -> None:
         if self.killed:
             return
         self.__run_backup = self.run
         self.run = self.__run
         super().start()
 
-    def __run(self):
+    def __run(self) -> None:
         sys.settrace(self.globaltrace)
         self.__run_backup()
         self.run = self.__run_backup
@@ -221,6 +221,6 @@ class ThreadWithTrace(threading.Thread):
                 raise KeyboardInterrupt
         return self.localtrace
 
-    def kill(self):
+    def kill(self) -> None:
         self.killed = True
 
