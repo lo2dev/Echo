@@ -6,8 +6,20 @@ project('echo',
 
 i18n = import('i18n')
 gnome = import('gnome')
+python = import('python')
 
+pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
+moduledir = pkgdatadir / 'echo'
 
+conf = configuration_data()
+conf.set('PYTHON', python.find_installation('python3').full_path())
+conf.set('VERSION', meson.project_version())
+conf.set('localedir', get_option('prefix') / get_option('localedir'))
+conf.set('pkgdatadir', pkgdatadir)
+
+app_id = 'io.github.lo2dev.Echo'
+prefix = get_option('prefix')
+bindir = join_paths(prefix, 'bin')
 
 subdir('data')
 subdir('src')

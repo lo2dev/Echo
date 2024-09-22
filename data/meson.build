@@ -34,3 +34,11 @@ test('Validate schema file',
      args: ['--strict', '--dry-run', meson.current_source_dir()])
 
 subdir('icons')
+
+configure_file(
+  input: 'io.github.lo2dev.Echo.service',
+  output: '@0@.service'.format(app_id),
+  configuration: { 'app_id': app_id, 'bindir': bindir },
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'dbus-1/services')
+)

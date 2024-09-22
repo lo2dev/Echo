@@ -9,3 +9,5 @@ Type=Application
 Categories=GNOME;GTK;Utility;
 Keywords=ping
 StartupNotify=true
+DBusActivatable=true
+X-GNOME-UsesNotifications=true

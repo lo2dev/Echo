@@ -73,6 +73,8 @@ class EchoWindow(Adw.ApplicationWindow):
         # This gets the GtkRevealer containing the children
         self.ping_options_children = self.ping_options.get_child().get_last_child()
 
+        self.notif = Gio.Notification()
+
 
     @Gtk.Template.Callback()
     def cancel_ping(self, *_) -> None:
@@ -127,31 +129,54 @@ class EchoWindow(Adw.ApplicationWindow):
         self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
 
     def ping_task(self, *args, **kwargs) -> None:
+        self.notif.set_title(gettext("Ping Failed"))
+
+        notif_icon = Gio.ThemedIcon(name="dialog-error-symbolic")
+        self.notif.set_icon(notif_icon)
+
         try:
             result = ping(*args, **kwargs)
 
-            if result.is_alive:
+            if result.is_alive and self.task and not self.task.killed:
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
-                if self.task and not self.task.killed:
-                    self.main_view.push(results_page)
+                self.main_view.push(results_page)
+
+                self.notif.set_title(gettext("Ping Succeed"))
+                self.notif.set_body(f"{self.address_bar.props.text}")
+
+                notif_icon = Gio.ThemedIcon(name="emblem-ok-symbolic")
+                self.notif.set_icon(notif_icon)
             else:
-                self.ping_error(f"{self.address_bar.get_text()} is unreachable")
+                error_text = f"{self.address_bar.get_text()} is unreachable"
+                self.notif.set_body(error_text)
+                self.ping_error(error_text)
         except NameLookupError:
-            self.ping_error(gettext("The host can't be resolved or doesn't exist"))
+            error_text = gettext("The host can't be resolved or doesn't exist")
+            self.notif.set_body(error_text)
+            self.ping_error(error_text)
         except SocketPermissionError:
             self.ping_error(gettext(
                 "Insufficient permissions"),
                 is_insufficient_error=True
             )
         except TimeExceeded:
-            self.ping_error(gettext("Host timeout"))
+            error_text = gettext("Host timeout")
+            self.notif.set_body(error_text)
+            self.ping_error(error_text)
         except DestinationUnreachable:
-            self.ping_error(gettext("Destination is unreachable"))
+            error_text = gettext("Destination is unreachable")
+            self.notif.set_body(error_text)
+            self.ping_error(error_text)
         except KeyboardInterrupt:
             # This is good actually!
             pass
         except:
-            self.ping_error(gettext("Unexpected error"))
+            error_text = gettext("Unexpected error")
+            self.notif.set_body(error_text)
+            self.ping_error(error_text)
+
+        if not self.props.is_active:
+            self.props.application.send_notification("ping-result", self.notif)
 
         self.disable_form(False)
 

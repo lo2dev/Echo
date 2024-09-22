@@ -1,5 +1,3 @@
-pkgdatadir = get_option('prefix') / get_option('datadir') / meson.project_name()
-moduledir = pkgdatadir / 'echo'
 gnome = import('gnome')
 
 blueprints = custom_target('blueprints',
@@ -20,14 +18,6 @@ gnome.compile_resources('echo',
   install_dir: pkgdatadir,
   dependencies: blueprints,
 )
-
-python = import('python')
-
-conf = configuration_data()
-conf.set('PYTHON', python.find_installation('python3').full_path())
-conf.set('VERSION', meson.project_version())
-conf.set('localedir', get_option('prefix') / get_option('localedir'))
-conf.set('pkgdatadir', pkgdatadir)
 
 configure_file(
   input: 'echo.in',
