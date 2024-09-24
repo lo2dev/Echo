@@ -55,6 +55,29 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="2.0" date="2024-09-24">
+      <description translate="no">
+        <ul>
+          <li>Added a spinner to the address bar when pinging</li>
+          <li>Added descriptions to the Source and Family rows</li>
+          <li>Added notifications when pinging is done</li>
+          <li>Added a link to workaround for the Insufficient Permissions error</li>
+          <li>Added Norwegian Bokmaal translations</li>
+          <li>Pings can now be cancelled</li>
+          <li>Redesigned the Response Time row to be individual cards</li>
+          <li>Renamed Advanced Options to Ping Options</li>
+          <li>Ping options can now be collapsed during ping</li>
+          <li>When pinging an IP, it won't be shown two times in the results page</li>
+          <li>Ping button will now be disabled when address bar is empty</li>
+          <li>Increased the maximum number of pings to 1000</li>
+          <li>Ported to GNOME 47</li>
+        </ul>
+        <p>Translators:</p>
+        <ul>
+          <li>Brage Fuglseth</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2" date="2024-07-07">
       <description translate="no">
         <ul>
