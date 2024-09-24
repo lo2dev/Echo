@@ -14,9 +14,9 @@
   <description>
     <p>Utility to ping websites.</p>
     <p>Features include:</p>
-    <ol>
+    <ul>
       <li>Advanced ping parameters like ping count, timeout, etc</li>
-    </ol>
+    </ul>
   </description>
 
   <launchable type="desktop-id">io.github.lo2dev.Echo.desktop</launchable>
