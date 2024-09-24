@@ -36,7 +36,6 @@ sudo sysctl -p
 
 ## Planned
 - Ping history
-- Stop ping midway
 
 ## Code of Conduct
 
