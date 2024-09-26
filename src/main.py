@@ -25,6 +25,7 @@ gi.require_version('Adw', '1')
 
 from gi.repository import Gtk, Gio, Adw
 from .window import EchoWindow
+from gettext import gettext
 
 
 class EchoApplication(Adw.Application):
@@ -50,6 +51,9 @@ class EchoApplication(Adw.Application):
             "/io/github/lo2dev/Echo/io.github.lo2dev.Echo.metainfo.xml"
         )
         about.set_copyright("© 2024 Lo")
+        # TODO: Fix translators credits not showing in the about page
+        # Translators: Replace "translator-credits" with your names, one name per line
+        about.set_translator_credits(gettext("translator-credits"))
         about.present(self.props.active_window)
 
     def create_action(self, name, callback, shortcuts=None):
