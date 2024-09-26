@@ -1,59 +1,59 @@
-# ITALIAN TRANSLATION.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the echo package.
-# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: echo\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 13:36+0300\n"
-"PO-Revision-Date: 2024-09-24 14:15+0100\n"
-"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
-"Language-Team: Italian\n"
-"Language: it\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.4\n"
 
 #: data/io.github.lo2dev.Echo.desktop.in:3
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:7
 msgid "Echo"
-msgstr "Echo"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.desktop.in:4
 msgid "Ping Utility"
-msgstr "Utilità Ping"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.desktop.in:5
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:8
 msgid "Ping websites"
-msgstr "Eseguire il ping dei siti Web"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.desktop.in:11
 msgid "ping"
-msgstr "ping;"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:15
 msgid "Utility to ping websites."
-msgstr "Utilità per effettuare il ping sui siti web."
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:16
 msgid "Features include:"
-msgstr "Le funzionalità includono:"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:18
 msgid "Advanced ping parameters like ping count, timeout, etc"
-msgstr "Parametri ping avanzati come conteggio ping, timeout, ecc."
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:47
 msgid "Main page showcasing the ping form with advanced options"
-msgstr "Pagina principale che mostra il modulo ping con opzioni avanzate"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:51
 msgid "Ping results page showcasing the stats after the ping"
-msgstr "Pagina dei risultati del ping che mostra le statistiche dopo il ping"
+msgstr ""
 
 #. Translators: Replace "translator-credits" with your names, one name per line
 #: src/main.py:55
@@ -62,12 +62,11 @@ msgstr ""
 
 #: src/window.py:83
 msgid "Cancelling Ping"
-msgstr "Annullamento del ping"
+msgstr ""
 
 #: src/window.py:132
-#, fuzzy
 msgid "Ping Failed"
-msgstr "Utilità Ping"
+msgstr ""
 
 #: src/window.py:144
 msgid "Ping Succeed"
@@ -75,95 +74,95 @@ msgstr ""
 
 #: src/window.py:154
 msgid "The host can't be resolved or doesn't exist"
-msgstr "L'host non può essere risolto o non esiste"
+msgstr ""
 
 #: src/window.py:159
 msgid "Insufficient permissions"
-msgstr "Autorizzazioni insufficienti"
+msgstr ""
 
 #: src/window.py:163
 msgid "Host timeout"
-msgstr "Timeout dell'host"
+msgstr ""
 
 #: src/window.py:167
 msgid "Destination is unreachable"
-msgstr "La destinazione è irraggiungibile"
+msgstr ""
 
 #: src/window.py:174
 msgid "Unexpected error"
-msgstr "Errore imprevisto"
+msgstr ""
 
 #: src/window.py:190
 msgid "Details"
-msgstr "Dettagli"
+msgstr ""
 
 #: src/window.py:215 src/window.blp:168
 msgid "Cancel Ping"
-msgstr "Annulla Ping"
+msgstr ""
 
 #: src/window.blp:19
 msgid "About Echo"
-msgstr "Informazioni su Echo"
+msgstr ""
 
 #: src/window.blp:29
 msgid "No network connection"
-msgstr "Nessuna connessione di rete"
+msgstr ""
 
 #: src/window.blp:60
 msgid "Address"
-msgstr "Indirizzo"
+msgstr ""
 
 #: src/window.blp:71
 msgid "Ping Options"
-msgstr "Opzioni del Ping"
+msgstr ""
 
 #: src/window.blp:74
 msgid "Count"
-msgstr "Conteggio"
+msgstr ""
 
 #: src/window.blp:75
 msgid "Number of pings to perform"
-msgstr "Numero di ping da eseguire"
+msgstr ""
 
 #: src/window.blp:85
 msgid "Interval"
-msgstr "Intervallo"
+msgstr ""
 
 #: src/window.blp:86
 msgid "Seconds between sending each packet"
-msgstr "Secondi tra l'invio di ogni pacchetto"
+msgstr ""
 
 #: src/window.blp:97
 msgid "Timeout"
-msgstr "Timeout"
+msgstr ""
 
 #: src/window.blp:98
 msgid "Maximum seconds to wait for a reply"
-msgstr "Numero massimo di secondi di attesa per una risposta"
+msgstr ""
 
 #: src/window.blp:109
 msgid "Source"
-msgstr "Sorgente"
+msgstr ""
 
 #: src/window.blp:114
 msgid "Info"
-msgstr "Info"
+msgstr ""
 
 #: src/window.blp:121
 msgid "The IP address from which to ping"
-msgstr "L'indirizzo IP da cui effettuare il ping"
+msgstr ""
 
 #: src/window.blp:140
 msgid "Family"
-msgstr "Famiglia"
+msgstr ""
 
 #: src/window.blp:141
 msgid "The version of the Internet Protocol"
-msgstr "La versione del protocollo Internet"
+msgstr ""
 
 #: src/window.blp:155
 msgid "Ping"
-msgstr "Ping"
+msgstr ""
 
 #: src/results.py:50
 msgid "Minimum"
@@ -179,41 +178,35 @@ msgstr ""
 
 #: src/results.blp:5
 msgid "Ping Results"
-msgstr "Risultati del ping"
+msgstr ""
 
 #: src/results.blp:60
 msgid "Response Time"
-msgstr "Tempo di risposta"
+msgstr ""
 
 #: src/results.blp:82
 msgid "Packets Sent"
-msgstr "Pacchetti inviati"
+msgstr ""
 
 #: src/results.blp:86
 msgid "Packets Received"
-msgstr "Pacchetti ricevuti"
+msgstr ""
 
 #: src/results.blp:90
 msgid "Packet Loss"
-msgstr "Pacchetto perso"
+msgstr ""
 
 #: src/gtk/help-overlay.blp:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generale"
+msgstr ""
 
 #: src/gtk/help-overlay.blp:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Mostra scorciatoie"
+msgstr ""
 
 #: src/gtk/help-overlay.blp:19
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Esci"
-
-#~ msgid "Enter a host to ping"
-#~ msgstr "Inserisci un host da pingare"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Scorciatoie da tastiera"
+msgstr ""

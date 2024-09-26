@@ -1,17 +1,18 @@
-# ITALIAN TRANSLATION.
+# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the echo package.
-# ALBANO BATTISTELLA <ALBANOBATTISTELLA@GMAIL.COM>, 2024.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: echo\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 13:36+0300\n"
-"PO-Revision-Date: 2024-09-24 14:15+0100\n"
-"Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
-"Language-Team: Italian\n"
-"Language: it\n"
+"PO-Revision-Date: 2024-09-26 13:54+0300\n"
+"Last-Translator: Ronnie Nissan <ronnie.nissan@proton.me>\n"
+"Language-Team: \n"
+"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,200 +21,193 @@ msgstr ""
 #: data/io.github.lo2dev.Echo.desktop.in:3
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:7
 msgid "Echo"
-msgstr "Echo"
+msgstr ""
 
 #: data/io.github.lo2dev.Echo.desktop.in:4
 msgid "Ping Utility"
-msgstr "Utilità Ping"
+msgstr "أداة أختبار الاتصال"
 
 #: data/io.github.lo2dev.Echo.desktop.in:5
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:8
 msgid "Ping websites"
-msgstr "Eseguire il ping dei siti Web"
+msgstr "اختبار الاتصال بمواقع إلكترونية"
 
 #: data/io.github.lo2dev.Echo.desktop.in:11
 msgid "ping"
-msgstr "ping;"
+msgstr "أختبار الاتصال"
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:15
 msgid "Utility to ping websites."
-msgstr "Utilità per effettuare il ping sui siti web."
+msgstr "أداة لاختبار الاتصال بموقع إلكتروني."
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:16
 msgid "Features include:"
-msgstr "Le funzionalità includono:"
+msgstr "تتضمن الميزات ما يلي:"
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:18
 msgid "Advanced ping parameters like ping count, timeout, etc"
-msgstr "Parametri ping avanzati come conteggio ping, timeout, ecc."
+msgstr "معلمات متقدمة لاختبار الاتصال مثل عدد الحزم، مهلة الاستجابة، وغيرها"
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:47
 msgid "Main page showcasing the ping form with advanced options"
-msgstr "Pagina principale che mostra il modulo ping con opzioni avanzate"
+msgstr "الصفحة الرئيسية تعرض نموذج اختبار الاتصال مع خيارات متقدمة"
 
 #: data/io.github.lo2dev.Echo.metainfo.xml.in:51
 msgid "Ping results page showcasing the stats after the ping"
-msgstr "Pagina dei risultati del ping che mostra le statistiche dopo il ping"
+msgstr "صفحة نتائج اختبار الاتصال تعرض الإحصائيات بعد إجراء الاختبار"
 
 #. Translators: Replace "translator-credits" with your names, one name per line
 #: src/main.py:55
 msgid "translator-credits"
-msgstr ""
+msgstr "Ronnie Nissan <ronnie.nissan@proton.me>"
 
 #: src/window.py:83
 msgid "Cancelling Ping"
-msgstr "Annullamento del ping"
+msgstr "إلغاء أختبار الاتصال"
 
 #: src/window.py:132
-#, fuzzy
 msgid "Ping Failed"
-msgstr "Utilità Ping"
+msgstr "فشل أختبار الاتصال"
 
 #: src/window.py:144
 msgid "Ping Succeed"
-msgstr ""
+msgstr "نجح أختبار الاتصال"
 
 #: src/window.py:154
 msgid "The host can't be resolved or doesn't exist"
-msgstr "L'host non può essere risolto o non esiste"
+msgstr "لا يمكن حل اسم المضيف أو أنه غير موجود."
 
 #: src/window.py:159
 msgid "Insufficient permissions"
-msgstr "Autorizzazioni insufficienti"
+msgstr "صلاحيات غير كافية"
 
 #: src/window.py:163
 msgid "Host timeout"
-msgstr "Timeout dell'host"
+msgstr "انتهاء مهلة أستجابة المضيف"
 
 #: src/window.py:167
 msgid "Destination is unreachable"
-msgstr "La destinazione è irraggiungibile"
+msgstr "لا يمكن الوصول إلى الوجهة"
 
 #: src/window.py:174
 msgid "Unexpected error"
-msgstr "Errore imprevisto"
+msgstr "خطء غير متوقع"
 
 #: src/window.py:190
 msgid "Details"
-msgstr "Dettagli"
+msgstr "التفاصيل"
 
 #: src/window.py:215 src/window.blp:168
 msgid "Cancel Ping"
-msgstr "Annulla Ping"
+msgstr "قم بإلغاء أختبار الاتصال"
 
 #: src/window.blp:19
 msgid "About Echo"
-msgstr "Informazioni su Echo"
+msgstr "حول Echo"
 
 #: src/window.blp:29
 msgid "No network connection"
-msgstr "Nessuna connessione di rete"
+msgstr "لا يوجد اتصال بالشبكة"
 
 #: src/window.blp:60
 msgid "Address"
-msgstr "Indirizzo"
+msgstr "العناوين"
 
 #: src/window.blp:71
 msgid "Ping Options"
-msgstr "Opzioni del Ping"
+msgstr "أختيارات أختبار الاتصال"
 
 #: src/window.blp:74
 msgid "Count"
-msgstr "Conteggio"
+msgstr "العدد"
 
 #: src/window.blp:75
 msgid "Number of pings to perform"
-msgstr "Numero di ping da eseguire"
+msgstr "عدد أختبارات الاتصال المطلوب تنفيذها"
 
 #: src/window.blp:85
 msgid "Interval"
-msgstr "Intervallo"
+msgstr "الفاصل الزمني"
 
 #: src/window.blp:86
 msgid "Seconds between sending each packet"
-msgstr "Secondi tra l'invio di ogni pacchetto"
+msgstr "عدد الثواني بين إرسال كل حزمة بيانات"
 
 #: src/window.blp:97
 msgid "Timeout"
-msgstr "Timeout"
+msgstr "أنتهاء مهلة الاستجابة"
 
 #: src/window.blp:98
 msgid "Maximum seconds to wait for a reply"
-msgstr "Numero massimo di secondi di attesa per una risposta"
+msgstr "أقصى عدد من الثواني للانتظار للحصول على رد"
 
 #: src/window.blp:109
 msgid "Source"
-msgstr "Sorgente"
+msgstr "المصدر"
 
 #: src/window.blp:114
 msgid "Info"
-msgstr "Info"
+msgstr "المعلومات"
 
 #: src/window.blp:121
 msgid "The IP address from which to ping"
-msgstr "L'indirizzo IP da cui effettuare il ping"
+msgstr "عنوان IP الذي سيتم إجراء اختبار الاتصال منه"
 
 #: src/window.blp:140
 msgid "Family"
-msgstr "Famiglia"
+msgstr "العائلة"
 
 #: src/window.blp:141
 msgid "The version of the Internet Protocol"
-msgstr "La versione del protocollo Internet"
+msgstr "إصدار بروتوكول الإنترنت"
 
 #: src/window.blp:155
 msgid "Ping"
-msgstr "Ping"
+msgstr "أختبار الاتصال"
 
 #: src/results.py:50
 msgid "Minimum"
-msgstr ""
+msgstr "الحد الأدنى"
 
 #: src/results.py:51
 msgid "Average"
-msgstr ""
+msgstr "المعدل"
 
 #: src/results.py:52
 msgid "Maximum"
-msgstr ""
+msgstr "الحد الأقصى"
 
 #: src/results.blp:5
 msgid "Ping Results"
-msgstr "Risultati del ping"
+msgstr "نتائج أختبار الاتصال"
 
 #: src/results.blp:60
 msgid "Response Time"
-msgstr "Tempo di risposta"
+msgstr "وقت الاستجابة"
 
 #: src/results.blp:82
 msgid "Packets Sent"
-msgstr "Pacchetti inviati"
+msgstr "حزمات البيانات المرسلة"
 
 #: src/results.blp:86
 msgid "Packets Received"
-msgstr "Pacchetti ricevuti"
+msgstr "حزمات البيانات المستلمة"
 
 #: src/results.blp:90
 msgid "Packet Loss"
-msgstr "Pacchetto perso"
+msgstr "فقدان الحزمة"
 
 #: src/gtk/help-overlay.blp:11
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generale"
+msgstr "عام"
 
 #: src/gtk/help-overlay.blp:14
 msgctxt "shortcut window"
 msgid "Show Shortcuts"
-msgstr "Mostra scorciatoie"
+msgstr "أظهار الاختصارات"
 
 #: src/gtk/help-overlay.blp:19
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Esci"
-
-#~ msgid "Enter a host to ping"
-#~ msgstr "Inserisci un host da pingare"
-
-#~ msgid "Keyboard Shortcuts"
-#~ msgstr "Scorciatoie da tastiera"
+msgstr "الخروج"
