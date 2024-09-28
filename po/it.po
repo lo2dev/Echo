@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: echo\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 13:36+0300\n"
-"PO-Revision-Date: 2024-09-24 14:15+0100\n"
+"PO-Revision-Date: 2024-09-27 12:15+0100\n"
 "Last-Translator: Albano Battistella <albanobattistella@gmail.com>\n"
 "Language-Team: Italian\n"
 "Language: it\n"
@@ -58,20 +58,19 @@ msgstr "Pagina dei risultati del ping che mostra le statistiche dopo il ping"
 #. Translators: Replace "translator-credits" with your names, one name per line
 #: src/main.py:55
 msgid "translator-credits"
-msgstr ""
+msgstr "Albano Battistella"
 
 #: src/window.py:83
 msgid "Cancelling Ping"
 msgstr "Annullamento del ping"
 
 #: src/window.py:132
-#, fuzzy
 msgid "Ping Failed"
-msgstr "Utilità Ping"
+msgstr "Ping fallito"
 
 #: src/window.py:144
 msgid "Ping Succeed"
-msgstr ""
+msgstr "Ping riuscito"
 
 #: src/window.py:154
 msgid "The host can't be resolved or doesn't exist"
@@ -167,15 +166,15 @@ msgstr "Ping"
 
 #: src/results.py:50
 msgid "Minimum"
-msgstr ""
+msgstr "Minimo"
 
 #: src/results.py:51
 msgid "Average"
-msgstr ""
+msgstr "medio"
 
 #: src/results.py:52
 msgid "Maximum"
-msgstr ""
+msgstr "Massimo"
 
 #: src/results.blp:5
 msgid "Ping Results"
