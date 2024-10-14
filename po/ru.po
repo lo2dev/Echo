@@ -1,0 +1,213 @@
+# Russian translations for Echo package.
+# Copyright (C) 2024 Angelo Rafael
+# This file is distributed under the same license as the Echo package.
+# Vladimir Kosolapov, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: echo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-26 13:36+0300\n"
+"PO-Revision-Date: 2024-10-14 10:00+0300\n"
+"Last-Translator: Vladimir Kosolapov\n"
+"Language-Team: Russian\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: data/io.github.lo2dev.Echo.desktop.in:3
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:7
+msgid "Echo"
+msgstr "Эхо"
+
+#: data/io.github.lo2dev.Echo.desktop.in:4
+msgid "Ping Utility"
+msgstr "Утилита для Ping"
+
+#: data/io.github.lo2dev.Echo.desktop.in:5
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:8
+msgid "Ping websites"
+msgstr "Ping веб-сайтов"
+
+#: data/io.github.lo2dev.Echo.desktop.in:11
+msgid "ping"
+msgstr "ping"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:15
+msgid "Utility to ping websites."
+msgstr "Утилита для ping'а веб-сайтов."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:16
+msgid "Features include:"
+msgstr "Особенности:"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:18
+msgid "Advanced ping parameters like ping count, timeout, etc"
+msgstr "Расширенные параметры, такие как количество запросов, таймаут и т.д."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:47
+msgid "Main page showcasing the ping form with advanced options"
+msgstr "Главная страница с формой ping и расширенными параметрами"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:51
+msgid "Ping results page showcasing the stats after the ping"
+msgstr "Страница результатов ping с отображением статистики после выполнения"
+
+#. Translators: Replace "translator-credits" with your names, one name per line
+#: src/main.py:55
+msgid "translator-credits"
+msgstr "Vladimir Kosolapov https://github.com/vmkspv"
+
+#: src/window.py:83
+msgid "Cancelling Ping"
+msgstr "Отмена Ping"
+
+#: src/window.py:132
+msgid "Ping Failed"
+msgstr "Ping не выполнен"
+
+#: src/window.py:144
+msgid "Ping Succeed"
+msgstr "Ping выполнен успешно"
+
+#: src/window.py:154
+msgid "The host can't be resolved or doesn't exist"
+msgstr "Хост не может быть определён или не существует"
+
+#: src/window.py:159
+msgid "Insufficient permissions"
+msgstr "Недостаточно прав"
+
+#: src/window.py:163
+msgid "Host timeout"
+msgstr "Таймаут хоста"
+
+#: src/window.py:167
+msgid "Destination is unreachable"
+msgstr "Назначение недоступно"
+
+#: src/window.py:174
+msgid "Unexpected error"
+msgstr "Неожиданная ошибка"
+
+#: src/window.py:190
+msgid "Details"
+msgstr "Детали"
+
+#: src/window.py:215 src/window.blp:168
+msgid "Cancel Ping"
+msgstr "Отменить Ping"
+
+#: src/window.blp:19
+msgid "About Echo"
+msgstr "О приложении"
+
+#: src/window.blp:29
+msgid "No network connection"
+msgstr "Нет сетевого подключения"
+
+#: src/window.blp:60
+msgid "Address"
+msgstr "Адрес"
+
+#: src/window.blp:71
+msgid "Ping Options"
+msgstr "Параметры Ping"
+
+#: src/window.blp:74
+msgid "Count"
+msgstr "Количество"
+
+#: src/window.blp:75
+msgid "Number of pings to perform"
+msgstr "Число ping-запросов для выполнения"
+
+#: src/window.blp:85
+msgid "Interval"
+msgstr "Интервал"
+
+#: src/window.blp:86
+msgid "Seconds between sending each packet"
+msgstr "Количество секунд между отправкой пакетов"
+
+#: src/window.blp:97
+msgid "Timeout"
+msgstr "Таймаут"
+
+#: src/window.blp:98
+msgid "Maximum seconds to wait for a reply"
+msgstr "Максимальное время ожидания ответа (в секундах)"
+
+#: src/window.blp:109
+msgid "Source"
+msgstr "Источник"
+
+#: src/window.blp:114
+msgid "Info"
+msgstr "Информация"
+
+#: src/window.blp:121
+msgid "The IP address from which to ping"
+msgstr "IP-адрес, с которого будет выполняться ping"
+
+#: src/window.blp:140
+msgid "Family"
+msgstr "Семейство"
+
+#: src/window.blp:141
+msgid "The version of the Internet Protocol"
+msgstr "Версия Интернет-протокола"
+
+#: src/window.blp:155
+msgid "Ping"
+msgstr "Ping"
+
+#: src/results.py:50
+msgid "Minimum"
+msgstr "Минимум"
+
+#: src/results.py:51
+msgid "Average"
+msgstr "Среднее"
+
+#: src/results.py:52
+msgid "Maximum"
+msgstr "Максимум"
+
+#: src/results.blp:5
+msgid "Ping Results"
+msgstr "Результаты Ping"
+
+#: src/results.blp:60
+msgid "Response Time"
+msgstr "Время отклика"
+
+#: src/results.blp:82
+msgid "Packets Sent"
+msgstr "Отправлено пакетов"
+
+#: src/results.blp:86
+msgid "Packets Received"
+msgstr "Получено пакетов"
+
+#: src/results.blp:90
+msgid "Packet Loss"
+msgstr "Потеря пакетов"
+
+#: src/gtk/help-overlay.blp:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Общие"
+
+#: src/gtk/help-overlay.blp:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Показать комбинации клавиш"
+
+#: src/gtk/help-overlay.blp:19
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Выход"
