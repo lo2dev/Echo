@@ -170,10 +170,10 @@ class EchoWindow(Adw.ApplicationWindow):
         except KeyboardInterrupt:
             # This is good actually!
             pass
-        except:
-            error_text = gettext("Unexpected error")
-            self.notif.set_body(error_text)
-            self.ping_error(error_text)
+        except Exception as error:
+            self.notif.set_body(str(error))
+            self.ping_error(str(error))
+            print(error)
 
         if not self.props.is_active:
             self.props.application.send_notification("ping-result", self.notif)
