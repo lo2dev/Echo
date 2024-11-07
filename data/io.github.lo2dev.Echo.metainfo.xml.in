@@ -55,6 +55,17 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="2.1" date="2024-11-08">
+      <description translate="no">
+        <ul>
+          <li>Added toast for source address error</li>
+          <li>Added Dutch translations</li>
+          <li>Added Russian translations</li>
+          <li>Added Italian translations</li>
+          <li>Added Arabic translations</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.0" date="2024-09-24">
       <description translate="no">
         <ul>
