@@ -24,7 +24,14 @@ import sys
 import threading, re as regex
 from gettext import gettext
 from icmplib import ping
-from icmplib import NameLookupError, SocketPermissionError, TimeExceeded, DestinationUnreachable
+from icmplib import (
+    NameLookupError,
+    SocketPermissionError,
+    TimeExceeded,
+    DestinationUnreachable,
+    ICMPSocketError,
+    SocketAddressError
+)
 
 @Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
 class EchoWindow(Adw.ApplicationWindow):
@@ -166,6 +173,9 @@ class EchoWindow(Adw.ApplicationWindow):
         except DestinationUnreachable:
             error_text = gettext("Destination is unreachable")
             self.notif.set_body(error_text)
+            self.ping_error(error_text)
+        except SocketAddressError:
+            error_text = gettext("Cannot use source address")
             self.ping_error(error_text)
         except KeyboardInterrupt:
             # This is good actually!
