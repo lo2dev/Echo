@@ -1,0 +1,213 @@
+# Turkish translation for io.github.lo2dev.Echo.
+# Copyright (C) 2024 io.github.lo2dev.Echo's COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lo2dev.Echo package.
+#
+# Sabri Ünal <yakushabb@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.lo2dev.Echo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-26 13:36+0300\n"
+"PO-Revision-Date: 2024-12-16 20:14+0300\n"
+"Last-Translator: Sabri Ünal <yakushabb@gmail.com>\n"
+"Language-Team: Turkish <takim@gnome.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: data/io.github.lo2dev.Echo.desktop.in:3
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:7
+msgid "Echo"
+msgstr "Echo"
+
+#: data/io.github.lo2dev.Echo.desktop.in:4
+msgid "Ping Utility"
+msgstr "Ping Aracı"
+
+#: data/io.github.lo2dev.Echo.desktop.in:5
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:8
+msgid "Ping websites"
+msgstr "Web sitelerini pingle"
+
+#: data/io.github.lo2dev.Echo.desktop.in:11
+msgid "ping"
+msgstr "ping"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:15
+msgid "Utility to ping websites."
+msgstr "Web sitelerini pinglemek için araç."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:16
+msgid "Features include:"
+msgstr "Özellikler şunlar:"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:18
+msgid "Advanced ping parameters like ping count, timeout, etc"
+msgstr "Ping sayısı, zaman aşımı gibi gelişmiş ping parametreleri"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:47
+msgid "Main page showcasing the ping form with advanced options"
+msgstr "Gelişmiş seçeneklerle ping formunu gösteren ana sayfa"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:51
+msgid "Ping results page showcasing the stats after the ping"
+msgstr "Ping sonrası istatistikleri gösteren ping sonuçları sayfası"
+
+#. Translators: Replace "translator-credits" with your names, one name per line
+#: src/main.py:55
+msgid "translator-credits"
+msgstr "Sabri Ünal <yakushabb@gmail.com>"
+
+#: src/window.py:83
+msgid "Cancelling Ping"
+msgstr "Ping İptal Ediliyor"
+
+#: src/window.py:132
+msgid "Ping Failed"
+msgstr "Pinglenemedi"
+
+#: src/window.py:144
+msgid "Ping Succeed"
+msgstr "Ping Başarılı"
+
+#: src/window.py:154
+msgid "The host can't be resolved or doesn't exist"
+msgstr "Ana makine çözümlenemedi ya da yok"
+
+#: src/window.py:159
+msgid "Insufficient permissions"
+msgstr "Yetersiz izinler"
+
+#: src/window.py:163
+msgid "Host timeout"
+msgstr "Ana makine zaman aşımı"
+
+#: src/window.py:167
+msgid "Destination is unreachable"
+msgstr "Hedefe ulaşılamıyor"
+
+#: src/window.py:174
+msgid "Unexpected error"
+msgstr "Beklenmeyen hata"
+
+#: src/window.py:190
+msgid "Details"
+msgstr "Ayrıntılar"
+
+#: src/window.py:215 src/window.blp:168
+msgid "Cancel Ping"
+msgstr "Pingi İptal Et"
+
+#: src/window.blp:19
+msgid "About Echo"
+msgstr "Echo Hakkında"
+
+#: src/window.blp:29
+msgid "No network connection"
+msgstr "Ağ bağlantısı yok"
+
+#: src/window.blp:60
+msgid "Address"
+msgstr "Adres"
+
+#: src/window.blp:71
+msgid "Ping Options"
+msgstr "Ping Seçenekleri"
+
+#: src/window.blp:74
+msgid "Count"
+msgstr "Sayı"
+
+#: src/window.blp:75
+msgid "Number of pings to perform"
+msgstr "Gerçekleştirilecek ping sayısı"
+
+#: src/window.blp:85
+msgid "Interval"
+msgstr "Aralık"
+
+#: src/window.blp:86
+msgid "Seconds between sending each packet"
+msgstr "Paketlerin gönderilmesi arasındaki saniye"
+
+#: src/window.blp:97
+msgid "Timeout"
+msgstr "Zaman aşım"
+
+#: src/window.blp:98
+msgid "Maximum seconds to wait for a reply"
+msgstr "Yanıt için beklenecek azami saniye"
+
+#: src/window.blp:109
+msgid "Source"
+msgstr "Kaynak"
+
+#: src/window.blp:114
+msgid "Info"
+msgstr "Bilgi"
+
+#: src/window.blp:121
+msgid "The IP address from which to ping"
+msgstr "Pinglenecek IP adresi"
+
+#: src/window.blp:140
+msgid "Family"
+msgstr "Aile"
+
+#: src/window.blp:141
+msgid "The version of the Internet Protocol"
+msgstr "İnternet İletişim Kuralı sürümü"
+
+#: src/window.blp:155
+msgid "Ping"
+msgstr "Ping"
+
+#: src/results.py:50
+msgid "Minimum"
+msgstr "Asgari"
+
+#: src/results.py:51
+msgid "Average"
+msgstr "Ortalama"
+
+#: src/results.py:52
+msgid "Maximum"
+msgstr "Azami"
+
+#: src/results.blp:5
+msgid "Ping Results"
+msgstr "Ping Sonuçları"
+
+#: src/results.blp:60
+msgid "Response Time"
+msgstr "Yanıt Süresi"
+
+#: src/results.blp:82
+msgid "Packets Sent"
+msgstr "Gönderilen Paket"
+
+#: src/results.blp:86
+msgid "Packets Received"
+msgstr "Alınan Paket"
+
+#: src/results.blp:90
+msgid "Packet Loss"
+msgstr "Paket Kaybı"
+
+#: src/gtk/help-overlay.blp:11
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: src/gtk/help-overlay.blp:14
+msgctxt "shortcut window"
+msgid "Show Shortcuts"
+msgstr "Kısayolları Göster"
+
+#: src/gtk/help-overlay.blp:19
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"
