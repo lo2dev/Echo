@@ -148,7 +148,7 @@ class EchoWindow(Adw.ApplicationWindow):
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
                 self.main_view.push(results_page)
 
-                self.notif.set_title(gettext("Ping Succeed"))
+                self.notif.set_title(gettext("Ping Succeeded"))
                 self.notif.set_body(f"{self.address_bar.props.text}")
 
                 notif_icon = Gio.ThemedIcon(name="emblem-ok-symbolic")
