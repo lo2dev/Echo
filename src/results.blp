@@ -11,10 +11,10 @@ template $EchoResultsPage : Adw.NavigationPage {
     content: ScrolledWindow {
       Adw.Clamp {
         maximum-size: 400;
-        margin-start: 10;
-        margin-end: 10;
-        margin-top: 10;
-        margin-bottom: 10;
+        margin-start: 12;
+        margin-end: 12;
+        margin-top: 12;
+        margin-bottom: 12;
 
         Box {
           orientation: vertical;
@@ -37,28 +37,28 @@ template $EchoResultsPage : Adw.NavigationPage {
                 Image results_icon {
                   icon-name: "echo-emblem-default-symbolic";
                   pixel-size: 70;
-                  margin-bottom: 10;
+                  margin-bottom: 12;
                   styles ["success"]
                 }
                 Label result_title {
                   selectable: true;
                   wrap: true;
                   wrap-mode: char;
-                  margin-start: 5;
-                  margin-end: 5;
+                  margin-start: 6;
+                  margin-end: 6;
                   styles ["title-3", "success"]
                 }
                 Label address_ip {
                   selectable: true;
                   styles ["dim-label"]
-                  margin-top: 5;
+                  margin-top: 6;
                 }
               }
             }
 
             Adw.PreferencesGroup {
               title: _("Response Time");
-              margin-top: 16;
+              margin-top: 18;
 
                 /* Time stats */
                 FlowBox stat_cards_box {
