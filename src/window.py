@@ -191,9 +191,11 @@ class EchoWindow(Adw.ApplicationWindow):
         self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error=False) -> None:
-        toast = Adw.Toast()
-        toast.set_title(error_text)
-        toast.set_priority(Adw.ToastPriority.HIGH)
+        toast = Adw.Toast(
+            title=error_text,
+            priority=Adw.ToastPriority.HIGH,
+            timeout=0
+        )
 
         # TODO: find a better way to deal with this edge case
         if is_insufficient_error:
