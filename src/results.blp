@@ -61,16 +61,12 @@ template $EchoResultsPage : Adw.NavigationPage {
               margin-top: 18;
 
                 /* Time stats */
-                FlowBox stat_cards_box {
-                  selection-mode: none;
-                  orientation: horizontal;
-                  homogeneous: true;
-                  max-children-per-line: 3;
-                  min-children-per-line: 1;
-                  row-spacing: 6;
-                  column-spacing: 6;
-
-                  styles ["stat-flowbox"]
+                Adw.WrapBox stat_cards_box {
+                  line-homogeneous: true;
+                  child-spacing: 6;
+                  line-spacing: 6;
+                  justify: fill;
+                  justify-last-line: true;
                 }
 
               ListBox {
