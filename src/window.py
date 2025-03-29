@@ -100,7 +100,7 @@ class EchoWindow(Adw.ApplicationWindow):
         if not address:
             return
 
-        address = regex.sub("^(http|https)://|/+$", "", address)
+        address = regex.sub(".+://|/+$", "", address)
         self.address_bar.set_text(address)
         self.address_bar.remove_css_class("error")
 
