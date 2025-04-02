@@ -43,7 +43,7 @@ class EchoWindow(Adw.ApplicationWindow):
     spinner_revealer = Gtk.Template.Child()
     ping_buttons_stack = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
-    network_error_banner = Gtk.Template.Child()
+    # network_error_banner = Gtk.Template.Child()
 
     ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
