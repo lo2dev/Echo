@@ -149,27 +149,38 @@ template $EchoWindow: Adw.ApplicationWindow {
                       }
                     }
 
-                    Button ping_button {
-                      label: _("Ping");
-                      halign: center;
-                      sensitive: bind address_bar.text-length;
-                      clicked => $ping();
+                    Stack ping_buttons_stack {
+                      StackPage {
+                        name: "not-pinging";
 
-                      styles [
-                        "suggested-action",
-                        "pill"
-                      ]
-                    }
+                        child: Button ping_button {
+                          label: _("Ping");
+                          halign: center;
+                          sensitive: bind address_bar.text-length;
+                          clicked => $ping();
 
-                    Button cancel_ping_button {
-                      visible: false;
-                      label: _("Cancel Ping");
-                      halign: center;
-                      clicked => $cancel_ping();
+                          styles [
+                            "suggested-action",
+                            "pill"
+                          ]
+                        };
+                      }
+                      StackPage {
+                        name: "pinging";
 
-                      styles [
-                        "pill"
-                      ]
+                        child: Box {
+                          halign: center;
+
+                          Button cancel_ping_button {
+                            label: _("Cancel Ping");
+                            clicked => $cancel_ping();
+
+                            styles [
+                              "pill"
+                            ]
+                          }
+                        };
+                      }
                     }
                   }
                 }

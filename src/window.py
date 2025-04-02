@@ -41,6 +41,7 @@ class EchoWindow(Adw.ApplicationWindow):
     toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
     address_spinner = Gtk.Template.Child()
+    ping_buttons_stack = Gtk.Template.Child()
     ping_button = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
@@ -213,16 +214,14 @@ class EchoWindow(Adw.ApplicationWindow):
             self.address_bar.set_sensitive(False)
             self.ping_options_children.set_sensitive(False)
 
-            self.ping_button.set_visible(False)
-            self.cancel_ping_button.set_visible(True)
+            self.ping_buttons_stack.props.visible_child_name = "pinging"
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
             self.spinner_parent.set_visible(False)
             self.address_bar.set_sensitive(True)
             self.ping_options_children.set_sensitive(True)
 
-            self.ping_button.set_visible(True)
-            self.cancel_ping_button.set_visible(False)
+            self.ping_buttons_stack.props.visible_child_name = "not-pinging"
             self.cancel_ping_button.set_sensitive(True)
             self.cancel_ping_button.set_label(gettext("Cancel Ping"))
 
