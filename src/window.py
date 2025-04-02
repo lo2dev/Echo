@@ -81,8 +81,8 @@ class EchoWindow(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def cancel_ping(self, *_) -> None:
         if self.task:
-            self.cancel_ping_button.set_sensitive(False)
-            self.cancel_ping_button.set_label(gettext("Cancelling Ping"))
+            self.cancel_ping_button.props.sensitive = False
+            self.cancel_ping_button.props.label = gettext("Cancelling Ping")
 
             self.task.killed = True
             self.task = None
@@ -90,13 +90,13 @@ class EchoWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def ping(self, *_) -> None:
-        address = self.address_bar.get_text()
+        address = self.address_bar.props.text
 
         if not address:
             return
 
         address = regex.sub(".+://|/+$", "", address)
-        self.address_bar.set_text(address)
+        self.address_bar.props.text = address
         self.address_bar.remove_css_class("error")
 
         # TODO: maybe find a better way to check the family?
@@ -205,19 +205,18 @@ class EchoWindow(Adw.ApplicationWindow):
 
     def disable_form(self, disable) -> None:
         if disable == True:
-            self.address_bar.set_sensitive(False)
-            self.ping_options_children.set_sensitive(False)
-
+            self.address_bar.props.sensitive = False
+            self.ping_options_children.props.sensitive = False
             self.ping_buttons_stack.props.visible_child_name = "pinging"
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
-            self.spinner_revealer.set_reveal_child(False)
-            self.address_bar.set_sensitive(True)
-            self.ping_options_children.set_sensitive(True)
+            self.spinner_revealer.props.reveal_child = False
+            self.address_bar.props.sensitive = True
+            self.ping_options_children.props.sensitive = True
 
             self.ping_buttons_stack.props.visible_child_name = "not-pinging"
-            self.cancel_ping_button.set_sensitive(True)
-            self.cancel_ping_button.set_label(gettext("Cancel Ping"))
+            self.cancel_ping_button.props.sensitive = True
+            self.cancel_ping_button.props.label = gettext("Cancel Ping")
 
 # Hacky way to kill a thread.
 # TODO: find a better way to kill a thread
