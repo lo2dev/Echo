@@ -57,12 +57,6 @@ template $EchoWindow: Adw.ApplicationWindow {
                       Adw.EntryRow address_bar {
                         title: _("Address");
                         entry-activated => $ping();
-
-                        [suffix]
-                        Adw.Spinner address_spinner {
-                          halign: center;
-                          valign: center;
-                        }
                       }
 
                       Adw.ExpanderRow ping_options {
@@ -165,19 +159,29 @@ template $EchoWindow: Adw.ApplicationWindow {
                           ]
                         };
                       }
+
                       StackPage {
                         name: "pinging";
 
-                        child: Box {
-                          halign: center;
+                        child: CenterBox {
+                          [center]
+                          Box {
+                            spacing: 12;
 
-                          Button cancel_ping_button {
-                            label: _("Cancel Ping");
-                            clicked => $cancel_ping();
+                            Button cancel_ping_button {
+                              label: _("Cancel Ping");
+                              clicked => $cancel_ping();
 
-                            styles [
-                              "pill"
-                            ]
+                              styles [
+                                "pill"
+                              ]
+                            }
+
+                            Revealer spinner_revealer {
+                              transition-type: slide_left;
+
+                              Adw.Spinner {}
+                            }
                           }
                         };
                       }

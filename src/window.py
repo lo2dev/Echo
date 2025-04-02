@@ -40,9 +40,8 @@ class EchoWindow(Adw.ApplicationWindow):
     main_view = Gtk.Template.Child()
     toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
-    address_spinner = Gtk.Template.Child()
+    spinner_revealer = Gtk.Template.Child()
     ping_buttons_stack = Gtk.Template.Child()
-    ping_button = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
     network_error_banner = Gtk.Template.Child()
 
@@ -72,11 +71,6 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
-
-        # The box parent creates an unwanted subtle margin in the address bar
-        # so we hide and show the box instead of spinner
-        self.spinner_parent = self.address_spinner.get_parent()
-        self.spinner_parent.set_visible(False)
 
         # This gets the GtkRevealer containing the children
         self.ping_options_children = self.ping_options.get_child().get_last_child()
@@ -134,7 +128,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.task.daemon = True
         self.task.start()
 
-        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
+        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_revealer.set_reveal_child(True))
 
     def ping_task(self, *args, **kwargs) -> None:
         self.notif.set_title(gettext("Ping Failed"))
@@ -217,7 +211,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_buttons_stack.props.visible_child_name = "pinging"
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
-            self.spinner_parent.set_visible(False)
+            self.spinner_revealer.set_reveal_child(False)
             self.address_bar.set_sensitive(True)
             self.ping_options_children.set_sensitive(True)
 
