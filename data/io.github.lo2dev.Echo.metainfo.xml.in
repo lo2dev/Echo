@@ -55,6 +55,23 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="2.2" date="2025-4-20">
+      <description translate="no">
+        <ul>
+          <li>Added a banner for when there's no network connection</li>
+          <li>Made the spinner have a smooth transition when it appears/disappears</li>
+          <li>Moved the spinner next to the pinging button</li>
+          <li>Strip more than just http/s from the address</li>
+          <li>Fixed a typo in the notification</li>
+          <li>Adjusted spacing and margins to be more consistent</li>
+          <li>Lowered the default ping interval</li>
+          <li>Toasts will now stay until manually closed</li>
+          <li>Ported to GNOME 48</li>
+          <li>Added Spanish translation by rapanuti</li>
+          <li>Added Turkish translation by Sabri Ünal</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.1" date="2024-11-08">
       <description translate="no">
         <ul>
