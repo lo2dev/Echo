@@ -23,9 +23,10 @@ template $EchoWindow: Adw.ApplicationWindow {
           Box {
             orientation: vertical;
 
-            // Adw.Banner network_error_banner {
-            //   title: _("No network connection");
-            // }
+            Adw.Banner {
+              title: _("No network connection");
+              revealed: bind template.network_available inverted;
+            }
 
             Box {
               orientation: vertical;

@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw, Gtk, Gio, GLib
+from gi.repository import Adw, Gtk, Gio, GLib, GObject
 from .results import EchoResultsPage
 
 import sys
@@ -43,7 +43,6 @@ class EchoWindow(Adw.ApplicationWindow):
     spinner_revealer = Gtk.Template.Child()
     ping_buttons_stack = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
-    # network_error_banner = Gtk.Template.Child()
 
     ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
@@ -52,14 +51,14 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_source_row = Gtk.Template.Child()
     ping_family_row = Gtk.Template.Child()
 
+    network_monitor = Gio.NetworkMonitor.get_default()
+    network_available = GObject.Property(type=bool, default=False)
+
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # NOTE: NetworkMonitor doesn't work for some reason
-        # network_monitor = Gio.NetworkMonitor.get_default()
-        # print(network_monitor.get_network_available())
-        # self.network_error_banner.set_revealed(not network_monitor.get_network_available())
+        self.network_monitor.connect("network-changed", self.on_network_changed)
 
         self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
@@ -217,6 +216,11 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_buttons_stack.props.visible_child_name = "not-pinging"
             self.cancel_ping_button.props.sensitive = True
             self.cancel_ping_button.props.label = gettext("Cancel Ping")
+
+
+    def on_network_changed(self, _, network_available):
+        self.network_available = network_available
+
 
 # Hacky way to kill a thread.
 # TODO: find a better way to kill a thread
