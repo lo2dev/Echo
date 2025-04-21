@@ -52,7 +52,7 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_family_row = Gtk.Template.Child()
 
     network_monitor = Gio.NetworkMonitor.get_default()
-    network_available = GObject.Property(type=bool, default=False)
+    network_available = GObject.Property(type=bool, default=True)
 
 
     def __init__(self, **kwargs):
