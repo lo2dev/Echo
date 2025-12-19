@@ -5,15 +5,12 @@
 	    <default>360</default>
 	  </key>
 	  <key name="height" type="i">
-	    <default>545</default>
+	    <default>500</default>
 	  </key>
     <key name="is-maximized" type="b">
       <default>false</default>
     </key>
 
-	  <key name="ping-options-expanded" type="b">
-	    <default>false</default>
-	  </key>
 	  <key name="ping-count" type="i">
 	    <default>4</default>
 	  </key>

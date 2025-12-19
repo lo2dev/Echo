@@ -59,88 +59,89 @@ template $EchoWindow: Adw.ApplicationWindow {
                         title: _("Address");
                         entry-activated => $ping();
                       }
+                    }
 
-                      Adw.ExpanderRow ping_options {
-                        title: _("Ping Options");
+                    ListBox {
+                      selection-mode: none;
+                      styles ["boxed-list"]
 
-                        Adw.SpinRow {
-                          title: _("Count");
-                          subtitle: _("Number of pings to perform");
+                      Adw.SpinRow {
+                        title: _("Count");
+                        subtitle: _("Number of pings to perform");
 
-                          adjustment: Adjustment ping_count_adjust {
-                            lower: 1;
-                            upper: 1000;
-                            step-increment: 1;
-                          };
-                        }
+                        adjustment: Adjustment ping_count_adjust {
+                          lower: 1;
+                          upper: 1000;
+                          step-increment: 1;
+                        };
+                      }
 
-                        Adw.SpinRow {
-                          title: _("Interval");
-                          subtitle: _("Seconds between sending each packet");
-                          digits: 1;
+                      Adw.SpinRow {
+                        title: _("Interval");
+                        subtitle: _("Seconds between sending each packet");
+                        digits: 1;
 
-                          adjustment: Adjustment ping_interval_adjust {
-                            lower: 0.1;
-                            upper: 100;
-                            step-increment: 0.1;
-                          };
-                        }
+                        adjustment: Adjustment ping_interval_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          step-increment: 0.1;
+                        };
+                      }
 
-                        Adw.SpinRow {
-                          title: _("Timeout");
-                          subtitle: _("Maximum seconds to wait for a reply");
-                          digits: 1;
+                      Adw.SpinRow {
+                        title: _("Timeout");
+                        subtitle: _("Maximum seconds to wait for a reply");
+                        digits: 1;
 
-                          adjustment: Adjustment ping_timeout_adjust {
-                            lower: 0.1;
-                            upper: 100;
-                            step-increment: 1;
-                          };
-                        }
+                        adjustment: Adjustment ping_timeout_adjust {
+                          lower: 0.1;
+                          upper: 100;
+                          step-increment: 1;
+                        };
+                      }
 
-                        Adw.EntryRow ping_source_row {
-                          title: _("Source");
+                      Adw.EntryRow ping_source_row {
+                        title: _("Source");
 
-                          [suffix]
-                          MenuButton {
-                            icon-name: "lightbulb-symbolic";
-                            tooltip-text: _("Info");
-                            popover: Popover {
-                              has-arrow: true;
-                              position: top;
+                        [suffix]
+                        MenuButton {
+                          icon-name: "lightbulb-symbolic";
+                          tooltip-text: _("Info");
+                          popover: Popover {
+                            has-arrow: true;
+                            position: top;
 
-                              child: Box {
-                                Label {
-                                  label: _("The IP address from which to ping");
-                                  wrap: true;
-                                  margin-top: 6;
-                                  margin-bottom: 6;
-                                  margin-start: 6;
-                                  margin-end: 6;
-                                }
-                              };
+                            child: Box {
+                              Label {
+                                label: _("The IP address from which to ping");
+                                wrap: true;
+                                margin-top: 6;
+                                margin-bottom: 6;
+                                margin-start: 6;
+                                margin-end: 6;
+                              }
                             };
-
-                            valign: center;
-                            halign: center;
-                            has-frame: false;
-
-                            styles ["circular"]
-                          }
-                        }
-
-                        Adw.ComboRow ping_family_row {
-                          title: _("Family");
-                          subtitle: _("The version of the Internet Protocol");
-
-                          model: StringList {
-                            strings [
-                              _("Auto"),
-                              _("IPv4"),
-                              _("IPv6")
-                            ]
                           };
+
+                          valign: center;
+                          halign: center;
+                          has-frame: false;
+
+                          styles ["circular"]
                         }
+                      }
+
+                      Adw.ComboRow ping_family_row {
+                        title: _("Family");
+                        subtitle: _("The version of the Internet Protocol");
+
+                        model: StringList {
+                          strings [
+                            _("Auto"),
+                            _("IPv4"),
+                            _("IPv6")
+                          ]
+                        };
                       }
                     }
 
