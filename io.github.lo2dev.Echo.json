@@ -1,7 +1,7 @@
 {
     "id" : "io.github.lo2dev.Echo",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "48",
+    "runtime-version" : "49",
     "sdk" : "org.gnome.Sdk",
     "command" : "echo",
     "finish-args" : [
@@ -24,20 +24,6 @@
     ],
     "modules" : [
     	"python3-icmplib.json",
-    	{
-            "name" : "blueprint-compiler",
-            "buildsystem" : "meson",
-            "sources" : [
-                {
-                    "type" : "git",
-                    "url" : "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-                    "tag" : "v0.16.0"
-                }
-            ],
-            "cleanup" : [
-                "*"
-            ]
-        },
         {
             "name" : "echo",
             "builddir" : true,

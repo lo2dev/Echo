@@ -9,7 +9,7 @@
     <file preprocess="xml-stripblanks">window.ui</file>
     <file preprocess="xml-stripblanks">results.ui</file>
     <file preprocess="xml-stripblanks">results_card.ui</file>
-    <file preprocess="xml-stripblanks">gtk/help-overlay.ui</file>
+    <file preprocess="xml-stripblanks">shortcuts-dialog.ui</file>
     <file preprocess="xml-stripblanks" alias="io.github.lo2dev.Echo.metainfo.xml">../data/io.github.lo2dev.Echo.metainfo.xml</file>
     <file alias="style.css">style.css</file>
   </gresource>
