@@ -26,10 +26,10 @@
     <color type="primary" scheme_preference="dark">#26a269</color>
   </branding>
 
-  <url type="bugtracker">https://codeberg.org/lo-vely/echo/issues</url>
+  <url type="bugtracker">https://github.com/lo2dev/Echo/issues</url>
   <url type="homepage">https://lo2dev.github.io/portal/echo</url>
   <url type="donation">https://lo2dev.github.io/support</url>
-  <url type="vcs-browser">https://codeberg.org/lo-vely/echo</url>
+  <url type="vcs-browser">https://github.com/lo2dev/Echo</url>
 
   <recommends>
     <display_length compare="ge">360</display_length>
@@ -43,11 +43,11 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://codeberg.org/lo-vely/echo/raw/branch/master/data/screenshots/1.png</image>
+      <image>https://raw.githubusercontent.com/lo2dev/Echo/refs/heads/master/data/screenshots/1.png</image>
       <caption>Main page showcasing the ping form with ping options</caption>
     </screenshot>
     <screenshot>
-      <image>https://codeberg.org/lo-vely/echo/src/branch/master/data/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/lo2dev/Echo/refs/heads/master/data/screenshots/2.png</image>
       <caption>Ping results page showcasing the stats after the ping</caption>
     </screenshot>
   </screenshots>

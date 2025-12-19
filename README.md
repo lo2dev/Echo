@@ -1,7 +1,3 @@
-# Project moved to Codeberg
-https://codeberg.org/lo-vely/echo
-
-
 <div align="center">
   <img src="data/icons/hicolor/scalable/apps/io.github.lo2dev.Echo.svg" width="128" height="128">
 
