@@ -2,10 +2,10 @@
 <schemalist gettext-domain="echo">
 	<schema id="io.github.lo2dev.Echo" path="/io/github/lo2dev/Echo/">
 	  <key name="width" type="i">
-	    <default>460</default>
+	    <default>360</default>
 	  </key>
 	  <key name="height" type="i">
-	    <default>580</default>
+	    <default>545</default>
 	  </key>
     <key name="is-maximized" type="b">
       <default>false</default>
