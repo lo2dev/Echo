@@ -44,7 +44,6 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_buttons_stack = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
 
-    ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
     ping_interval_adjust = Gtk.Template.Child()
     ping_timeout_adjust = Gtk.Template.Child()
@@ -64,15 +63,11 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-options-expanded", self.ping_options, "expanded", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
-
-        # This gets the GtkRevealer containing the children
-        self.ping_options_children = self.ping_options.get_child().get_last_child()
 
         self.notif = Gio.Notification()
 
@@ -205,13 +200,11 @@ class EchoWindow(Adw.ApplicationWindow):
     def disable_form(self, disable) -> None:
         if disable == True:
             self.address_bar.props.sensitive = False
-            self.ping_options_children.props.sensitive = False
             self.ping_buttons_stack.props.visible_child_name = "pinging"
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
             self.spinner_revealer.props.reveal_child = False
             self.address_bar.props.sensitive = True
-            self.ping_options_children.props.sensitive = True
 
             self.ping_buttons_stack.props.visible_child_name = "not-pinging"
             self.cancel_ping_button.props.sensitive = True
