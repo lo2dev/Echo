@@ -5,7 +5,7 @@
 	    <default>360</default>
 	  </key>
 	  <key name="height" type="i">
-	    <default>500</default>
+	    <default>520</default>
 	  </key>
     <key name="is-maximized" type="b">
       <default>false</default>

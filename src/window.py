@@ -17,13 +17,12 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+import gi, asyncio, time, sys, re as regex
 from gi.repository import Adw, Gtk, Gio, GLib, GObject
 from .results import EchoResultsPage
 
-import sys
-import threading, re as regex
 from gettext import gettext
-from icmplib import ping
+from icmplib import async_ping
 from icmplib import (
     NameLookupError,
     SocketPermissionError,
@@ -70,16 +69,12 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
 
         self.notif = Gio.Notification()
+        self.background_task = None
 
 
     @Gtk.Template.Callback()
     def cancel_ping(self, *_) -> None:
-        if self.task:
-            self.cancel_ping_button.props.sensitive = False
-            self.cancel_ping_button.props.label = gettext("Cancelling Ping")
-
-            self.task.killed = True
-            self.task = None
+        self.background_task.cancel()
 
 
     @Gtk.Template.Callback()
@@ -106,34 +101,30 @@ class EchoWindow(Adw.ApplicationWindow):
 
         self.disable_form(True)
 
-        self.task = ThreadWithTrace(
-            target=self.ping_task,
-            args=(address,),
-            kwargs={
-                "count": self.settings.get_int("ping-count"),
-                "interval": self.settings.get_double("ping-interval"),
-                "timeout": self.settings.get_double("ping-timeout"),
-                "source": self.settings.get_string("ping-source"),
-                "family": ping_family,
-                "privileged": False
-                }
+        self.background_task = asyncio.create_task(
+            self.ping_task(
+                address,
+                count=self.settings.get_int("ping-count"),
+                interval=self.settings.get_double("ping-interval"),
+                timeout=self.settings.get_double("ping-timeout"),
+                source=self.settings.get_string("ping-source"),
+                family=ping_family,
+                privileged=False
             )
-
-        self.task.daemon = True
-        self.task.start()
+        )
 
         self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_revealer.set_reveal_child(True))
 
-    def ping_task(self, *args, **kwargs) -> None:
+    async def ping_task(self, *args, **kwargs) -> None:
         self.notif.set_title(gettext("Ping Failed"))
 
         notif_icon = Gio.ThemedIcon(name="dialog-error-symbolic")
         self.notif.set_icon(notif_icon)
 
         try:
-            result = ping(*args, **kwargs)
+            result = await async_ping(*args, **kwargs)
 
-            if result.is_alive and self.task and not self.task.killed:
+            if result.is_alive:
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
                 self.main_view.push(results_page)
 
@@ -173,11 +164,11 @@ class EchoWindow(Adw.ApplicationWindow):
             self.notif.set_body(str(error))
             self.ping_error(str(error))
             print(error)
+        finally:
+            if not self.props.is_active:
+                self.props.application.send_notification("ping-result", self.notif)
 
-        if not self.props.is_active:
-            self.props.application.send_notification("ping-result", self.notif)
-
-        self.disable_form(False)
+            self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error=False) -> None:
         toast = Adw.Toast(
@@ -213,40 +204,4 @@ class EchoWindow(Adw.ApplicationWindow):
 
     def on_network_changed(self, _, network_available):
         self.network_available = network_available
-
-
-# Hacky way to kill a thread.
-# TODO: find a better way to kill a thread
-# Reference: https://web.archive.org/web/20130503082442/http://mail.python.org/pipermail/python-list/2004-May/281943.html
-class ThreadWithTrace(threading.Thread):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.killed = False
-
-    def start(self) -> None:
-        if self.killed:
-            return
-        self.__run_backup = self.run
-        self.run = self.__run
-        super().start()
-
-    def __run(self) -> None:
-        sys.settrace(self.globaltrace)
-        self.__run_backup()
-        self.run = self.__run_backup
-
-    def globaltrace(self, frame, event, arg):
-        if event == 'call':
-            return self.localtrace
-        else:
-            return None
-
-    def localtrace(self, frame, event, arg):
-        if self.killed:
-            if event == 'line':
-                raise KeyboardInterrupt
-        return self.localtrace
-
-    def kill(self) -> None:
-        self.killed = True
 

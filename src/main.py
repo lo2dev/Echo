@@ -17,8 +17,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import sys
-import gi
+import gi, sys, asyncio
+from gi.events import GLibEventLoopPolicy
 
 gi.require_version('Gtk', '4.0')
 gi.require_version('Adw', '1')
@@ -65,6 +65,7 @@ class EchoApplication(Adw.Application):
 
 
 def main(version):
+    asyncio.set_event_loop_policy(GLibEventLoopPolicy())
     app = EchoApplication()
     return app.run(sys.argv)
 
