@@ -23,8 +23,9 @@ template $EchoWindow: Adw.ApplicationWindow {
           Box {
             orientation: vertical;
 
-            Adw.Banner network_error_banner {
+            Adw.Banner {
               title: _("No network connection");
+              revealed: bind template.network_available inverted;
             }
 
             Box {
@@ -37,15 +38,15 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                 Adw.Clamp results {
                   maximum-size: 400;
-                  margin-start: 10;
-                  margin-end: 10;
+                  margin-start: 12;
+                  margin-end: 12;
+                  margin-top: 12;
+                  margin-bottom: 12;
 
                   Box {
                     orientation: vertical;
                     valign: center;
-                    spacing: 10;
-                    margin-top: 10;
-                    margin-bottom: 10;
+                    spacing: 12;
 
                     ListBox {
                       selection-mode: none;
@@ -57,12 +58,6 @@ template $EchoWindow: Adw.ApplicationWindow {
                       Adw.EntryRow address_bar {
                         title: _("Address");
                         entry-activated => $ping();
-
-                        [suffix]
-                        Adw.Spinner address_spinner {
-                          halign: center;
-                          valign: center;
-                        }
                       }
 
                       Adw.ExpanderRow ping_options {
@@ -118,10 +113,10 @@ template $EchoWindow: Adw.ApplicationWindow {
                                 Label {
                                   label: _("The IP address from which to ping");
                                   wrap: true;
-                                  margin-top: 7;
-                                  margin-bottom: 7;
-                                  margin-start: 7;
-                                  margin-end: 7;
+                                  margin-top: 6;
+                                  margin-bottom: 6;
+                                  margin-start: 6;
+                                  margin-end: 6;
                                 }
                               };
                             };
@@ -149,27 +144,48 @@ template $EchoWindow: Adw.ApplicationWindow {
                       }
                     }
 
-                    Button ping_button {
-                      label: _("Ping");
-                      halign: center;
-                      sensitive: bind address_bar.text-length;
-                      clicked => $ping();
+                    Stack ping_buttons_stack {
+                      StackPage {
+                        name: "not-pinging";
 
-                      styles [
-                        "suggested-action",
-                        "pill"
-                      ]
-                    }
+                        child: Button ping_button {
+                          label: _("Ping");
+                          halign: center;
+                          sensitive: bind address_bar.text-length;
+                          clicked => $ping();
 
-                    Button cancel_ping_button {
-                      visible: false;
-                      label: _("Cancel Ping");
-                      halign: center;
-                      clicked => $cancel_ping();
+                          styles [
+                            "suggested-action",
+                            "pill"
+                          ]
+                        };
+                      }
 
-                      styles [
-                        "pill"
-                      ]
+                      StackPage {
+                        name: "pinging";
+
+                        child: CenterBox {
+                          [center]
+                          Box {
+                            spacing: 12;
+
+                            Button cancel_ping_button {
+                              label: _("Cancel Ping");
+                              clicked => $cancel_ping();
+
+                              styles [
+                                "pill"
+                              ]
+                            }
+
+                            Revealer spinner_revealer {
+                              transition-type: slide_left;
+
+                              Adw.Spinner {}
+                            }
+                          }
+                        };
+                      }
                     }
                   }
                 }

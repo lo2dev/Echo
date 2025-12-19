@@ -11,10 +11,10 @@ template $EchoResultsPage : Adw.NavigationPage {
     content: ScrolledWindow {
       Adw.Clamp {
         maximum-size: 400;
-        margin-start: 10;
-        margin-end: 10;
-        margin-top: 10;
-        margin-bottom: 10;
+        margin-start: 12;
+        margin-end: 12;
+        margin-top: 12;
+        margin-bottom: 12;
 
         Box {
           orientation: vertical;
@@ -37,40 +37,36 @@ template $EchoResultsPage : Adw.NavigationPage {
                 Image results_icon {
                   icon-name: "echo-emblem-default-symbolic";
                   pixel-size: 70;
-                  margin-bottom: 10;
+                  margin-bottom: 12;
                   styles ["success"]
                 }
                 Label result_title {
                   selectable: true;
                   wrap: true;
                   wrap-mode: char;
-                  margin-start: 5;
-                  margin-end: 5;
+                  margin-start: 6;
+                  margin-end: 6;
                   styles ["title-3", "success"]
                 }
                 Label address_ip {
                   selectable: true;
-                  styles ["dim-label"]
-                  margin-top: 5;
+                  styles ["dimmed"]
+                  margin-top: 6;
                 }
               }
             }
 
             Adw.PreferencesGroup {
               title: _("Response Time");
-              margin-top: 16;
+              margin-top: 18;
 
                 /* Time stats */
-                FlowBox stat_cards_box {
-                  selection-mode: none;
-                  orientation: horizontal;
-                  homogeneous: true;
-                  max-children-per-line: 3;
-                  min-children-per-line: 1;
-                  row-spacing: 6;
-                  column-spacing: 6;
-
-                  styles ["stat-flowbox"]
+                Adw.WrapBox stat_cards_box {
+                  line-homogeneous: true;
+                  child-spacing: 6;
+                  line-spacing: 6;
+                  justify: fill;
+                  justify-last-line: true;
                 }
 
               ListBox {

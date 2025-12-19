@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw, Gtk, Gio, GLib
+from gi.repository import Adw, Gtk, Gio, GLib, GObject
 from .results import EchoResultsPage
 
 import sys
@@ -40,10 +40,9 @@ class EchoWindow(Adw.ApplicationWindow):
     main_view = Gtk.Template.Child()
     toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
-    address_spinner = Gtk.Template.Child()
-    ping_button = Gtk.Template.Child()
+    spinner_revealer = Gtk.Template.Child()
+    ping_buttons_stack = Gtk.Template.Child()
     cancel_ping_button = Gtk.Template.Child()
-    network_error_banner = Gtk.Template.Child()
 
     ping_options = Gtk.Template.Child()
     ping_count_adjust = Gtk.Template.Child()
@@ -52,14 +51,14 @@ class EchoWindow(Adw.ApplicationWindow):
     ping_source_row = Gtk.Template.Child()
     ping_family_row = Gtk.Template.Child()
 
+    network_monitor = Gio.NetworkMonitor.get_default()
+    network_available = GObject.Property(type=bool, default=True)
+
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # NOTE: NetworkMonitor doesn't work for some reason
-        # network_monitor = Gio.NetworkMonitor.get_default()
-        # print(network_monitor.get_network_available())
-        # self.network_error_banner.set_revealed(not network_monitor.get_network_available())
+        self.network_monitor.connect("network-changed", self.on_network_changed)
 
         self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
         self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
@@ -72,11 +71,6 @@ class EchoWindow(Adw.ApplicationWindow):
         self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
         self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
 
-        # The box parent creates an unwanted subtle margin in the address bar
-        # so we hide and show the box instead of spinner
-        self.spinner_parent = self.address_spinner.get_parent()
-        self.spinner_parent.set_visible(False)
-
         # This gets the GtkRevealer containing the children
         self.ping_options_children = self.ping_options.get_child().get_last_child()
 
@@ -86,8 +80,8 @@ class EchoWindow(Adw.ApplicationWindow):
     @Gtk.Template.Callback()
     def cancel_ping(self, *_) -> None:
         if self.task:
-            self.cancel_ping_button.set_sensitive(False)
-            self.cancel_ping_button.set_label(gettext("Cancelling Ping"))
+            self.cancel_ping_button.props.sensitive = False
+            self.cancel_ping_button.props.label = gettext("Cancelling Ping")
 
             self.task.killed = True
             self.task = None
@@ -95,13 +89,13 @@ class EchoWindow(Adw.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def ping(self, *_) -> None:
-        address = self.address_bar.get_text()
+        address = self.address_bar.props.text
 
         if not address:
             return
 
         address = regex.sub(".+://|/+$", "", address)
-        self.address_bar.set_text(address)
+        self.address_bar.props.text = address
         self.address_bar.remove_css_class("error")
 
         # TODO: maybe find a better way to check the family?
@@ -133,7 +127,7 @@ class EchoWindow(Adw.ApplicationWindow):
         self.task.daemon = True
         self.task.start()
 
-        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_parent.set_visible(True))
+        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_revealer.set_reveal_child(True))
 
     def ping_task(self, *args, **kwargs) -> None:
         self.notif.set_title(gettext("Ping Failed"))
@@ -148,7 +142,7 @@ class EchoWindow(Adw.ApplicationWindow):
                 results_page = EchoResultsPage(result, self.address_bar.get_text())
                 self.main_view.push(results_page)
 
-                self.notif.set_title(gettext("Ping Succeed"))
+                self.notif.set_title(gettext("Ping Succeeded"))
                 self.notif.set_body(f"{self.address_bar.props.text}")
 
                 notif_icon = Gio.ThemedIcon(name="emblem-ok-symbolic")
@@ -191,9 +185,11 @@ class EchoWindow(Adw.ApplicationWindow):
         self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error=False) -> None:
-        toast = Adw.Toast()
-        toast.set_title(error_text)
-        toast.set_priority(Adw.ToastPriority.HIGH)
+        toast = Adw.Toast(
+            title=error_text,
+            priority=Adw.ToastPriority.HIGH,
+            timeout=0
+        )
 
         # TODO: find a better way to deal with this edge case
         if is_insufficient_error:
@@ -208,21 +204,23 @@ class EchoWindow(Adw.ApplicationWindow):
 
     def disable_form(self, disable) -> None:
         if disable == True:
-            self.address_bar.set_sensitive(False)
-            self.ping_options_children.set_sensitive(False)
-
-            self.ping_button.set_visible(False)
-            self.cancel_ping_button.set_visible(True)
+            self.address_bar.props.sensitive = False
+            self.ping_options_children.props.sensitive = False
+            self.ping_buttons_stack.props.visible_child_name = "pinging"
         elif disable == False:
             GLib.source_remove(self.spinner_timeout)
-            self.spinner_parent.set_visible(False)
-            self.address_bar.set_sensitive(True)
-            self.ping_options_children.set_sensitive(True)
+            self.spinner_revealer.props.reveal_child = False
+            self.address_bar.props.sensitive = True
+            self.ping_options_children.props.sensitive = True
 
-            self.ping_button.set_visible(True)
-            self.cancel_ping_button.set_visible(False)
-            self.cancel_ping_button.set_sensitive(True)
-            self.cancel_ping_button.set_label(gettext("Cancel Ping"))
+            self.ping_buttons_stack.props.visible_child_name = "not-pinging"
+            self.cancel_ping_button.props.sensitive = True
+            self.cancel_ping_button.props.label = gettext("Cancel Ping")
+
+
+    def on_network_changed(self, _, network_available):
+        self.network_available = network_available
+
 
 # Hacky way to kill a thread.
 # TODO: find a better way to kill a thread

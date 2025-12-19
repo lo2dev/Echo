@@ -26,10 +26,10 @@
     <color type="primary" scheme_preference="dark">#26a269</color>
   </branding>
 
-  <url type="bugtracker">https://github.com/lo2dev/Echo/issues</url>
+  <url type="bugtracker">https://codeberg.org/lo-vely/echo/issues</url>
   <url type="homepage">https://lo2dev.github.io/portal/echo</url>
   <url type="donation">https://lo2dev.github.io/support</url>
-  <url type="vcs-browser">https://github.com/lo2dev/Echo</url>
+  <url type="vcs-browser">https://codeberg.org/lo-vely/echo</url>
 
   <recommends>
     <display_length compare="ge">360</display_length>
@@ -43,11 +43,11 @@
 
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/1.png</image>
-      <caption>Main page showcasing the ping form with advanced options</caption>
+      <image>https://codeberg.org/lo-vely/echo/raw/branch/master/data/screenshots/1.png</image>
+      <caption>Main page showcasing the ping form with ping options</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/lo2dev/Echo/master/data/screenshots/2.png</image>
+      <image>https://codeberg.org/lo-vely/echo/src/branch/master/data/screenshots/2.png</image>
       <caption>Ping results page showcasing the stats after the ping</caption>
     </screenshot>
   </screenshots>
@@ -55,6 +55,30 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="2.3" date="2025-4-21">
+      <description translate="no">
+        <ul>
+          <li>Fixed network banner showing up incorrectly</li>
+        </ul>
+      </description>
+    </release>
+    <release version="2.2" date="2025-4-20">
+      <description translate="no">
+        <ul>
+          <li>Added a banner for when there's no network connection</li>
+          <li>Made the spinner have a smooth transition when it appears/disappears</li>
+          <li>Moved the spinner next to the pinging button</li>
+          <li>Strip more than just http/s from the address</li>
+          <li>Fixed a typo in the notification</li>
+          <li>Adjusted spacing and margins to be more consistent</li>
+          <li>Lowered the default ping interval</li>
+          <li>Toasts will now stay until manually closed</li>
+          <li>Ported to GNOME 48</li>
+          <li>Added Spanish translation by rapanuti</li>
+          <li>Added Turkish translation by Sabri Ünal</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.1" date="2024-11-08">
       <description translate="no">
         <ul>

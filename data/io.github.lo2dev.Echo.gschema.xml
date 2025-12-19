@@ -18,7 +18,7 @@
 	    <default>4</default>
 	  </key>
 	  <key name="ping-interval" type="d">
-	    <default>1</default>
+	    <default>0.2</default>
 	  </key>
 	  <key name="ping-timeout" type="d">
 	    <default>2</default>

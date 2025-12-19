@@ -38,8 +38,8 @@ echo 'net.ipv4.ping_group_range = 0 2147483647' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## Planned
-- Ping history
+## Planned (Maybe)
+- Traceroute (tho the ping library Echo uses needs root for this feature. Could there be another solution I could use?)
 
 ## Code of Conduct
 
