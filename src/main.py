@@ -17,11 +17,11 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import sys
-import gi
+import gi, sys, asyncio
+from gi.events import GLibEventLoopPolicy
 
-gi.require_version('Gtk', '4.0')
-gi.require_version('Adw', '1')
+gi.require_version("Gtk", "4.0")
+gi.require_version("Adw", "1")
 
 from gi.repository import Gtk, Gio, Adw
 from .window import EchoWindow
@@ -30,15 +30,17 @@ from gettext import gettext
 
 class EchoApplication(Adw.Application):
     def __init__(self):
-        super().__init__(application_id='io.github.lo2dev.Echo',
-                         flags=Gio.ApplicationFlags.DEFAULT_FLAGS)
-        self.create_action('quit', lambda *_: self.quit(), ['<primary>q'])
+        super().__init__(
+            application_id="io.github.lo2dev.Echo",
+            flags=Gio.ApplicationFlags.DEFAULT_FLAGS,
+        )
+        self.create_action("quit", lambda *_: self.quit(), ["<primary>q"])
         self.create_action(
             "close",
             lambda *_: window.close() if (window := self.get_active_window()) else None,
             ("<primary>w",),
         )
-        self.create_action('about', self.on_about_action)
+        self.create_action("about", self.on_about_action)
 
     def do_activate(self):
         win = self.props.active_window
@@ -65,6 +67,6 @@ class EchoApplication(Adw.Application):
 
 
 def main(version):
+    asyncio.set_event_loop_policy(GLibEventLoopPolicy())
     app = EchoApplication()
     return app.run(sys.argv)
-

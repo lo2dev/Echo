@@ -22,9 +22,9 @@ from gettext import gettext
 from .results_card import EchoResultsCard
 
 
-@Gtk.Template(resource_path='/io/github/lo2dev/Echo/results.ui')
+@Gtk.Template(resource_path="/io/github/lo2dev/Echo/results.ui")
 class EchoResultsPage(Adw.NavigationPage):
-    __gtype_name__ = 'EchoResultsPage'
+    __gtype_name__ = "EchoResultsPage"
 
     results_icon = Gtk.Template.Child()
     result_title = Gtk.Template.Child()
