@@ -19,9 +19,10 @@
 
 from gi.repository import Gtk
 
-@Gtk.Template(resource_path='/io/github/lo2dev/Echo/results_card.ui')
+
+@Gtk.Template(resource_path="/io/github/lo2dev/Echo/results_card.ui")
 class EchoResultsCard(Gtk.Box):
-    __gtype_name__ = 'EchoResultsCard'
+    __gtype_name__ = "EchoResultsCard"
 
     card_title_label = Gtk.Template.Child()
     card_value_label = Gtk.Template.Child()
@@ -31,4 +32,3 @@ class EchoResultsCard(Gtk.Box):
 
         self.card_title_label.props.label = card_title
         self.card_value_label.props.label = value
-

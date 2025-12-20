@@ -17,7 +17,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import gi, asyncio, time, sys, re as regex
+import asyncio, re as regex
 from gi.repository import Adw, Gtk, Gio, GLib, GObject
 from .results import EchoResultsPage
 
@@ -29,12 +29,13 @@ from icmplib import (
     TimeExceeded,
     DestinationUnreachable,
     ICMPSocketError,
-    SocketAddressError
+    SocketAddressError,
 )
 
-@Gtk.Template(resource_path='/io/github/lo2dev/Echo/window.ui')
+
+@Gtk.Template(resource_path="/io/github/lo2dev/Echo/window.ui")
 class EchoWindow(Adw.ApplicationWindow):
-    __gtype_name__ = 'EchoWindow'
+    __gtype_name__ = "EchoWindow"
 
     main_view = Gtk.Template.Child()
     toast_overlay = Gtk.Template.Child()
@@ -52,30 +53,52 @@ class EchoWindow(Adw.ApplicationWindow):
     network_monitor = Gio.NetworkMonitor.get_default()
     network_available = GObject.Property(type=bool, default=True)
 
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
         self.network_monitor.connect("network-changed", self.on_network_changed)
 
         self.settings = Gio.Settings(schema_id="io.github.lo2dev.Echo")
-        self.settings.bind("width", self, "default-width", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("height", self, "default-height", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-interval", self.ping_interval_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-timeout", self.ping_timeout_adjust, "value", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT)
-        self.settings.bind("ping-family", self.ping_family_row, "selected", Gio.SettingsBindFlags.DEFAULT)
+        self.settings.bind(
+            "width", self, "default-width", Gio.SettingsBindFlags.DEFAULT
+        )
+        self.settings.bind(
+            "height", self, "default-height", Gio.SettingsBindFlags.DEFAULT
+        )
+        self.settings.bind(
+            "is-maximized", self, "maximized", Gio.SettingsBindFlags.DEFAULT
+        )
+        self.settings.bind(
+            "ping-count", self.ping_count_adjust, "value", Gio.SettingsBindFlags.DEFAULT
+        )
+        self.settings.bind(
+            "ping-interval",
+            self.ping_interval_adjust,
+            "value",
+            Gio.SettingsBindFlags.DEFAULT,
+        )
+        self.settings.bind(
+            "ping-timeout",
+            self.ping_timeout_adjust,
+            "value",
+            Gio.SettingsBindFlags.DEFAULT,
+        )
+        self.settings.bind(
+            "ping-source", self.ping_source_row, "text", Gio.SettingsBindFlags.DEFAULT
+        )
+        self.settings.bind(
+            "ping-family",
+            self.ping_family_row,
+            "selected",
+            Gio.SettingsBindFlags.DEFAULT,
+        )
 
         self.notif = Gio.Notification()
         self.background_task = None
 
-
     @Gtk.Template.Callback()
     def cancel_ping(self, *_) -> None:
         self.background_task.cancel()
-
 
     @Gtk.Template.Callback()
     def ping(self, *_) -> None:
@@ -89,9 +112,9 @@ class EchoWindow(Adw.ApplicationWindow):
         self.address_bar.remove_css_class("error")
 
         # TODO: maybe find a better way to check the family?
-	    # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
+        # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
         saved_family = self.settings.get_int("ping-family")
-        ping_family = None;
+        ping_family = None
         if saved_family == 0:
             ping_family = None
         elif saved_family == 1:
@@ -109,11 +132,13 @@ class EchoWindow(Adw.ApplicationWindow):
                 timeout=self.settings.get_double("ping-timeout"),
                 source=self.settings.get_string("ping-source"),
                 family=ping_family,
-                privileged=False
+                privileged=False,
             )
         )
 
-        self.spinner_timeout = GLib.timeout_add_seconds(1, lambda: self.spinner_revealer.set_reveal_child(True))
+        self.spinner_timeout = GLib.timeout_add_seconds(
+            1, lambda: self.spinner_revealer.set_reveal_child(True)
+        )
 
     async def ping_task(self, *args, **kwargs) -> None:
         self.notif.set_title(gettext("Ping Failed"))
@@ -142,9 +167,8 @@ class EchoWindow(Adw.ApplicationWindow):
             self.notif.set_body(error_text)
             self.ping_error(error_text)
         except SocketPermissionError:
-            self.ping_error(gettext(
-                "Insufficient permissions"),
-                is_insufficient_error=True
+            self.ping_error(
+                gettext("Insufficient permissions"), is_insufficient_error=True
             )
         except TimeExceeded:
             error_text = gettext("Host timeout")
@@ -171,16 +195,17 @@ class EchoWindow(Adw.ApplicationWindow):
             self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error=False) -> None:
-        toast = Adw.Toast(
-            title=error_text,
-            priority=Adw.ToastPriority.HIGH,
-            timeout=0
-        )
+        toast = Adw.Toast(title=error_text, priority=Adw.ToastPriority.HIGH, timeout=0)
 
         # TODO: find a better way to deal with this edge case
         if is_insufficient_error:
             toast.set_button_label(gettext("Details"))
-            toast.connect("button-clicked", lambda x: Gio.AppInfo.launch_default_for_uri("https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-permissions"))
+            toast.connect(
+                "button-clicked",
+                lambda x: Gio.AppInfo.launch_default_for_uri(
+                    "https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-permissions"
+                ),
+            )
 
         self.toast_overlay.add_toast(toast)
 
@@ -201,7 +226,5 @@ class EchoWindow(Adw.ApplicationWindow):
             self.cancel_ping_button.props.sensitive = True
             self.cancel_ping_button.props.label = gettext("Cancel Ping")
 
-
     def on_network_changed(self, _, network_available):
         self.network_available = network_available
-
