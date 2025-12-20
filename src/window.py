@@ -42,7 +42,6 @@ class EchoWindow(Adw.ApplicationWindow):
     address_bar = Gtk.Template.Child()
     spinner_revealer = Gtk.Template.Child()
     ping_buttons_stack = Gtk.Template.Child()
-    cancel_ping_button = Gtk.Template.Child()
 
     ping_count_adjust = Gtk.Template.Child()
     ping_interval_adjust = Gtk.Template.Child()
@@ -214,17 +213,15 @@ class EchoWindow(Adw.ApplicationWindow):
         self.address_bar.add_css_class("error")
 
     def disable_form(self, disable) -> None:
-        if disable == True:
+        if disable:
             self.address_bar.props.sensitive = False
             self.ping_buttons_stack.props.visible_child_name = "pinging"
-        elif disable == False:
+        elif not disable:
             GLib.source_remove(self.spinner_timeout)
             self.spinner_revealer.props.reveal_child = False
             self.address_bar.props.sensitive = True
 
             self.ping_buttons_stack.props.visible_child_name = "not-pinging"
-            self.cancel_ping_button.props.sensitive = True
-            self.cancel_ping_button.props.label = gettext("Cancel Ping")
 
     def on_network_changed(self, _, network_available):
         self.network_available = network_available

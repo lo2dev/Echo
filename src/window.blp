@@ -63,6 +63,7 @@ template $EchoWindow: Adw.ApplicationWindow {
 
                     ListBox {
                       selection-mode: none;
+                      sensitive: bind address_bar.sensitive;
                       styles ["boxed-list"]
 
                       Adw.SpinRow {
