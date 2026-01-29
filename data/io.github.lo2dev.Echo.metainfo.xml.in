@@ -55,6 +55,18 @@
   <content_rating type="oars-1.1" />
 
   <releases>
+    <release version="3" date="2026-1-29">
+      <description translate="no">
+        <ul>
+          <li>Cancelling a ping is now instant</li>
+          <li>Moved error messages below the address bar</li>
+          <li>Added a "Trips" tab to the results page</li>
+          <li>Removed the expander for ping options</li>
+          <li>Added Finish translation by Jiri Grönroos</li>
+          <li>Ported to GNOME 49</li>
+        </ul>
+      </description>
+    </release>
     <release version="2.3" date="2025-4-21">
       <description translate="no">
         <ul>
