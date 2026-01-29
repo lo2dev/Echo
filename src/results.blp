@@ -1,7 +1,7 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $EchoResultsPage : Adw.NavigationPage {
+template $EchoResultsPage: Adw.NavigationPage {
   title: _("Ping Results");
 
   child: Adw.ToolbarView {
@@ -18,74 +18,125 @@ template $EchoResultsPage : Adw.NavigationPage {
 
         Box {
           orientation: vertical;
-          valign: center;
 
           Box {
             orientation: vertical;
+            spacing: 12;
 
             Box {
               orientation: vertical;
               homogeneous: true;
-              styles ["card"]
 
               Box {
                 orientation: vertical;
                 valign: center;
-                margin-top: 30;
-                margin-bottom: 30;
+                margin-top: 20;
+                margin-bottom: 20;
 
                 Image results_icon {
                   icon-name: "echo-emblem-default-symbolic";
                   pixel-size: 70;
                   margin-bottom: 12;
-                  styles ["success"]
+
+                  styles [
+                    "success",
+                  ]
                 }
+
                 Label result_title {
                   selectable: true;
                   wrap: true;
                   wrap-mode: char;
                   margin-start: 6;
                   margin-end: 6;
-                  styles ["title-3", "success"]
+
+                  styles [
+                    "title-3",
+                    "success",
+                  ]
                 }
+
                 Label address_ip {
                   selectable: true;
-                  styles ["dimmed"]
+
+                  styles [
+                    "dimmed",
+                  ]
+
                   margin-top: 6;
                 }
               }
             }
 
-            Adw.PreferencesGroup {
-              title: _("Response Time");
-              margin-top: 18;
+            Adw.InlineViewSwitcher {
+              stack: results_stack;
+              homogeneous: true;
+            }
 
-                /* Time stats */
-                Adw.WrapBox stat_cards_box {
-                  line-homogeneous: true;
-                  child-spacing: 6;
-                  line-spacing: 6;
-                  justify: fill;
-                  justify-last-line: true;
-                }
+            Adw.ViewStack results_stack {
+              vhomogeneous: false;
 
-              ListBox {
-                selection-mode: none;
-                margin-top: 6;
-                styles ["boxed-list"]
+              Adw.ViewStackPage {
+                name: "summary-page";
+                title: "Summary";
 
-                Adw.ActionRow packets_sent {
-                  title: _("Packets Sent");
-                  styles ["property"]
-                }
-                Adw.ActionRow packets_received {
-                  title: _("Packets Received");
-                  styles ["property"]
-                }
-                Adw.ActionRow packet_loss {
-                  title: _("Packet Loss");
-                  styles ["property"]
-                }
+                child: Box {
+                  orientation: vertical;
+                  spacing: 12;
+
+                  Adw.WrapBox stat_cards_box {
+                    line-homogeneous: true;
+                    child-spacing: 6;
+                    line-spacing: 6;
+                    justify: fill;
+                    justify-last-line: true;
+                  }
+
+                  ListBox {
+                    selection-mode: none;
+
+                    styles [
+                      "boxed-list",
+                    ]
+
+                    Adw.ActionRow packets_sent {
+                      title: _("Packets Sent");
+
+                      styles [
+                        "property",
+                      ]
+                    }
+
+                    Adw.ActionRow packets_received {
+                      title: _("Packets Received");
+
+                      styles [
+                        "property",
+                      ]
+                    }
+
+                    Adw.ActionRow packet_loss {
+                      title: _("Packet Loss");
+
+                      styles [
+                        "property",
+                      ]
+                    }
+                  }
+                };
+              }
+
+              Adw.ViewStackPage {
+                name: "logs-page";
+                title: "Trips";
+
+                child: ListBox logs_list {
+                  selection-mode: none;
+
+                  styles [
+                    "boxed-list",
+                  ]
+                };
               }
             }
           }

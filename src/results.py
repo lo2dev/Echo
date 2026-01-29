@@ -32,14 +32,26 @@ class EchoResultsPage(Adw.NavigationPage):
 
     stat_cards_box = Gtk.Template.Child()
 
+    logs_list = Gtk.Template.Child()
     packets_sent = Gtk.Template.Child()
     packets_received = Gtk.Template.Child()
     packet_loss = Gtk.Template.Child()
 
-    def __init__(self, result_data, result_title, **kwargs):
+    def __init__(self, result_data, result_title, payload_size, **kwargs):
         super().__init__(**kwargs)
 
         self.result_title.props.label = str(result_title)
+
+        for idx, packet in enumerate(result_data.rtts):
+            self.logs_list.append(
+                Adw.ActionRow(
+                    icon_name="arrow-pointing-away-from-line-down-symbolic",
+                    title=f"Packet {idx + 1}",
+                    subtitle=f"{payload_size} bytes, {packet:.2f} ms",
+                    subtitle_selectable=True,
+                    css_classes=["property"]
+                )
+            )
 
         if result_title == result_data.address:
             self.address_ip.props.visible = False
