@@ -18,6 +18,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import asyncio, re as regex
+import logging
 from gi.repository import Adw, Gtk, Gio, GLib, GObject
 from .results import EchoResultsPage
 
@@ -38,8 +39,9 @@ class EchoWindow(Adw.ApplicationWindow):
     __gtype_name__ = "EchoWindow"
 
     main_view = Gtk.Template.Child()
-    toast_overlay = Gtk.Template.Child()
     address_bar = Gtk.Template.Child()
+    error_label = Gtk.Template.Child()
+    error_revealer = Gtk.Template.Child()
     spinner_revealer = Gtk.Template.Child()
     ping_buttons_stack = Gtk.Template.Child()
 
@@ -111,6 +113,7 @@ class EchoWindow(Adw.ApplicationWindow):
         address = regex.sub(".+://|/+$", "", address)
         self.address_bar.props.text = address
         self.address_bar.remove_css_class("error")
+        self.error_revealer.props.reveal_child = False
 
         # TODO: maybe find a better way to check the family?
         # To avoid confusion: the int from `saved_family` corresponds to the ComboRow `selected` property.
@@ -144,7 +147,6 @@ class EchoWindow(Adw.ApplicationWindow):
 
     async def ping_task(self, *args, **kwargs) -> None:
         self.notif.set_title(gettext("Ping Failed"))
-
         notif_icon = Gio.ThemedIcon(name="dialog-error-symbolic")
         self.notif.set_icon(notif_icon)
 
@@ -170,7 +172,7 @@ class EchoWindow(Adw.ApplicationWindow):
             self.ping_error(error_text)
         except SocketPermissionError:
             self.ping_error(
-                gettext("Insufficient permissions"), is_insufficient_error=True
+                gettext("Insufficient permissions. "), is_insufficient_error=True
             )
         except TimeExceeded:
             error_text = gettext("Host timeout")
@@ -189,7 +191,7 @@ class EchoWindow(Adw.ApplicationWindow):
         except Exception as error:
             self.notif.set_body(str(error))
             self.ping_error(str(error))
-            print(error)
+            logging.exception(error)
         finally:
             if not self.props.is_active:
                 self.props.application.send_notification("ping-result", self.notif)
@@ -197,22 +199,11 @@ class EchoWindow(Adw.ApplicationWindow):
             self.disable_form(False)
 
     def ping_error(self, error_text, is_insufficient_error=False) -> None:
-        toast = Adw.Toast(title=error_text, priority=Adw.ToastPriority.HIGH, timeout=0)
-
-        # TODO: find a better way to deal with this edge case
         if is_insufficient_error:
-            toast.set_button_label(gettext("Details"))
-            toast.connect(
-                "button-clicked",
-                lambda x: Gio.AppInfo.launch_default_for_uri(
-                    "https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-permissions"
-                ),
-            )
+            error_text += gettext("<a href='https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-permissions'>Details</a>")
 
-        self.toast_overlay.add_toast(toast)
-
-        self.main_view.connect("pushed", lambda x: toast.dismiss())
-
+        self.error_label.props.label = error_text
+        self.error_revealer.props.reveal_child = True
         self.address_bar.add_css_class("error")
 
     def disable_form(self, disable) -> None:
