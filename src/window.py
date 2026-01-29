@@ -52,6 +52,8 @@ class EchoWindow(Adw.ApplicationWindow):
     network_monitor = Gio.NetworkMonitor.get_default()
     network_available = GObject.Property(type=bool, default=True)
 
+    payload_size = 56
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -131,6 +133,7 @@ class EchoWindow(Adw.ApplicationWindow):
                 timeout=self.settings.get_double("ping-timeout"),
                 source=self.settings.get_string("ping-source"),
                 family=ping_family,
+                payload_size=self.payload_size,
                 privileged=False,
             )
         )
@@ -149,7 +152,7 @@ class EchoWindow(Adw.ApplicationWindow):
             result = await async_ping(*args, **kwargs)
 
             if result.is_alive:
-                results_page = EchoResultsPage(result, self.address_bar.get_text())
+                results_page = EchoResultsPage(result, self.address_bar.get_text(), self.payload_size)
                 self.main_view.push(results_page)
 
                 self.notif.set_title(gettext("Ping Succeeded"))
