@@ -59,7 +59,6 @@ class EchoResultsPage(Adw.NavigationPage):
             self.address_ip.props.visible = True
             self.address_ip.props.label = str(result_data.address)
 
-        # TODO: Fix Minimum, Average and Maximum not getting translated
         min_card = EchoResultsCard(gettext("Minimum"), f"{result_data.min_rtt:.1f}")
         avg_card = EchoResultsCard(gettext("Average"), f"{result_data.avg_rtt:.1f}")
         max_card = EchoResultsCard(gettext("Maximum"), f"{result_data.max_rtt:.1f}")

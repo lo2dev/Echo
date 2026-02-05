@@ -6,4 +6,4 @@ src/window.py
 src/window.blp
 src/results.py
 src/results.blp
-src/gtk/help-overlay.blp
+src/results_card.blp
