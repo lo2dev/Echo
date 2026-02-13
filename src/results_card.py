@@ -17,18 +17,16 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GObject
 
 
 @Gtk.Template(resource_path="/io/github/lo2dev/Echo/results_card.ui")
-class EchoResultsCard(Gtk.Box):
-    __gtype_name__ = "EchoResultsCard"
+class ResultsCard(Gtk.Box):
+    __gtype_name__ = "ResultsCard"
 
-    card_title_label = Gtk.Template.Child()
-    card_value_label = Gtk.Template.Child()
+    title = GObject.Property(type=str)
+    value = GObject.Property(type=str)
 
-    def __init__(self, card_title, value, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        self.card_title_label.props.label = card_title
-        self.card_value_label.props.label = value
