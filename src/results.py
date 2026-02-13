@@ -46,7 +46,7 @@ class EchoResultsPage(Adw.NavigationPage):
             self.logs_list.append(
                 Adw.ActionRow(
                     icon_name="arrow-pointing-away-from-line-down-symbolic",
-                    title=f"{gettext("Packet")} {idx + 1}",
+                    title=f"{gettext('Packet')} {idx + 1}",
                     subtitle=f"{payload_size} bytes, {packet:.2f} ms",
                     subtitle_selectable=True,
                     css_classes=["property"]
