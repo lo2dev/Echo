@@ -115,7 +115,7 @@ template $EchoResultsPage: Adw.NavigationPage {
                       "boxed-list",
                     ]
 
-                    Adw.ActionRow packets_sent {
+                    Adw.ActionRow {
                       title: _("Packets Sent");
                       subtitle: bind template.packets_sent;
 
@@ -124,7 +124,7 @@ template $EchoResultsPage: Adw.NavigationPage {
                       ]
                     }
 
-                    Adw.ActionRow packets_received {
+                    Adw.ActionRow {
                       title: _("Packets Received");
                       subtitle: bind template.packets_received;
 
@@ -133,7 +133,7 @@ template $EchoResultsPage: Adw.NavigationPage {
                       ]
                     }
 
-                    Adw.ActionRow packet_loss {
+                    Adw.ActionRow {
                       title: _("Packet Loss");
                       subtitle: bind template.packet_loss;
 
