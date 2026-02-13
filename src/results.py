@@ -38,6 +38,7 @@ class EchoResultsPage(Adw.NavigationPage):
     packets_sent = GObject.Property(type=str)
     packets_received = GObject.Property(type=str)
     packet_loss = GObject.Property(type=str)
+    jitter = GObject.Property(type=str)
 
     def __init__(self, result_data, result_title, payload_size, **kwargs):
         super().__init__(**kwargs)
@@ -66,4 +67,5 @@ class EchoResultsPage(Adw.NavigationPage):
         self.packets_sent = result_data.packets_sent
         self.packets_received = result_data.packets_received
         self.packet_loss = f"{result_data.packet_loss:.0%}"
+        self.jitter = f"{result_data.jitter:.1f} ms"
 

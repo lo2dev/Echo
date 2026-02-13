@@ -141,6 +141,15 @@ template $EchoResultsPage: Adw.NavigationPage {
                         "property",
                       ]
                     }
+
+                    Adw.ActionRow {
+                      title: _("Jitter");
+                      subtitle: bind template.jitter;
+
+                      styles [
+                        "property",
+                      ]
+                    }
                   }
                 };
               }
