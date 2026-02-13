@@ -1,6 +1,6 @@
 using Gtk 4.0;
 
-template $EchoResultsCard: Box {
+template $ResultsCard: Box {
   orientation: vertical;
   homogeneous: true;
 
@@ -9,7 +9,8 @@ template $EchoResultsCard: Box {
     "response-time-card"
   ]
 
-  Label card_title_label {
+  Label {
+    label: bind template.title;
     halign: start;
 
     styles [
@@ -20,7 +21,8 @@ template $EchoResultsCard: Box {
   Box {
     spacing: 3;
 
-    Label card_value_label {
+    Label {
+      label: bind template.value;
       halign: start;
       valign: end;
       selectable: true;

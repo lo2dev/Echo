@@ -43,7 +43,8 @@ template $EchoResultsPage: Adw.NavigationPage {
                   ]
                 }
 
-                Label result_title {
+                Label {
+                  label: bind template.result_title;
                   selectable: true;
                   wrap: true;
                   wrap-mode: char;
@@ -90,6 +91,21 @@ template $EchoResultsPage: Adw.NavigationPage {
                     line-spacing: 6;
                     justify: fill;
                     justify-last-line: true;
+
+                    $ResultsCard {
+                      title: _("Minimum");
+                      value: bind template.min_time;
+                    }
+
+                    $ResultsCard {
+                      title: _("Average");
+                      value: bind template.avg_time;
+                    }
+
+                    $ResultsCard {
+                      title: _("Maximum");
+                      value: bind template.max_time;
+                    }
                   }
 
                   ListBox {
@@ -101,6 +117,7 @@ template $EchoResultsPage: Adw.NavigationPage {
 
                     Adw.ActionRow packets_sent {
                       title: _("Packets Sent");
+                      subtitle: bind template.packets_sent;
 
                       styles [
                         "property",
@@ -109,6 +126,7 @@ template $EchoResultsPage: Adw.NavigationPage {
 
                     Adw.ActionRow packets_received {
                       title: _("Packets Received");
+                      subtitle: bind template.packets_received;
 
                       styles [
                         "property",
@@ -117,6 +135,7 @@ template $EchoResultsPage: Adw.NavigationPage {
 
                     Adw.ActionRow packet_loss {
                       title: _("Packet Loss");
+                      subtitle: bind template.packet_loss;
 
                       styles [
                         "property",

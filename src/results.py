@@ -17,30 +17,32 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from gi.repository import Adw, Gtk
+from gi.repository import Adw, Gtk, GObject
 from gettext import gettext
-from .results_card import EchoResultsCard
+from .results_card import ResultsCard
 
 
 @Gtk.Template(resource_path="/io/github/lo2dev/Echo/results.ui")
 class EchoResultsPage(Adw.NavigationPage):
     __gtype_name__ = "EchoResultsPage"
 
-    results_icon = Gtk.Template.Child()
-    result_title = Gtk.Template.Child()
+    result_title = GObject.Property(type=str)
     address_ip = Gtk.Template.Child()
 
-    stat_cards_box = Gtk.Template.Child()
-
     logs_list = Gtk.Template.Child()
-    packets_sent = Gtk.Template.Child()
-    packets_received = Gtk.Template.Child()
-    packet_loss = Gtk.Template.Child()
+
+    min_time = GObject.Property(type=str)
+    avg_time = GObject.Property(type=str)
+    max_time = GObject.Property(type=str)
+
+    packets_sent = GObject.Property(type=str)
+    packets_received = GObject.Property(type=str)
+    packet_loss = GObject.Property(type=str)
 
     def __init__(self, result_data, result_title, payload_size, **kwargs):
         super().__init__(**kwargs)
 
-        self.result_title.props.label = str(result_title)
+        self.result_title = result_title
 
         for idx, packet in enumerate(result_data.rtts):
             self.logs_list.append(
@@ -53,19 +55,15 @@ class EchoResultsPage(Adw.NavigationPage):
                 )
             )
 
-        if result_title == result_data.address:
+        self.address_ip.props.label = str(result_data.address)
+        if self.result_title == result_data.address:
             self.address_ip.props.visible = False
-        else:
-            self.address_ip.props.visible = True
-            self.address_ip.props.label = str(result_data.address)
 
-        min_card = EchoResultsCard(gettext("Minimum"), f"{result_data.min_rtt:.1f}")
-        avg_card = EchoResultsCard(gettext("Average"), f"{result_data.avg_rtt:.1f}")
-        max_card = EchoResultsCard(gettext("Maximum"), f"{result_data.max_rtt:.1f}")
-        self.stat_cards_box.append(min_card)
-        self.stat_cards_box.append(avg_card)
-        self.stat_cards_box.append(max_card)
+        self.min_time = f"{result_data.min_rtt:.1f}"
+        self.avg_time = f"{result_data.avg_rtt:.1f}"
+        self.max_time = f"{result_data.max_rtt:.1f}"
 
-        self.packets_sent.props.subtitle = str(result_data.packets_sent)
-        self.packets_received.props.subtitle = str(result_data.packets_received)
-        self.packet_loss.props.subtitle = f"{result_data.packet_loss:.0%}"
+        self.packets_sent = result_data.packets_sent
+        self.packets_received = result_data.packets_received
+        self.packet_loss = f"{result_data.packet_loss:.0%}"
+
