@@ -1,0 +1,239 @@
+# Croatian translation for echo.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the echo package.
+# Milo Ivir <mail@mivirtype.de>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: echo\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-02-05 10:46+0200\n"
+"PO-Revision-Date: 2026-03-19 12:02+0100\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: \n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+
+#: data/io.github.lo2dev.Echo.desktop.in:2
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:7 src/window.blp:5
+msgid "Echo"
+msgstr "Echo"
+
+#: data/io.github.lo2dev.Echo.desktop.in:3
+msgid "Ping Utility"
+msgstr "Uslužni program za slanje pinga"
+
+#: data/io.github.lo2dev.Echo.desktop.in:4
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:8
+msgid "Ping websites"
+msgstr "Šalji ping na web-stranice"
+
+#: data/io.github.lo2dev.Echo.desktop.in:10
+msgid "ping"
+msgstr "ping"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:15
+msgid "Utility to ping websites."
+msgstr "Uslužni program za slanje pingova na web-stranice."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:16
+msgid "Features include:"
+msgstr "Funkcije ukljućuju:"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:18
+msgid "Advanced ping parameters like ping count, timeout, etc"
+msgstr ""
+"Napredni ping parametri poput broja pingova, vremenskog ograničenja itd."
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:47
+msgid "Main page showcasing the ping form with ping options"
+msgstr "Glavna stranica prikazuje oblik pinga s opcijama"
+
+#: data/io.github.lo2dev.Echo.metainfo.xml.in:51
+msgid "Ping results page showcasing the stats after the ping"
+msgstr ""
+"Stranica s rezultatima pinga koja prikazuje statistiku nakon slanja pinga"
+
+#. TODO: Fix translators credits not showing in the about page
+#. Translators: Replace "translator-credits" with your names, one name per line
+#: src/main.py:58
+msgid "translator-credits"
+msgstr "Milo Ivir <mail@milotype.de>"
+
+#: src/window.py:149
+msgid "Ping Failed"
+msgstr "Ping nije uspio"
+
+#: src/window.py:160
+msgid "Ping Succeeded"
+msgstr "Ping je uspio"
+
+#: src/window.py:170
+msgid "The host can't be resolved or doesn't exist"
+msgstr "Host računalo se ne može pronaći ili ne postoji"
+
+#: src/window.py:175
+msgid "Insufficient permissions. "
+msgstr "Nedovoljne dozvole. "
+
+#: src/window.py:178
+msgid "Host timeout"
+msgstr "Vremensko ograničenje host računala"
+
+#: src/window.py:182
+msgid "Destination is unreachable"
+msgstr "Odredište je nedostižno"
+
+#: src/window.py:186
+msgid "Cannot use source address"
+msgstr "Nije moguće koristiti adresu izvora"
+
+#: src/window.py:203
+msgid ""
+"<a href='https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-"
+"permissions'>Details</a>"
+msgstr ""
+"<a href='https://github.com/lo2dev/Echo?tab=readme-ov-file#insufficient-"
+"permissions'>Detalji</a>"
+
+#: src/window.blp:17
+msgid "About Echo"
+msgstr "O aplikaciji Echo"
+
+#: src/window.blp:26
+msgid "No network connection"
+msgstr "Ne postoji mrežna veza"
+
+#: src/window.blp:58
+msgid "Address"
+msgstr "Adresa"
+
+#: src/window.blp:78
+msgid "Count"
+msgstr "Broj"
+
+#: src/window.blp:79
+msgid "Number of pings to perform"
+msgstr "Broj pingova koje treba izvršiti"
+
+#: src/window.blp:89
+msgid "Interval"
+msgstr "Interval"
+
+#: src/window.blp:90
+msgid "Seconds between sending each packet"
+msgstr "Broj sekundi između slanja svakog paketa"
+
+#: src/window.blp:101
+msgid "Timeout"
+msgstr "Vremensko ograničenje"
+
+#: src/window.blp:102
+msgid "Maximum seconds to wait for a reply"
+msgstr "Maksimalni broj sekundi za čekanje na odgovor"
+
+#: src/window.blp:113
+msgid "Source"
+msgstr "Izvor"
+
+#: src/window.blp:118
+msgid "Info"
+msgstr "Informacije"
+
+#: src/window.blp:125
+msgid "The IP address from which to ping"
+msgstr "IP adresa s koje se šalje ping"
+
+#: src/window.blp:144
+msgid "Family"
+msgstr "Obitelj"
+
+#: src/window.blp:145
+msgid "The version of the Internet Protocol"
+msgstr "Verzija internet protokola"
+
+#: src/window.blp:149
+msgid "Auto"
+msgstr "Automatski"
+
+#: src/window.blp:150
+msgid "IPv4"
+msgstr "IPv4"
+
+#: src/window.blp:151
+msgid "IPv6"
+msgstr "IPv6"
+
+#: src/window.blp:162
+msgid "Ping"
+msgstr "Ping"
+
+#: src/window.blp:187
+msgid "Cancel Ping"
+msgstr "Prekini ping"
+
+#: src/results.py:49
+msgid "Packet"
+msgstr "Paket"
+
+#: src/results.py:62
+msgid "Minimum"
+msgstr "Minimum"
+
+#: src/results.py:63
+msgid "Average"
+msgstr "Prosjek"
+
+#: src/results.py:64
+msgid "Maximum"
+msgstr "Maksimum"
+
+#: src/results.blp:5
+msgid "Ping Results"
+msgstr "Ping rezultati"
+
+#: src/results.blp:103
+msgid "Packets Sent"
+msgstr "Poslani paketi"
+
+#: src/results.blp:111
+msgid "Packets Received"
+msgstr "Primljeni paketi"
+
+#: src/results.blp:119
+msgid "Packet Loss"
+msgstr "Gubitak paketa"
+
+#: src/results_card.blp:34
+msgid "ms"
+msgstr "ms"
+
+#~ msgid "Cancelling Ping"
+#~ msgstr "Prekidanje pinga"
+
+#~ msgid "Unexpected error"
+#~ msgstr "Neočekivana greška"
+
+#~ msgid "Details"
+#~ msgstr "Detalji"
+
+#~ msgid "Ping Options"
+#~ msgstr "Opcije pinga"
+
+#~ msgid "Response Time"
+#~ msgstr "Vrijeme odaziva"
+
+#~ msgctxt "shortcut window"
+#~ msgid "General"
+#~ msgstr "Opće"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Show Shortcuts"
+#~ msgstr "Prikaži prečace"
+
+#~ msgctxt "shortcut window"
+#~ msgid "Quit"
+#~ msgstr "Zatvori"
